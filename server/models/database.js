@@ -46,6 +46,7 @@ const createTables = () => {
       rating INTEGER NOT NULL CHECK(rating >= 1 AND rating <= 5),
       location TEXT,
       description TEXT,
+      sort_order INTEGER NOT NULL DEFAULT 0,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
@@ -218,10 +219,20 @@ const seedBlogs = () => {
   }
 };
 
-// createTables();
-// seedAdminUser();
-// seedPartners();
-// seedBlogs();
-// seedReviews();
+createTables();
+
+try {
+  db.prepare("SELECT sort_order FROM reviews LIMIT 1").get();
+} catch {
+  db.exec("ALTER TABLE reviews ADD COLUMN sort_order INTEGER NOT NULL DEFAULT 0");
+  const rows = db.prepare("SELECT id FROM reviews ORDER BY created_at ASC").all();
+  rows.forEach((row, i) => db.prepare("UPDATE reviews SET sort_order = ? WHERE id = ?").run(i, row.id));
+  console.log('Added sort_order to reviews table');
+}
+
+seedAdminUser();
+seedPartners();
+seedBlogs();
+seedReviews();
 
 export default db;

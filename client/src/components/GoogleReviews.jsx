@@ -52,8 +52,8 @@ export default function GoogleReviews({ light = false, className = '' }) {
           light={light}
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {reviews.map((review) => (
-            <div key={review.id} className="animate-on-scroll premium-card p-6">
+          {reviews.map((review, index) => (
+            <div key={review.id} className="premium-card p-6 opacity-0 animate-fadeIn" style={{ animationDelay: `${index * 80}ms` }}>
               <div className="flex items-center gap-3 mb-4">
                 {review.reviewer_image ? (
                   <img

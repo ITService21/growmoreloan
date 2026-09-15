@@ -22,7 +22,7 @@ export const getAllReviews = (req, res) => {
     const offset = (parseInt(page, 10) - 1) * parseInt(limit, 10);
     const { total } = db.prepare('SELECT COUNT(*) as total FROM reviews').get();
     const reviews = db
-      .prepare('SELECT * FROM reviews ORDER BY created_at DESC LIMIT ? OFFSET ?')
+      .prepare('SELECT * FROM reviews ORDER BY sort_order ASC, created_at DESC LIMIT ? OFFSET ?')
       .all(parseInt(limit, 10), offset);
 
     return res.status(200).json({
@@ -180,6 +180,11 @@ export const updateReview = (req, res) => {
     if (description !== undefined) {
       updates.push('description = ?');
       values.push(description?.trim() || null);
+    }
+
+    if (req.body.sort_order !== undefined) {
+      updates.push('sort_order = ?');
+      values.push(parseInt(req.body.sort_order, 10) || 0);
     }
 
     if (updates.length === 0) {

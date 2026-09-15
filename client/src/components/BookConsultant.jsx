@@ -47,7 +47,7 @@ export default function BookConsultant() {
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(10,9,6,0.88)', backdropFilter: 'blur(8px)' }} onClick={handleClose}>
-          <div className="glass-card w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative" onClick={e => e.stopPropagation()} style={{ animation: 'modalIn 0.3s ease-out' }}>
+          <div className="glass-card w-full max-w-lg max-h-[90vh] overflow-y-auto modal-scroll p-6 sm:p-8 relative" onClick={e => e.stopPropagation()} style={{ animation: 'modalIn 0.3s ease-out' }}>
             <button type="button" onClick={handleClose} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg text-[#B8A98A] hover:text-white hover:bg-white/10 transition-colors" aria-label="Close">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>

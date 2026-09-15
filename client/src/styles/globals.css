@@ -28,15 +28,15 @@
 
 /* ---------- Global ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
 
 body {
   font-family: var(--font-body);
   background: var(--bg-primary);
   color: var(--text-primary);
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
   line-height: 1.7;
 }
 
@@ -127,6 +127,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; letter-spac
   transform: translateY(-8px) scale(1.02);
 }
 .glass-card:hover::before { opacity: 1; }
+.glass-card.modal-scroll { overflow: visible; overflow-y: auto; }
 
 /* ---------- Glow Card ---------- */
 .glow-card {
@@ -1006,15 +1007,15 @@ input[type="number"].no-spinner {
 }
 .partner-logo-card {
   flex-shrink: 0;
-  width: 180px;
-  height: 90px;
+  width: 160px;
+  min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
   background: rgba(255,255,255,0.05);
   border: 1px solid var(--border-subtle);
-  padding: 12px 16px;
+  padding: 12px 10px;
   transition: all 0.3s ease;
 }
 .partner-logo-card:hover {
@@ -1035,10 +1036,4 @@ input[type="number"].no-spinner {
 .section-cream .partner-logo-card {
   background: rgba(0,0,0,0.02);
   border-color: rgba(0,0,0,0.06);
-}
-.section-cream .partner-logo-card img {
-  filter: brightness(0) invert(0.3);
-}
-.section-cream .partner-logo-card:hover img {
-  filter: none;
 }

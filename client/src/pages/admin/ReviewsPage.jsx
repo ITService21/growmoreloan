@@ -52,6 +52,7 @@ export default function ReviewsPage() {
   const [saving, setSaving] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [dragIndex, setDragIndex] = useState(null);
 
   const fetchReviews = useCallback(async () => {
     setLoading(true);
@@ -162,6 +163,37 @@ export default function ReviewsPage() {
     }
   };
 
+  const handleDragStart = (index) => setDragIndex(index);
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    if (dragIndex === null || dragIndex === index) return;
+    const updated = [...reviews];
+    const [moved] = updated.splice(dragIndex, 1);
+    updated.splice(index, 0, moved);
+    setReviews(updated);
+    setDragIndex(index);
+  };
+
+  const handleDragEnd = async () => {
+    if (dragIndex === null) return;
+    setDragIndex(null);
+    try {
+      await Promise.all(
+        reviews.map((review, index) =>
+          apiRequest(`/reviews/${review.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ sort_order: index }),
+          })
+        )
+      );
+      await fetchReviews();
+    } catch (err) {
+      setError(err.message || 'Failed to reorder reviews');
+      await fetchReviews();
+    }
+  };
+
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -169,7 +201,7 @@ export default function ReviewsPage() {
           <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>
             Google Reviews
           </h2>
-          <p className="text-sm text-[#B8A98A] mt-1">Manage Google Maps reviews displayed on the website</p>
+          <p className="text-sm text-[#B8A98A] mt-1">Manage Google Maps reviews displayed on the website. Drag cards to reorder.</p>
         </div>
         <button type="button" onClick={openCreate} className="btn-orange shrink-0">
           + Add Review
@@ -193,21 +225,35 @@ export default function ReviewsPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {reviews.map((review) => (
-            <div key={review.id} className="glass-card p-5 !transform-none hover:!translate-y-0 hover:!scale-100">
+          {reviews.map((review, index) => (
+            <div
+              key={review.id}
+              draggable
+              onDragStart={() => handleDragStart(index)}
+              onDragOver={(e) => handleDragOver(e, index)}
+              onDragEnd={handleDragEnd}
+              className={`glass-card p-5 cursor-grab active:cursor-grabbing !transform-none hover:!translate-y-0 hover:!scale-100 ${
+                dragIndex === index ? 'opacity-60 border-[#F97316]/30' : ''
+              }`}
+            >
               <div className="flex items-start gap-4">
-                {review.reviewer_image ? (
-                  <img
-                    src={review.reviewer_image}
-                    alt={review.reviewer_name}
-                    className="w-12 h-12 rounded-full object-cover border border-[rgba(255,200,100,0.1)]"
-                    onError={(e) => { e.target.style.display = 'none'; }}
-                  />
-                ) : (
-                  <div className="w-12 h-12 rounded-full bg-[rgba(249,115,22,0.15)] flex items-center justify-center text-[#F97316] font-semibold shrink-0">
-                    {(review.reviewer_name || '?')[0].toUpperCase()}
-                  </div>
-                )}
+                <div className="flex flex-col items-center gap-1 shrink-0">
+                  <svg className="w-5 h-5 text-[#7A6F5F] cursor-grab" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
+                  </svg>
+                  {review.reviewer_image ? (
+                    <img
+                      src={review.reviewer_image}
+                      alt={review.reviewer_name}
+                      className="w-12 h-12 rounded-full object-cover border border-[rgba(255,200,100,0.1)]"
+                      onError={(e) => { e.target.style.display = 'none'; }}
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-[rgba(249,115,22,0.15)] flex items-center justify-center text-[#F97316] font-semibold shrink-0">
+                      {(review.reviewer_name || '?')[0].toUpperCase()}
+                    </div>
+                  )}
+                </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
                     <div>
@@ -242,9 +288,12 @@ export default function ReviewsPage() {
       )}
 
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
-          <div className="glass-card w-full max-w-lg p-6 sm:p-8 max-h-[90vh] overflow-y-auto !transform-none hover:!transform-none">
-            <h3 className="text-xl font-bold text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70" onClick={closeModal}>
+          <div className="glass-card w-full max-w-lg p-6 sm:p-8 max-h-[90vh] overflow-y-auto modal-scroll !transform-none hover:!transform-none relative" onClick={(e) => e.stopPropagation()}>
+            <button type="button" onClick={closeModal} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg text-[#B8A98A] hover:text-white hover:bg-white/10 transition-colors z-10" aria-label="Close">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <h3 className="text-xl font-bold text-white mb-6 pr-8" style={{ fontFamily: 'var(--font-display)' }}>
               {editingId ? 'Edit Review' : 'Add Review'}
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4">

@@ -30,7 +30,7 @@ export function getWhatsAppLink(message = '') {
 }
 
 export function validatePhone(phone) {
-  return /^[6-9]\d{9}$/.test(phone.replace(/\s/g, ''));
+  return /^\d{10}$/.test(phone.replace(/\s/g, ''));
 }
 
 export function validateEmail(email) {

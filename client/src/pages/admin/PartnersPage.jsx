@@ -308,15 +308,17 @@ export default function PartnersPage() {
                     </div>
 
                     <div className="h-16 flex items-center justify-center mb-4 rounded-lg bg-[rgba(255,255,255,0.03)] border border-[rgba(255,200,100,0.06)] p-3">
-                      {partner.logo_url ? (
+                      {partner.logo_url && !partner.logo_url.includes('logo.clearbit.com') ? (
                         <img
                           src={getImageUrl(partner.logo_url)}
                           alt={partner.name}
                           className="max-h-full max-w-full object-contain"
-                          onError={(e) => { e.target.alt = partner.name; e.target.src = ''; }}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
                         />
                       ) : (
-                        <span className="text-[#7A6F5F] text-sm">No logo</span>
+                        <span className="text-[#B8A98A] text-sm font-semibold">{partner.name}</span>
                       )}
                     </div>
 
@@ -353,9 +355,12 @@ export default function PartnersPage() {
       )}
 
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
-          <div className="glass-card w-full max-w-lg p-6 sm:p-8 max-h-[90vh] overflow-y-auto !transform-none hover:!transform-none">
-            <h3 className="text-xl font-bold text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70" onClick={closeModal}>
+          <div className="glass-card w-full max-w-lg p-6 sm:p-8 max-h-[90vh] overflow-y-auto modal-scroll !transform-none hover:!transform-none relative" onClick={(e) => e.stopPropagation()}>
+            <button type="button" onClick={closeModal} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg text-[#B8A98A] hover:text-white hover:bg-white/10 transition-colors z-10" aria-label="Close">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <h3 className="text-xl font-bold text-white mb-6 pr-8" style={{ fontFamily: 'var(--font-display)' }}>
               {editingId ? 'Edit Partner' : 'Add Partner'}
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4">

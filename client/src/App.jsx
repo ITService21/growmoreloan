@@ -67,7 +67,7 @@ function App() {
       {!isAdmin && <Footer />}
       {!isAdmin && <WhatsAppButton />}
       {!isAdmin && <BookConsultant />}
-      {!isAdmin && <MobileCTA />}
+      {/* {!isAdmin && <MobileCTA />} */}
       {!isAdmin && <FormModal isOpen={modalOpen} onClose={() => setModalOpen(false)} service={modalService} />}
     </>
   )

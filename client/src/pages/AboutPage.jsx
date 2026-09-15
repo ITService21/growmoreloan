@@ -72,42 +72,27 @@ const EXPANDED_PROCESS = PROCESS_STEPS.map((step) => {
 });
 
 const BANK_PARTNER_LOGOS = [
-  { name: "State Bank of India", url: "https://logo.clearbit.com/sbi.co.in" },
-  { name: "HDFC Bank", url: "https://logo.clearbit.com/hdfcbank.com" },
-  { name: "ICICI Bank", url: "https://logo.clearbit.com/icicibank.com" },
-  { name: "Axis Bank", url: "https://logo.clearbit.com/axisbank.com" },
-  {
-    name: "Bank of Baroda",
-    url: "https://logo.clearbit.com/bankofbaroda.co.in",
-  },
-  { name: "Punjab National Bank", url: "https://logo.clearbit.com/pnb.co.in" },
-  { name: "Kotak Mahindra Bank", url: "https://logo.clearbit.com/kotak.com" },
-  { name: "IndusInd Bank", url: "https://logo.clearbit.com/indusind.com" },
-  { name: "Yes Bank", url: "https://logo.clearbit.com/yesbank.in" },
-  {
-    name: "IDFC First Bank",
-    url: "https://logo.clearbit.com/idfcfirstbank.com",
-  },
-  { name: "Bajaj Finserv", url: "https://logo.clearbit.com/bajajfinserv.in" },
-  { name: "Tata Capital", url: "https://logo.clearbit.com/tatacapital.com" },
-  {
-    name: "Mahindra Finance",
-    url: "https://logo.clearbit.com/mahindrafinance.com",
-  },
-  {
-    name: "LIC Housing Finance",
-    url: "https://logo.clearbit.com/lichousing.com",
-  },
-  {
-    name: "Aditya Birla Capital",
-    url: "https://logo.clearbit.com/adityabirlacapital.com",
-  },
+  { name: "State Bank of India", domain: "sbi.co.in" },
+  { name: "HDFC Bank", domain: "hdfcbank.com" },
+  { name: "ICICI Bank", domain: "icicibank.com" },
+  { name: "Axis Bank", domain: "axisbank.com" },
+  { name: "Bank of Baroda", domain: "bankofbaroda.co.in" },
+  { name: "Punjab National Bank", domain: "pnb.co.in" },
+  { name: "Kotak Mahindra Bank", domain: "kotak.com" },
+  { name: "IndusInd Bank", domain: "indusind.com" },
+  { name: "Yes Bank", domain: "yesbank.in" },
+  { name: "IDFC First Bank", domain: "idfcfirstbank.com" },
+  { name: "Bajaj Finserv", domain: "bajajfinserv.in" },
+  { name: "Tata Capital", domain: "tatacapital.com" },
+  { name: "Mahindra Finance", domain: "mahindrafinance.com" },
+  { name: "LIC Housing Finance", domain: "lichousing.com" },
+  { name: "Aditya Birla Capital", domain: "adityabirlacapital.com" },
 ];
 
 const FALLBACK_PARTNERS = BANK_PARTNER_LOGOS.map((p) => ({
   name: p.name,
-  logo_url: p.url,
-  website: p.url.replace('https://logo.clearbit.com/', 'https://'),
+  logo_url: '',
+  website: `https://${p.domain}`,
 }));
 
 const SECTION_IMAGES = {
@@ -710,33 +695,26 @@ export default function AboutPage() {
               </button>
               <div
                 ref={partnersScrollRef}
-                className="overflow-x-auto flex gap-8 py-4 px-14 sm:px-16 items-center scrollbar-hide"
+                className="overflow-x-auto flex gap-5 py-4 px-14 sm:px-16 items-center scrollbar-hide"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {[...partners, ...partners].map((partner, index) => {
-                  const domain =
-                    (partner.website || '').replace(/^https?:\/\/(www\.)?/, '').split('/')[0] ||
-                    partner.logo_url?.replace(/^https?:\/\/logo\.clearbit\.com\//, '');
                   const logoUrl = partner.logo_url
                     ? getPartnerLogoUrl(partner.logo_url)
-                    : domain
-                      ? `https://logo.clearbit.com/${domain}`
-                      : '';
-                  const name = partner.name || domain;
+                    : '';
+                  const name = partner.name || 'Partner';
                   return (
-                    <div key={`${name}-${index}`} className="partner-logo-card">
-                      <img
-                        src={logoUrl}
-                        alt={name}
-                        loading="lazy"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.parentElement.insertAdjacentHTML(
-                            'beforeend',
-                            `<span class="text-xs font-semibold text-[var(--text-primary)] text-center px-2">${name}</span>`
-                          );
-                        }}
-                      />
+                    <div key={`${name}-${index}`} className="partner-logo-card flex-col gap-2">
+                      {logoUrl && !logoUrl.includes('logo.clearbit.com') && !logoUrl.includes('s2/favicons') ? (
+                        <img
+                          src={logoUrl}
+                          alt={name}
+                          loading="lazy"
+                          className="max-h-10 max-w-full object-contain"
+                          onError={(e) => { e.target.style.display = 'none'; }}
+                        />
+                      ) : null}
+                      <span className="text-xs font-bold text-[var(--text-primary)] text-center px-2 leading-tight">{name}</span>
                     </div>
                   );
                 })}

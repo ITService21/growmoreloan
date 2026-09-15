@@ -44,7 +44,7 @@ export default function Footer() {
           {/* Column 1 — Brand */}
           <div className="sm:col-span-2 lg:col-span-1 space-y-5">
             <Link to="/" className="flex items-start gap-3 group">
-              <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center ring-2 ring-[rgba(249,115,22,0.25)] group-hover:ring-[#F97316]/40 transition-all duration-300 shrink-0">
+              <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center ring-2 ring-[rgba(249,115,22,0.25)] group-hover:ring-[#F97316]/40 transition-all duration-300 shrink-0">
                 <img
                   src="/images/logo.png"
                   alt={COMPANY.name}
@@ -53,12 +53,12 @@ export default function Footer() {
               </div>
               <div>
                 <span
-                  className="text-base font-bold text-white leading-snug block"
+                  className="text-lg font-bold text-white leading-snug block"
                   style={{ fontFamily: 'var(--font-display)' }}
                 >
-                  {COMPANY.name}
+                  {COMPANY.shortName}
                 </span>
-                <span className="text-xs text-[#F97316] font-medium mt-1 block">
+                <span className="text-sm text-[#FBBF24] font-medium mt-0.5 block">
                   {COMPANY.slogan}
                 </span>
               </div>

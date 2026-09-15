@@ -8,7 +8,7 @@ export default function MobileCTA() {
     <div
       id="mobile-sticky-cta"
       className="md:hidden fixed bottom-0 left-0 right-0 z-40 safe-area-bottom"
-    >
+     >
       <div className="flex items-stretch" style={{ background: 'linear-gradient(90deg, #0a0906, #14110a, #0a0906)' }}>
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F97316]/30 to-transparent" />
         <Link

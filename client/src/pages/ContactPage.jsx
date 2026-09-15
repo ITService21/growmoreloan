@@ -124,7 +124,7 @@ export default function ContactPage() {
       return;
     }
     if (!validatePhone(formData.phone)) {
-      setStatus({ type: 'error', message: 'Please enter a valid 10-digit Indian mobile number.' });
+      setStatus({ type: 'error', message: 'Please enter a valid 10-digit phone number.' });
       return;
     }
     if (!formData.service) {

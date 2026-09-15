@@ -763,11 +763,9 @@ export default function HomePage({ onApply }) {
             <button
               type="button"
               onClick={() => {
-                const track = partnersScrollRef.current;
-                if (!track) return;
-                track.style.animationPlayState = 'paused';
-                track.style.transform = `translateX(${track.getBoundingClientRect().x - track.parentElement.getBoundingClientRect().x + 200}px)`;
-                setTimeout(() => { track.style.animationPlayState = 'running'; track.style.transform = ''; }, 100);
+                const container = partnersScrollRef.current;
+                if (!container) return;
+                container.scrollBy({ left: -300, behavior: 'smooth' });
               }}
               className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll partners left"
@@ -776,50 +774,34 @@ export default function HomePage({ onApply }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <div className="overflow-hidden w-full py-4 px-10 sm:px-12">
-              <div ref={partnersScrollRef} className="partner-scroll-track">
-                {[...partners, ...partners, ...partners].map((partner, index) => {
-                  const domain =
-                    partner.domain ||
-                    partner.logo?.replace(/^https?:\/\/logo\.clearbit\.com\//, '') ||
-                    (partner.website || '').replace(/^https?:\/\/(www\.)?/, '').split('/')[0];
-                  const logoUrl = partner.logo_url
-                    ? getPartnerLogoUrl(partner.logo_url)
-                    : partner.logo || (domain ? `https://logo.clearbit.com/${domain}` : '');
-                  const name = partner.name || domain;
-                  return (
-                    <div key={`${name}-${index}`} className="partner-logo-card">
-                      {logoUrl ? (
-                        <img
-                          src={logoUrl}
-                          alt={name}
-                          loading="lazy"
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            if (!e.target.parentElement.querySelector('.fallback-name')) {
-                              e.target.parentElement.insertAdjacentHTML(
-                                'beforeend',
-                                `<span class="fallback-name text-xs font-semibold text-[var(--text-secondary)] text-center px-2 leading-tight">${name}</span>`
-                              );
-                            }
-                          }}
-                        />
-                      ) : (
-                        <span className="text-xs font-semibold text-[var(--text-secondary)] text-center px-2 leading-tight">{name}</span>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
+            <div ref={partnersScrollRef} className="overflow-x-auto flex gap-5 py-4 px-12 sm:px-14 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              {[...partners, ...partners].map((partner, index) => {
+                const logoUrl = partner.logo_url
+                  ? getPartnerLogoUrl(partner.logo_url)
+                  : '';
+                const name = partner.name || 'Partner';
+                return (
+                  <div key={`${name}-${index}`} className="partner-logo-card flex-col gap-2">
+                    {logoUrl && !logoUrl.includes('logo.clearbit.com') && !logoUrl.includes('s2/favicons') ? (
+                      <img
+                        src={logoUrl}
+                        alt={name}
+                        loading="lazy"
+                        className="max-h-10 max-w-full object-contain"
+                        onError={(e) => { e.target.style.display = 'none'; }}
+                      />
+                    ) : null}
+                    <span className="text-xs font-bold text-[var(--text-primary)] text-center px-2 leading-tight">{name}</span>
+                  </div>
+                );
+              })}
             </div>
             <button
               type="button"
               onClick={() => {
-                const track = partnersScrollRef.current;
-                if (!track) return;
-                track.style.animationPlayState = 'paused';
-                track.style.transform = `translateX(${track.getBoundingClientRect().x - track.parentElement.getBoundingClientRect().x - 200}px)`;
-                setTimeout(() => { track.style.animationPlayState = 'running'; track.style.transform = ''; }, 100);
+                const container = partnersScrollRef.current;
+                if (!container) return;
+                container.scrollBy({ left: 300, behavior: 'smooth' });
               }}
               className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll partners right"
