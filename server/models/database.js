@@ -148,6 +148,31 @@ const seedPartners = () => {
   }
 };
 
+const DEFAULT_REVIEWS = [
+  { name: 'Rajesh Patel', rating: 5, location: 'Rajkot, Gujarat', description: 'Excellent service by the Grow More team! They helped me get my home loan approved in just 7 days with the lowest interest rate. Very professional and transparent throughout the process.' },
+  { name: 'Priya Sharma', rating: 5, location: 'Ahmedabad, Gujarat', description: 'I was confused about which loan product to choose. The consultants at Grow More explained everything clearly and helped me get a business loan with great terms. Highly recommended!' },
+  { name: 'Amit Desai', rating: 4, location: 'Rajkot, Gujarat', description: 'Good experience with their personal loan service. They compared offers from multiple banks and found me the best rate. The only reason for 4 stars is the documentation process took a bit longer than expected.' },
+  { name: 'Neha Joshi', rating: 5, location: 'Surat, Gujarat', description: 'The best loan consultancy in Gujarat! They secured my MSME loan under the MUDRA scheme within 10 days. Their knowledge of government schemes is impressive.' },
+  { name: 'Vikram Singh', rating: 5, location: 'Ahmedabad, Gujarat', description: 'Got my car loan approved with zero hassle. The team handled everything from documentation to bank coordination. Will definitely recommend to friends and family.' },
+  { name: 'Meena Agarwal', rating: 4, location: 'Rajkot, Gujarat', description: 'Very helpful team for mortgage loan. They negotiated a much better interest rate than what I was initially offered by the bank. Professional service overall.' },
+  { name: 'Karan Mehta', rating: 5, location: 'Vadodara, Gujarat', description: 'Outstanding support for my machinery loan. They understood my business needs perfectly and connected me with the right lender. Quick processing and no hidden charges.' },
+  { name: 'Sneha Trivedi', rating: 5, location: 'Rajkot, Gujarat', description: 'I applied for a personal loan through Grow More and the entire process was smooth. They kept me updated at every step. The consultancy fee was very reasonable for the service provided.' },
+  { name: 'Dhruv Patel', rating: 4, location: 'Gandhinagar, Gujarat', description: 'Good experience with their home loan service. They helped me compare 5 different bank offers and choose the best one. Response time could be slightly faster.' },
+  { name: 'Anita Rawat', rating: 5, location: 'Ahmedabad, Gujarat', description: 'Exceptional service! Grow More helped my startup get a business loan when other consultancies had given up. Their connections with banks and NBFCs are truly valuable.' },
+];
+
+const seedReviews = () => {
+  const count = db.prepare('SELECT COUNT(*) as count FROM reviews').get();
+  if (count.count === 0) {
+    const now = new Date().toISOString();
+    const insertReview = db.prepare('INSERT INTO reviews (id, reviewer_name, reviewer_image, rating, location, description, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+    DEFAULT_REVIEWS.forEach(r => {
+      insertReview.run(uuidv4(), r.name, null, r.rating, r.location, r.description, now, now);
+    });
+    console.log('Default reviews seeded');
+  }
+};
+
 const seedBlogs = () => {
   const count = db.prepare('SELECT COUNT(*) as count FROM blogs').get();
   const hasOldSeed = db
@@ -197,5 +222,6 @@ createTables();
 seedAdminUser();
 seedPartners();
 seedBlogs();
+seedReviews();
 
 export default db;

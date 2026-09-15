@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { apiRequest, apiUpload } from '../../utils/adminApi';
-import { getPartnerLogoUrl } from '../../utils/helpers';
+
+const getImageUrl = (url) => {
+  if (!url) return '';
+  if (url.startsWith('/uploads/')) {
+    const base = import.meta.env.VITE_API_URL.replace('/api', '');
+    return `${base}${url}`;
+  }
+  return url;
+};
 
 const CATEGORIES = [
   { value: 'bank', label: 'Bank' },
@@ -63,7 +71,7 @@ export default function PartnersPage() {
 
   const openCreate = () => {
     setEditingId(null);
-    const maxOrder = Math.max(0, ...partners.map((p) => p.sort_order || 0));
+    const maxOrder = partners.length > 0 ? Math.max(...partners.map(p => p.sort_order || 0)) : 0;
     setForm({ ...EMPTY_FORM, sort_order: maxOrder + 1 });
     setModalOpen(true);
   };
@@ -302,7 +310,7 @@ export default function PartnersPage() {
                     <div className="h-16 flex items-center justify-center mb-4 rounded-lg bg-[rgba(255,255,255,0.03)] border border-[rgba(255,200,100,0.06)] p-3">
                       {partner.logo_url ? (
                         <img
-                          src={getPartnerLogoUrl(partner.logo_url)}
+                          src={getImageUrl(partner.logo_url)}
                           alt={partner.name}
                           className="max-h-full max-w-full object-contain"
                           onError={(e) => { e.target.alt = partner.name; e.target.src = ''; }}

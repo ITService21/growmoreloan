@@ -750,17 +750,21 @@ export default function HomePage({ onApply }) {
       {/* ─── 6b. BANK PARTNERS ─── */}
       <section className="relative py-20 sm:py-24 overflow-hidden bg-section-alt">
         <AnimatedBackground />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="Our Partners"
-            title="Associated with Leading Banks & NBFCs"
-            subtitle="We maintain strong relationships with India's top banks and NBFCs to secure the best rates and fastest approvals for our clients."
-          />
+        <div className="relative z-10 max-w-none px-0">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
+            <SectionHeading
+              badge="Our Partners"
+              title="Associated with Leading Banks & NBFCs"
+              subtitle="We maintain strong relationships with India's top banks and NBFCs to secure the best rates and fastest approvals for our clients."
+            />
+          </div>
 
           <div className="relative animate-on-scroll">
             <button
               type="button"
-              onClick={() => partnersScrollRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
+              onClick={() => {
+                if (partnersScrollRef.current) partnersScrollRef.current.style.animationPlayState = 'paused';
+              }}
               className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll partners left"
             >
@@ -768,41 +772,41 @@ export default function HomePage({ onApply }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <div
-              ref={partnersScrollRef}
-              className="overflow-x-auto flex gap-8 py-4 px-14 sm:px-16 items-center scrollbar-hide"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {[...partners, ...partners].map((partner, index) => {
-                const domain =
-                  partner.domain ||
-                  partner.logo?.replace(/^https?:\/\/logo\.clearbit\.com\//, '') ||
-                  (partner.website || '').replace(/^https?:\/\/(www\.)?/, '').split('/')[0];
-                const logoUrl = partner.logo_url
-                  ? getPartnerLogoUrl(partner.logo_url)
-                  : partner.logo || (domain ? `https://logo.clearbit.com/${domain}` : '');
-                const name = partner.name || domain;
-                return (
-                  <div key={`${name}-${index}`} className="partner-logo-card">
-                    <img
-                      src={logoUrl}
-                      alt={name}
-                      loading="lazy"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.parentElement.insertAdjacentHTML(
-                          'beforeend',
-                          `<span class="text-xs font-semibold text-[var(--text-secondary)] text-center px-2">${name}</span>`
-                        );
-                      }}
-                    />
-                  </div>
-                );
-              })}
+            <div className="overflow-hidden w-full py-4 px-14 sm:px-16">
+              <div ref={partnersScrollRef} className="partner-scroll-track">
+                {[...partners, ...partners].map((partner, index) => {
+                  const domain =
+                    partner.domain ||
+                    partner.logo?.replace(/^https?:\/\/logo\.clearbit\.com\//, '') ||
+                    (partner.website || '').replace(/^https?:\/\/(www\.)?/, '').split('/')[0];
+                  const logoUrl = partner.logo_url
+                    ? getPartnerLogoUrl(partner.logo_url)
+                    : partner.logo || (domain ? `https://logo.clearbit.com/${domain}` : '');
+                  const name = partner.name || domain;
+                  return (
+                    <div key={`${name}-${index}`} className="partner-logo-card">
+                      <img
+                        src={logoUrl}
+                        alt={name}
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.parentElement.insertAdjacentHTML(
+                            'beforeend',
+                            `<span class="text-xs font-semibold text-[var(--text-secondary)] text-center px-2">${name}</span>`
+                          );
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <button
               type="button"
-              onClick={() => partnersScrollRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
+              onClick={() => {
+                if (partnersScrollRef.current) partnersScrollRef.current.style.animationPlayState = 'running';
+              }}
               className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll partners right"
             >

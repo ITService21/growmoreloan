@@ -339,7 +339,7 @@ export default function BlogPage() {
               <p className="text-[var(--text-secondary)]">Loading articles...</p>
             </div>
           ) : error ? (
-            <div className="animate-on-scroll text-center py-16">
+            <div className="text-center py-16 animate-fadeIn">
               <span className="text-5xl mb-4 block">⚠️</span>
               <h2 className="text-xl font-bold text-[var(--text-primary)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
                 Something went wrong
@@ -350,7 +350,7 @@ export default function BlogPage() {
               </button>
             </div>
           ) : articles.length === 0 ? (
-            <div className="animate-on-scroll text-center py-16">
+            <div className="text-center py-16 animate-fadeIn">
               <span className="text-5xl mb-4 block">📭</span>
               <h2 className="text-xl font-bold text-[var(--text-primary)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
                 No articles found
@@ -370,7 +370,7 @@ export default function BlogPage() {
             </div>
           ) : (
             <>
-              <p className="text-sm text-[var(--text-muted)] mb-8 animate-on-scroll">
+              <p className="text-sm text-[var(--text-muted)] mb-8 animate-fadeIn">
                 Showing {totalArticles} article{totalArticles !== 1 ? 's' : ''}
                 {category !== 'all' && ` in ${SERVICES.find((s) => s.id === category)?.name || category}`}
                 {totalPages > 1 && ` — Page ${currentPage} of ${totalPages}`}
@@ -380,8 +380,8 @@ export default function BlogPage() {
                 {articles.map((article, index) => (
                   <article
                     key={article.id}
-                    className="animate-on-scroll premium-card p-6 sm:p-7 flex flex-col"
-                    style={{ transitionDelay: `${index * 80}ms` }}
+                    className="premium-card p-6 sm:p-7 flex flex-col opacity-0 animate-fadeIn"
+                    style={{ transitionDelay: `${index * 80}ms`, animationDelay: `${index * 80}ms` }}
                   >
                     <div className="relative h-40 -mx-6 -mt-6 sm:-mx-7 sm:-mt-7 mb-4 overflow-hidden rounded-t-xl">
                       <img
@@ -428,7 +428,7 @@ export default function BlogPage() {
       {!loading && totalPages > 1 && (
         <section className="section-cream relative py-12 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 animate-fadeIn">
               <button
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}

@@ -77,9 +77,7 @@ export default function EMICalculator({
   const handleRateInput = (value) => {
     setRateInput(value);
     const val = parseFloat(value);
-    if (!isNaN(val) && val >= 0 && val <= 50) {
-      setInterestRate(val);
-    }
+    if (!isNaN(val) && val >= 0 && val <= 30) setInterestRate(val);
   };
 
   const handleRateBlur = () => {
@@ -87,9 +85,9 @@ export default function EMICalculator({
     if (isNaN(val) || val < 0) {
       setInterestRate(1);
       setRateInput('1');
-    } else if (val > 50) {
-      setInterestRate(50);
-      setRateInput('50');
+    } else if (val > 30) {
+      setInterestRate(30);
+      setRateInput('30');
     } else {
       setInterestRate(val);
       setRateInput(String(val));
@@ -136,7 +134,7 @@ export default function EMICalculator({
         {/* Loan Amount */}
         <div>
           <div className="flex justify-between items-center mb-3">
-            <label className="text-sm font-semibold text-[var(--text-primary)]">Loan Amount (₹)</label>
+            <label className="text-sm font-bold text-[var(--text-primary)] block">Loan Amount (₹)</label>
             <span className="font-semibold text-[#F97316]">{formatCurrency(loanAmount)}</span>
           </div>
           <input
@@ -165,7 +163,7 @@ export default function EMICalculator({
         {/* Interest Rate */}
         <div>
           <div className="flex justify-between items-center mb-3">
-            <label className="text-sm font-semibold text-[var(--text-primary)]">Interest Rate (% p.a.)</label>
+            <label className="text-sm font-bold text-[var(--text-primary)] block">Interest Rate (% p.a.)</label>
             <span className="font-semibold text-[#F97316]">{interestRate}% p.a.</span>
           </div>
           <input
@@ -195,7 +193,7 @@ export default function EMICalculator({
         {/* Tenure in YEARS */}
         <div>
           <div className="flex justify-between items-center mb-3">
-            <label className="text-sm font-semibold text-[var(--text-primary)]">Tenure (Years)</label>
+            <label className="text-sm font-bold text-[var(--text-primary)] block">Tenure (Years)</label>
             <span className="font-semibold text-[#F97316]">
               {tenureYears} year{tenureYears !== 1 ? 's' : ''} ({tenureMonths} months)
             </span>
@@ -258,7 +256,7 @@ export default function EMICalculator({
                 {schedule.map((row, index) => (
                   <tr
                     key={row.month}
-                    className={`border-b border-[rgba(255,200,100,0.06)] transition-colors hover:bg-[#F97316]/5 ${
+                    className={`border-b border-[rgba(255,200,100,0.06)] transition-colors hover:bg-[rgba(249,115,22,0.08)] ${
                       index % 2 === 0 ? 'bg-[#0c0c0c]' : 'bg-[#110f0a]'
                     }`}
                   >

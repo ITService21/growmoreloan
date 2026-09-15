@@ -333,6 +333,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; letter-spac
   transform: translateY(0);
 }
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
 /* ---------- Hero Text Carousel ---------- */
 .hero-carousel {
   position: relative;
@@ -708,6 +716,9 @@ input[type="range"]::-moz-range-thumb {
 .section-cream {
   background: linear-gradient(135deg, #FFF9F0, #FFFBF5, #FFF7ED);
   color: #1a1710;
+  --text-primary: #1a1710;
+  --text-secondary: #5a5040;
+  --text-muted: #9a8a6a;
 }
 .section-cream h2, .section-cream h3, .section-cream h4 { color: #1a1710; }
 .section-cream p, .section-cream span { color: #5a5040; }
