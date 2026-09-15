@@ -64,12 +64,13 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
+      <div className='bg-red-500 -mb-20'>
       {!isAdmin && <Footer />}
       {!isAdmin && <WhatsAppButton />}
       {!isAdmin && <BookConsultant />}
-      {/* {!isAdmin && <MobileCTA />} */}
       {!isAdmin && <FormModal isOpen={modalOpen} onClose={() => setModalOpen(false)} service={modalService} />}
-    </>
+    </div>
+      </>
   )
 }
 

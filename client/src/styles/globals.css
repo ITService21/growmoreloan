@@ -851,12 +851,12 @@ input[type="number"].no-spinner {
 /* ---------- Book Consultant Float ---------- */
 .book-consultant-float {
   position: fixed;
-  bottom: 20px;
+  bottom: 6px;
   left: 24px;
   z-index: 40;
 }
 @media (max-width: 767px) {
-  .book-consultant-float { bottom: 72px; }
+  .book-consultant-float { bottom: 24px; }
 }
 
 /* ---------- Mobile Menu Animation ---------- */
