@@ -1,0 +1,126 @@
+[
+  {
+    "title": "Term Insurance vs Whole Life Insurance: A Complete Comparison",
+    "date": "2026-02-08",
+    "excerpt": "Term and whole life insurance serve different financial goals. Compare coverage, premiums, returns, and suitability to protect your family correctly.",
+    "tags": ["term insurance", "whole life", "comparison"],
+    "blocks": [
+      { "type": "paragraph", "text": "Life insurance protects your family's financial future if you pass away unexpectedly. Term insurance and whole life (traditional/endowment) products represent opposite philosophies — pure protection vs protection plus savings. Choosing wrong product either leaves family underinsured or locks you into expensive premiums with poor returns." },
+      { "type": "heading", "text": "Term Insurance" },
+      { "type": "list", "items": [
+        "Pure death benefit — no maturity payout if you survive term",
+        "Lowest premium for highest cover — ₹1 crore cover at ₹10,000–15,000 annual premium for healthy 30-year-old",
+        "Ideal for income replacement during working years with dependents",
+        "Fixed term — 30, 35, or 40 years; renewability options vary by insurer",
+        "Riders available — critical illness, accidental death, waiver of premium"
+      ]},
+      { "type": "heading", "text": "Whole Life / Traditional Plans" },
+      { "type": "paragraph", "text": "Whole life and endowment plans combine insurance with investment or guaranteed returns. Premiums are 5–10 times higher than term for same sum assured. Maturity benefits and bonuses appear attractive but internal returns often trail PPF, mutual funds, or term-plus-SIP combination over 20-year horizon." },
+      { "type": "heading", "text": "Recommended Approach" },
+      { "type": "paragraph", "text": "Financial planners widely recommend term insurance for protection need — cover 10–15 times annual income — and separate investments for wealth creation. Whole life suits specific estate planning or guaranteed legacy scenarios, not general middle-class protection. Insurance consultants model both paths with actual premium quotes before you commit." }
+    ]
+  },
+  {
+    "title": "Why Health Insurance Is No Longer Optional in India",
+    "date": "2026-03-05",
+    "excerpt": "Medical inflation makes health insurance essential for every Indian family. Understand why skipping health cover is a financial gamble you cannot afford.",
+    "tags": ["health insurance", "medical inflation", "family protection"],
+    "blocks": [
+      { "type": "paragraph", "text": "A single hospitalisation for surgery or critical illness can cost ₹3–15 lakh in private hospitals — wiping out years of savings overnight. Medical inflation in India runs 10–14% annually, far exceeding general CPI. Health insurance transfers this catastrophic risk to an insurer for an annual premium that is a fraction of potential bills." },
+      { "type": "heading", "text": "Rising Healthcare Costs" },
+      { "type": "list", "items": [
+        "Average metro hospitalisation bill crossed ₹2.5 lakh for common procedures in 2025–26",
+        "Cancer and cardiac treatment costs frequently exceed ₹20 lakh without insurance",
+        "Employer group cover ends with job change — personal policy ensures continuity",
+        "Waiting periods and pre-existing disease clauses make early purchase critical",
+        "Cashless network hospitals reduce out-of-pocket stress during emergencies"
+      ]},
+      { "type": "heading", "text": "Minimum Coverage Guidance" },
+      { "type": "paragraph", "text": "Individual cover of ₹5 lakh is baseline; families should target ₹10–25 lakh floater policy depending on city and lifestyle. Top-up and super top-up policies cheaply extend cover above base threshold. Buy when healthy — premiums rise with age and claims history." },
+      { "type": "paragraph", "text": "Insurance consultants compare policies on room rent limits, co-pay clauses, disease sub-limits, and claim settlement ratios — not just premium — ensuring cover works when needed." }
+    ]
+  },
+  {
+    "title": "How to Choose the Right Insurance Plan for Your Family",
+    "date": "2026-04-12",
+    "excerpt": "Selecting family insurance requires balancing life cover, health protection, and budget. Use this framework to build a comprehensive insurance portfolio.",
+    "tags": ["insurance planning", "family cover", "financial planning"],
+    "blocks": [
+      { "type": "paragraph", "text": "Family insurance planning is not one product — it is a portfolio covering life, health, accident, and optionally critical illness. Underinsurance leaves gaps; over-insurance through expensive traditional plans drains investable surplus. Structured approach matches cover to life stage and liabilities." },
+      { "type": "heading", "text": "Life Stage Framework" },
+      { "type": "list", "items": [
+        "Young single: Term insurance foundation plus individual health cover even if employer insured",
+        "Newly married: Increase term cover; add spouse health floater",
+        "Family with children: Peak term cover; ₹10–25 lakh health floater; consider child education rider",
+        "Mid-career: Review cover against home loan outstanding; add critical illness rider",
+        "Pre-retirement: Maintain health cover; reduce term as liabilities decrease"
+      ]},
+      { "type": "heading", "text": "Budget Allocation" },
+      { "type": "paragraph", "text": "Allocate 5–8% of annual income to total insurance premiums — majority on term and health, not investment-linked products. Review portfolio every 3 years or at major life events — marriage, child birth, home purchase." },
+      { "type": "paragraph", "text": "Financial consultants audit existing policies, identify overlaps and gaps, and recommend consolidation — often reducing premium outflow while improving actual protection." }
+    ]
+  },
+  {
+    "title": "Understanding Insurance Premium Calculations and Factors",
+    "date": "2026-05-12",
+    "excerpt": "Insurance premiums are not arbitrary — insurers use age, health, lifestyle, and coverage details to price risk. Learn what drives your premium up or down.",
+    "tags": ["insurance premium", "pricing factors", "underwriting"],
+    "blocks": [
+      { "type": "paragraph", "text": "Insurance premium is the price of transferring risk to an insurer. Underwriters assess probability and cost of claims based on statistical models and individual risk factors. Understanding pricing helps you improve profile, time purchases optimally, and reject unfair loading." },
+      { "type": "heading", "text": "Life Insurance Premium Factors" },
+      { "type": "list", "items": [
+        "Age at entry — younger buyers lock lower rates for policy duration",
+        "Sum assured and policy term — higher cover and longer term increase premium",
+        "Smoking and tobacco use — typically doubles term insurance premium",
+        "Occupation and hobbies — hazardous jobs or adventure sports attract loading",
+        "Medical history and BMI from pre-issuance health checkup",
+        "Payment frequency — annual payment cheaper than monthly mode"
+      ]},
+      { "type": "heading", "text": "Health Insurance Premium Factors" },
+      { "type": "paragraph", "text": "Health premiums depend on age, city zone (metro vs tier-2), sum insured, family size, and product features like no-claim bonus and restoration benefit. Pre-existing diseases may attract waiting period rather than permanent loading under IRDAI regulations. Group policies are cheaper but personal cover is portable and controllable." },
+      { "type": "paragraph", "text": "Consultants explain premium breakup across quotes and identify whether higher premium delivers proportionally better claims experience or merely funds agent commission on low-value products." }
+    ]
+  },
+  {
+    "title": "Business Insurance: Types Every Entrepreneur Should Consider",
+    "date": "2026-06-12",
+    "excerpt": "Business insurance protects against fire, liability, and operational disruptions. Explore essential cover types for Indian entrepreneurs and MSMEs.",
+    "tags": ["business insurance", "entrepreneur", "MSME"],
+    "blocks": [
+      { "type": "paragraph", "text": "Entrepreneurs insure personal health and life but overlook business assets and liability exposure. Fire, theft, machinery breakdown, or customer injury claims can shutter operations without warning. Business insurance portfolio addresses asset protection, legal liability, and business continuity." },
+      { "type": "heading", "text": "Essential Business Insurance Types" },
+      { "type": "list", "items": [
+        "Fire and burglary insurance — covers stock, machinery, and premises",
+        "Public liability insurance — customer injury or property damage on your premises",
+        "Professional indemnity — for service businesses against negligence claims",
+        "Group health insurance — employee retention and productivity benefit",
+        "Key person insurance — protects business against loss of critical founder or executive",
+        "Marine/transit insurance — goods in transit for trading businesses"
+      ]},
+      { "type": "heading", "text": "Prioritisation for MSMEs" },
+      { "type": "paragraph", "text": "Start with fire and burglary on stock and equipment — often required by lenders anyway. Add public liability if customers visit premises. Scale to group health as team grows. Premiums are tax-deductible business expenses under Section 37 in most cases — consult your CA." },
+      { "type": "paragraph", "text": "Insurance consultants specialising in commercial lines bundle policies efficiently and ensure claim documentation processes are understood before emergencies occur." }
+    ]
+  },
+  {
+    "title": "The Benefits of Getting Insurance Through a Financial Consultant",
+    "date": "2026-08-05",
+    "excerpt": "Insurance consultants offer unbiased comparison, claims support, and portfolio planning beyond what a single agent provides. Discover the full range of benefits.",
+    "tags": ["insurance consultant", "financial consultant", "claims support"],
+    "blocks": [
+      { "type": "paragraph", "text": "Insurance agents represent specific companies — their incentive is selling own company's products regardless of fit. Financial consultants and independent insurance advisors compare across insurers, align cover with overall financial plan, and support claims — creating value that persists long after policy issuance." },
+      { "type": "heading", "text": "Why Consultancy Adds Value" },
+      { "type": "list", "items": [
+        "Multi-insurer comparison on features, not just premium — claim settlement ratio matters",
+        "Needs analysis prevents buying investment products disguised as insurance",
+        "Assistance during claim intimation, documentation, and follow-up with insurer",
+        "Annual portfolio review as income, liabilities, and family structure change",
+        "Coordination with loan consultants on cover amount matching home loan outstanding",
+        "Help decoding policy wordings — exclusions, waiting periods, and sub-limits"
+      ]},
+      { "type": "heading", "text": "Consultants vs Online Aggregators" },
+      { "type": "paragraph", "text": "Online platforms excel at price comparison for standard products but provide limited guidance on complex needs — business insurance, high net worth cover, or health policies for pre-existing conditions. Consultants add human underwriting navigation and advocacy when claims are disputed." },
+      { "type": "paragraph", "text": "Whether term life, health floater, or commercial cover, engaging a consultant before first purchase prevents expensive policy replacements and ensures your family's protection matches real financial obligations — not generic rule-of-thumb guesses." }
+    ]
+  }
+]

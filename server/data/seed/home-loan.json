@@ -1,0 +1,129 @@
+[
+  {
+    "title": "First-Time Home Buyer? Here's Everything You Need to Know About Home Loans",
+    "date": "2026-01-30",
+    "excerpt": "Buying your first home is a major milestone. This guide covers home loan basics — eligibility, down payment, documentation, and approval process for first-time buyers in India.",
+    "tags": ["home loan", "first-time buyer", "guide"],
+    "blocks": [
+      { "type": "paragraph", "text": "Purchasing your first home involves the biggest financial commitment most Indians make. Home loans make ownership accessible by spreading cost over 15–30 years, but the process — from eligibility assessment to property legal verification — can overwhelm first-time buyers. Understanding fundamentals before you start property hunting saves money and prevents costly mistakes." },
+      { "type": "heading", "text": "Home Loan Basics" },
+      { "type": "list", "items": [
+        "Loan amount typically up to 75–90% of property value — you fund the balance as down payment",
+        "Interest types: fixed, floating, or hybrid — most Indian home loans are floating linked to repo rate",
+        "Tenure up to 30 years; longer tenure lowers EMI but increases total interest paid",
+        "Property serves as mortgage security until loan is fully repaid",
+        "Co-applicant income can be clubbed to increase eligible loan amount"
+      ]},
+      { "type": "heading", "text": "First-Time Buyer Checklist" },
+      { "type": "paragraph", "text": "Check CIBIL score and clear outstanding dues. Save at least 20–25% of property value for down payment plus registration and stamp duty. Get pre-approval to know your budget before visiting builders. Verify property title, RERA registration, and approved building plans independently — not just through builder claims." },
+      { "type": "heading", "text": "Documentation Overview" },
+      { "type": "paragraph", "text": "Salaried applicants need salary slips, Form 16, bank statements, and employment proof. Self-employed applicants submit ITR, business financials, and GST returns. Property documents include sale agreement, title chain, and NOC from society or builder. Consultants compile lender-specific checklists and coordinate legal verification to prevent disbursement delays." }
+    ]
+  },
+  {
+    "title": "Fixed vs Floating Interest Rate: Which Home Loan Type Suits You?",
+    "date": "2026-02-20",
+    "excerpt": "Choosing between fixed and floating home loan rates affects your EMI for decades. Compare both options against current 2026 rate trends and your risk tolerance.",
+    "tags": ["home loan", "fixed rate", "floating rate"],
+    "blocks": [
+      { "type": "paragraph", "text": "Home loan interest rate type determines whether your EMI stays constant or fluctuates with market movements. In India's current repo-linked regime, most new home loans are floating — but fixed-rate and hybrid products still exist. Your choice should reflect interest rate outlook, income stability, and personal comfort with uncertainty." },
+      { "type": "heading", "text": "Floating Rate Home Loans" },
+      { "type": "paragraph", "text": "Floating rates move with RBI repo rate changes and lender spread adjustments. When rates fall, your EMI or tenure reduces — per RBI directive on transmission. When rates rise, EMIs increase unless you extend tenure. Floating loans typically start 0.5–1.5% lower than fixed equivalents, benefiting borrowers during stable or declining rate cycles." },
+      { "type": "heading", "text": "Fixed Rate Home Loans" },
+      { "type": "paragraph", "text": "Fixed rates lock EMI for a defined period — sometimes entire tenure, sometimes first 3–5 years in hybrid products. Predictability aids budgeting for risk-averse borrowers. You pay a premium for certainty; if market rates fall significantly, you cannot benefit without refinancing at prepayment cost." },
+      { "type": "heading", "text": "Decision Framework" },
+      { "type": "list", "items": [
+        "Choose floating if you expect rates to stabilise or decline and can absorb moderate EMI increases",
+        "Choose fixed or hybrid if your budget has zero flexibility for EMI hikes",
+        "Consider hybrid — fixed initial years transitioning to floating — for balanced approach",
+        "Compare effective rates including spread reset clauses in floating loans",
+        "Consult experts on current yield curve and RBI policy trajectory before deciding"
+      ]},
+      { "type": "paragraph", "text": "Loan consultants model EMI scenarios under rate stress tests — showing impact of 1–2% rate hikes — so you choose confidently rather than guessing." }
+    ]
+  },
+  {
+    "title": "Home Loan Tax Benefits Under Section 80C and Section 24(b)",
+    "date": "2026-03-25",
+    "excerpt": "Home loans offer substantial tax deductions on principal and interest. Maximise your benefits under Section 80C and 24(b) with this clear explanation for Indian taxpayers.",
+    "tags": ["home loan", "tax benefits", "Section 80C"],
+    "blocks": [
+      { "type": "paragraph", "text": "Home loan tax benefits significantly reduce effective borrowing cost for Indian taxpayers. Two primary sections apply: Section 80C for principal repayment and Section 24(b) for interest payment. Understanding limits, conditions, and co-owner allocation helps you claim maximum legitimate deductions." },
+      { "type": "heading", "text": "Section 80C — Principal Repayment" },
+      { "type": "paragraph", "text": "Principal component of home loan EMI qualifies for deduction up to ₹1.5 lakh per financial year under Section 80C — combined with other 80C instruments like PPF, ELSS, and life insurance. Property should not be sold within 5 years of possession — otherwise deductions claimed are reversed and taxed." },
+      { "type": "heading", "text": "Section 24(b) — Interest Payment" },
+      { "type": "list", "items": [
+        "Self-occupied property: interest deduction up to ₹2 lakh per year",
+        "Let-out property: entire interest deductible against rental income (subject to loss set-off rules)",
+        "Pre-construction interest: deductible in five equal instalments from year of completion",
+        "Deduction available only after construction completes and possession taken",
+        "Co-borrowers can each claim proportionate interest if property co-owned and EMIs paid from respective accounts"
+      ]},
+      { "type": "heading", "text": "Additional Considerations" },
+      { "type": "paragraph", "text": "Section 80EEA provided additional interest deduction for affordable housing in prior years — verify current availability with your CA as provisions evolve. Stamp duty and registration charges qualify under 80C in the purchase year. Maintain loan certificates from lender showing principal and interest breakup for ITR filing." },
+      { "type": "paragraph", "text": "Consultants coordinate with your CA on joint ownership structure and EMI payment accounts to optimise tax benefit allocation among co-applicants." }
+    ]
+  },
+  {
+    "title": "How to Transfer Your Home Loan for a Better Interest Rate",
+    "date": "2026-04-30",
+    "excerpt": "Home loan balance transfer can lower your EMI when rates drop. Learn when transfer makes financial sense and how to navigate the switching process.",
+    "tags": ["home loan", "balance transfer", "interest rate"],
+    "blocks": [
+      { "type": "paragraph", "text": "If your existing home loan carries a rate significantly above current market offers, balance transfer — moving the outstanding to a new lender at lower rate — reduces EMI or tenure. Transfer gained popularity as repo-linked rates created gaps between old and new borrowers at the same bank." },
+      { "type": "heading", "text": "When Transfer Makes Sense" },
+      { "type": "list", "items": [
+        "Rate difference of 0.5% or more justifies switching cost for remaining tenure above 10 years",
+        "Current lender denied rate reset despite market decline and good payment history",
+        "Remaining outstanding is substantial — savings compound on higher principal",
+        "You are past prepayment penalty period on existing loan",
+        "New lender offers processing fee waiver or subsidy as acquisition incentive"
+      ]},
+      { "type": "heading", "text": "Transfer Process and Costs" },
+      { "type": "paragraph", "text": "Apply to new lender with existing loan statements and property documents. New lender conducts legal verification and issues sanction. Old lender receives payoff amount and releases original property documents or executes novation. Costs include processing fee, legal charges, and possible MOD cancellation charges — typically 0.5–1% of outstanding." },
+      { "type": "paragraph", "text": "Calculate net savings over remaining tenure minus all transfer costs. Consultants run break-even analysis and negotiate with both lenders — sometimes threatening transfer prompts current bank to match rate without switching costs." }
+    ]
+  },
+  {
+    "title": "Why Pre-Approved Home Loans Give You an Edge in Property Negotiations",
+    "date": "2026-05-22",
+    "excerpt": "A pre-approved home loan strengthens your bargaining position with sellers and builders. Discover how in-principle sanction works and why sellers prefer pre-approved buyers.",
+    "tags": ["home loan", "pre-approval", "property negotiation"],
+    "blocks": [
+      { "type": "paragraph", "text": "In competitive property markets, sellers and builders prioritise buyers who can close quickly. Pre-approved home loan — in-principle sanction based on income and credit assessment before final property selection — signals financial readiness and reduces transaction risk for the counterparty." },
+      { "type": "heading", "text": "How Pre-Approval Works" },
+      { "type": "paragraph", "text": "Submit income documents, CIBIL report, and KYC to a lender for preliminary assessment. Bank issues sanction letter stating eligible amount, rate, and validity period — typically 3–6 months. Final disbursement still requires property legal clearance and valuation, but financial eligibility is confirmed upfront." },
+      { "type": "heading", "text": "Negotiation Advantages" },
+      { "type": "list", "items": [
+        "Demonstrate seriousness — sellers take offers from pre-approved buyers more credibly",
+        "Negotiate better price or builder discounts for quick closure certainty",
+        "Avoid losing property while scrambling for loan approval after token payment",
+        "Compare multiple lender pre-approvals to know best rate before committing",
+        "Speed up final disbursement since financial underwriting is largely complete"
+      ]},
+      { "type": "heading", "text": "Getting Pre-Approved Smartly" },
+      { "type": "paragraph", "text": "Pre-approval is not binding — you can choose a different lender at final stage. Multiple pre-approval inquiries within 30 days typically count as one CIBIL hard pull if done through same product type. Consultants arrange parallel pre-approvals from top lenders so you enter negotiations with both budget clarity and rate leverage." }
+    ]
+  },
+  {
+    "title": "The Role of Loan Consultants in Securing the Best Home Loan Rates",
+    "date": "2026-06-28",
+    "excerpt": "Home loan rates vary across banks for the same profile. Loan consultants negotiate rates, compare offers, and manage documentation for optimal outcomes.",
+    "tags": ["loan consultant", "home loan", "best rates"],
+    "blocks": [
+      { "type": "paragraph", "text": "Home loan is a long-term commitment — a 0.25% rate difference on ₹50 lakh over 20 years costs lakhs in additional interest. Yet most buyers accept the first offer from their salary account bank without comparing alternatives. Loan consultants exist to close this information gap and secure competitive terms through market-wide comparison and negotiation." },
+      { "type": "heading", "text": "What Consultants Deliver" },
+      { "type": "list", "items": [
+        "Rate comparison across 15+ banks and HFCs updated for current repo-linked pricing",
+        "Processing fee and insurance cross-sell negotiation or waiver",
+        "Profile presentation — optimising co-applicant structure and income clubbing",
+        "Builder tie-up vs open market loan comparison for under-construction properties",
+        "Legal and technical verification coordination to prevent disbursement hold-ups",
+        "Balance transfer advisory when existing loans become overpriced"
+      ]},
+      { "type": "heading", "text": "Beyond Rate Shopping" },
+      { "type": "paragraph", "text": "Lowest rate is not always best if prepayment penalties are harsh or customer service is poor. Consultants evaluate foreclosure flexibility, part-prepayment terms, and digital account management alongside headline rate — ensuring holistic value over 15–20 year relationship." },
+      { "type": "paragraph", "text": "Engage a consultant at pre-approval stage — before paying builder token — to align property budget with realistic sanctioned amount and avoid painful downgrades later." }
+    ]
+  }
+]

@@ -1,0 +1,135 @@
+[
+  {
+    "title": "How Overdraft Facilities Work: A Complete Beginner's Guide",
+    "date": "2026-01-22",
+    "excerpt": "New to overdraft facilities? This guide explains how OD limits work, how interest is charged, and who should consider this flexible borrowing option.",
+    "tags": ["overdraft", "beginner guide", "banking"],
+    "blocks": [
+      { "type": "paragraph", "text": "An overdraft facility lets you withdraw more money from your current account than you actually have, up to a pre-approved limit set by your bank. It acts as a financial safety net for businesses and individuals facing temporary cash shortfalls — without applying for a new loan each time you need funds." },
+      { "type": "heading", "text": "How Overdraft Works in Practice" },
+      { "type": "paragraph", "text": "Your bank links an OD limit to your current account. When your balance hits zero, further cheques, NEFT transfers, or debit transactions still process until you reach the sanctioned cap. Interest accrues daily on the negative (debit) balance. When you deposit funds, the balance moves positive and interest stops accumulating on the repaid portion." },
+      { "type": "heading", "text": "Types of Overdraft" },
+      { "type": "list", "items": [
+        "Overdraft against salary — for salaried account holders with employer tie-up",
+        "Overdraft against fixed deposit — up to 90% of FD value at low spread",
+        "Overdraft against property — higher limits for business and personal use",
+        "Overdraft against securities — for investors with demat holdings",
+        "Clean overdraft — rare, based purely on income and relationship without collateral"
+      ]},
+      { "type": "heading", "text": "Key Terms to Understand" },
+      { "type": "paragraph", "text": "Sanction limit is your maximum borrowing cap. Drawing power may equal sanction or vary with collateral value. Renewal is typically annual. Penal charges apply if you exceed the limit or miss interest servicing. Read your sanction letter carefully for these parameters before first use." },
+      { "type": "paragraph", "text": "Consultants explain OD structures across banks and help you choose secured vs unsecured options matching your cash flow pattern and available collateral." }
+    ]
+  },
+  {
+    "title": "Overdraft Against Property vs Overdraft Against FD: Which Is Better?",
+    "date": "2026-02-28",
+    "excerpt": "Property-backed and FD-backed overdrafts serve different needs. Compare limits, rates, risk, and flexibility to pick the right secured OD facility.",
+    "tags": ["overdraft", "property", "fixed deposit"],
+    "blocks": [
+      { "type": "paragraph", "text": "Secured overdrafts offer lower interest rates than unsecured alternatives because the bank holds collateral. The two most common forms are OD against property (ODAP/LAP-linked overdraft) and OD against fixed deposit. Your choice depends on available assets, required limit, and whether you can lock up an FD." },
+      { "type": "heading", "text": "Overdraft Against Fixed Deposit" },
+      { "type": "list", "items": [
+        "Limit typically up to 85–90% of FD value",
+        "Interest rate usually FD rate plus 1–2% spread — very competitive",
+        "Quick sanction — often same day for existing bank FD",
+        "FD continues earning interest minus OD spread differential",
+        "Ideal for short-term needs without mortgaging property"
+      ]},
+      { "type": "heading", "text": "Overdraft Against Property" },
+      { "type": "list", "items": [
+        "Limit based on property valuation — often ₹25 lakh to several crores",
+        "Rate typically 9–12% depending on profile and lender",
+        "Requires legal verification, valuation, and mortgage registration",
+        "Property remains in your use but cannot be sold without bank NOC",
+        "Suited for business owners needing substantial ongoing flexibility"
+      ]},
+      { "type": "heading", "text": "Making the Choice" },
+      { "type": "paragraph", "text": "Use FD-backed OD for temporary, smaller needs when you hold liquid FDs you prefer not to break prematurely. Use property-backed OD for larger, long-term business flexibility. Never pledge an FD you may need to break urgently for emergencies — the OD limit disappears if FD is closed." },
+      { "type": "paragraph", "text": "Consultants compare effective rates including processing and renewal fees across lenders for both OD types — property OD pricing varies significantly between banks." }
+    ]
+  },
+  {
+    "title": "Managing Cash Flow with an Overdraft Facility",
+    "date": "2026-03-28",
+    "excerpt": "Overdraft facilities are powerful cash flow tools when managed discipline. Learn best practices to use OD without falling into a debt trap.",
+    "tags": ["overdraft", "cash flow", "business finance"],
+    "blocks": [
+      { "type": "paragraph", "text": "Overdraft bridges timing gaps between payments out and collections in — a normal part of business operations. Used wisely, it smooths cash flow without equity dilution or emergency asset sales. Used carelessly, it becomes a permanent debt with rising interest cost that erodes profitability." },
+      { "type": "heading", "text": "Disciplined OD Management" },
+      { "type": "list", "items": [
+        "Set an internal utilisation cap below your sanctioned limit — e.g., use max 70%",
+        "Review OD balance weekly; plan deposits to reduce debit before month-end interest calculation",
+        "Separate business and personal expenses — never fund personal spending via business OD",
+        "Track why OD was used — recurring structural gaps need term restructuring, not permanent OD reliance",
+        "Maintain a cash flow forecast projecting when OD can be cleared each cycle"
+      ]},
+      { "type": "heading", "text": "Warning Signs of Over-Reliance" },
+      { "type": "paragraph", "text": "If your OD runs at maximum limit continuously for three or more months, your business may have a profitability or collection problem — not a temporary timing issue. Address root causes: slow debtor recovery, low margins, or overstocking. Consider working capital term restructuring or equity infusion rather than requesting limit enhancement on a broken model." },
+      { "type": "paragraph", "text": "Financial consultants help analyse OD usage patterns from bank statements and recommend whether OD remains appropriate or if a different product structure would reduce cost." }
+    ]
+  },
+  {
+    "title": "Common Misconceptions About Overdraft Loans Debunked",
+    "date": "2026-04-28",
+    "excerpt": "Overdraft is widely misunderstood — from interest myths to credit score impact. We debunk the most common misconceptions Indian borrowers hold about OD facilities.",
+    "tags": ["overdraft", "misconceptions", "myths"],
+    "blocks": [
+      { "type": "paragraph", "text": "Overdraft facilities are among the most useful yet misunderstood banking products in India. Misinformation leads businesses to either avoid OD entirely or use it recklessly. Clarifying these myths helps you make informed borrowing decisions." },
+      { "type": "heading", "text": "Myth vs Reality" },
+      { "type": "list", "items": [
+        "Myth: OD interest is always cheaper than personal loans — Reality: Unsecured OD can be expensive; compare effective rates",
+        "Myth: Using OD damages CIBIL permanently — Reality: Responsible use and timely interest payment build credit history positively",
+        "Myth: You must use the full limit to justify renewal — Reality: Banks prefer clean conduct over forced utilisation",
+        "Myth: OD and cash credit are identical — Reality: Different security, compliance, and purpose structures",
+        "Myth: Property OD means losing ownership — Reality: You retain use and ownership; bank holds mortgage as security only",
+        "Myth: OD renewal is automatic — Reality: Banks review financials annually; weak performance can reduce or cancel limits"
+      ]},
+      { "type": "heading", "text": "Informed Borrowing" },
+      { "type": "paragraph", "text": "Understanding product mechanics prevents costly assumptions. Ask your banker or consultant for the sanction letter terms in writing — interest rate type, renewal conditions, prepayment or closure charges, and collateral release process." },
+      { "type": "paragraph", "text": "Consultants demystify OD products during onboarding so clients use facilities as designed — short-term flexibility tools, not long-term debt substitutes." }
+    ]
+  },
+  {
+    "title": "How to Apply for an Overdraft Facility: Step-by-Step Process",
+    "date": "2026-05-25",
+    "excerpt": "Applying for overdraft involves eligibility checks, collateral valuation, and documentation. Follow this step-by-step guide for smooth OD sanction.",
+    "tags": ["overdraft", "application", "process"],
+    "blocks": [
+      { "type": "paragraph", "text": "Overdraft application processes vary by collateral type and lender, but follow a common framework. Preparation reduces back-and-forth and accelerates sanction — especially for property-backed facilities requiring legal and valuation reports." },
+      { "type": "heading", "text": "Application Steps" },
+      { "type": "list", "items": [
+        "Step 1: Determine OD type — FD, property, salary, or securities based on available assets",
+        "Step 2: Check eligibility — income, existing EMIs, credit score, and business vintage if applicable",
+        "Step 3: Submit application with KYC, income proof, and collateral documents",
+        "Step 4: Bank conducts property valuation and legal title verification (for ODAP)",
+        "Step 5: Credit appraisal and limit calculation based on income and collateral LTV",
+        "Step 6: Sign OD agreement and mortgage/lien documents; limit activated on current account"
+      ]},
+      { "type": "heading", "text": "Timeline Expectations" },
+      { "type": "paragraph", "text": "FD-backed OD: 1–3 working days. Salary OD: 3–7 days with employer verification. Property OD: 2–4 weeks depending on legal report and valuation queue. Start early if you anticipate seasonal cash needs." },
+      { "type": "paragraph", "text": "Loan consultants manage multi-bank applications, coordinate valuers, and follow up with credit departments — often halving typical processing time for business OD facilities." }
+    ]
+  },
+  {
+    "title": "Benefits of Having an Overdraft Account for Your Business",
+    "date": "2026-07-05",
+    "excerpt": "A business overdraft account provides liquidity, payment reliability, and growth flexibility. Explore the strategic benefits beyond emergency funding.",
+    "tags": ["overdraft", "business benefits", "liquidity"],
+    "blocks": [
+      { "type": "paragraph", "text": "Beyond emergency use, a sanctioned overdraft facility strengthens your business operations in ways that are easy to overlook until you experience them. It is not merely debt capacity — it is operational resilience and commercial credibility." },
+      { "type": "heading", "text": "Strategic Business Benefits" },
+      { "type": "list", "items": [
+        "Never miss vendor payments — protect supplier trust and early payment discounts",
+        "Accept larger orders even when receivables lag by 30–60 days",
+        "Handle unexpected expenses — repairs, GST payments, or opportunity purchases",
+        "Reduce need for costly informal lending at 2–5% monthly interest",
+        "Demonstrate banking relationship depth for future term loan applications",
+        "Pay interest only when utilised — cost-effective compared to maintaining large idle buffers"
+      ]},
+      { "type": "heading", "text": "Building Bank Relationship" },
+      { "type": "paragraph", "text": "Active, well-managed OD accounts generate data banks use for limit enhancements and preferential term loan pricing. Regular account conduct — deposits, utilisation patterns, and interest servicing — builds your credit profile with the institution." },
+      { "type": "paragraph", "text": "Consultants help businesses establish OD facilities proactively during strong financial periods — ensuring capacity exists before a crisis, when banks are least willing to extend new credit." }
+    ]
+  }
+]

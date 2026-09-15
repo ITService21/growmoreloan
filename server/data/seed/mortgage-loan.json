@@ -1,0 +1,131 @@
+[
+  {
+    "title": "Mortgage Loan vs Home Loan: Understanding the Key Differences",
+    "date": "2026-02-05",
+    "excerpt": "Mortgage loans and home loans both use property as security but serve different purposes. Learn the distinctions in usage, rates, and documentation.",
+    "tags": ["mortgage loan", "home loan", "comparison"],
+    "blocks": [
+      { "type": "paragraph", "text": "Colloquially, Indians use 'home loan' and 'mortgage loan' interchangeably, but in banking terminology they differ meaningfully. A home loan specifically finances purchase or construction of residential property for personal use. A mortgage loan — commonly called loan against property (LAP) — allows you to unlock equity in existing property for any legitimate purpose including business, education, or medical needs." },
+      { "type": "heading", "text": "Purpose and Usage" },
+      { "type": "list", "items": [
+        "Home loan: Purchase of new/resale flat, house construction, or plot plus construction",
+        "Mortgage/LAP: Business expansion, working capital, education, medical, debt consolidation",
+        "Home loan: Property must be residential and used as primary residence or investment per lender policy",
+        "Mortgage/LAP: Residential, commercial, or industrial property may qualify depending on lender"
+      ]},
+      { "type": "heading", "text": "Rate and LTV Differences" },
+      { "type": "paragraph", "text": "Home loans typically offer lower rates and higher LTV — up to 90% for affordable housing — because the loan purpose aligns with residential asset creation. Mortgage loans carry slightly higher rates — often 0.5–2% above home loans — and LTV usually caps at 50–70% of property market value since end-use monitoring is limited." },
+      { "type": "heading", "text": "Choosing the Right Product" },
+      { "type": "paragraph", "text": "Apply for home loan when buying a house. Apply for mortgage loan when you already own property and need liquidity without selling. Misrepresenting end-use to obtain home loan rates on LAP purpose is fraud and grounds for recall. Consultants route applications to correct product categories with appropriate lenders." }
+    ]
+  },
+  {
+    "title": "How to Use a Loan Against Property for Business Expansion",
+    "date": "2026-03-08",
+    "excerpt": "Loan against property unlocks capital tied in real estate for business growth. Learn how to structure LAP for expansion while managing risk responsibly.",
+    "tags": ["loan against property", "business expansion", "mortgage loan"],
+    "blocks": [
+      { "type": "paragraph", "text": "Many successful businesses hit growth ceilings not from lack of orders but from lack of capital to scale inventory, machinery, or branch network. Selling property to fund expansion is irreversible. Loan against property (LAP) lets you access 50–70% of property value while retaining ownership and rental or personal use — if business cash flow supports EMIs." },
+      { "type": "heading", "text": "Strategic Uses for Business LAP" },
+      { "type": "list", "items": [
+        "Fund new branch setup or warehouse expansion",
+        "Purchase machinery or bulk inventory for large confirmed orders",
+        "Consolidate high-interest unsecured business debt into lower LAP rate",
+        "Bridge gap until project milestone payment or receivable collection",
+        "Invest in technology, ERP, or working capital during growth phase"
+      ]},
+      { "type": "heading", "text": "Risk Management" },
+      { "type": "paragraph", "text": "LAP puts your property at risk if business fails and EMIs default. Stress-test projections — can you service debt if revenue drops 25%? Avoid using LAP for speculative ventures or loss-making expansions. Maintain separate business accounting so LAP funds are traceable to productive use if lender audits end-use." },
+      { "type": "paragraph", "text": "Consultants model EMI against projected business cash flows, compare LAP vs business term loan vs investor funding, and negotiate longest tenure with lowest rate to preserve operational flexibility." }
+    ]
+  },
+  {
+    "title": "Factors That Affect Your Mortgage Loan Eligibility",
+    "date": "2026-04-08",
+    "excerpt": "Mortgage loan eligibility depends on property value, income, age, and existing obligations. Understand how lenders calculate your maximum LAP amount.",
+    "tags": ["mortgage loan", "eligibility", "LAP"],
+    "blocks": [
+      { "type": "paragraph", "text": "Mortgage loan eligibility combines property-side assessment with borrower repayment capacity. Unlike home loans where property purchase price defines need, LAP amount is the lower of property LTV limit and income-based eligibility — whichever is more restrictive applies." },
+      { "type": "heading", "text": "Property-Related Factors" },
+      { "type": "list", "items": [
+        "Market value from bank-approved valuer — not your expected price",
+        "Property type — residential approved layouts score better than agricultural or disputed titles",
+        "Age of property — older structures may get lower LTV or shorter tenure",
+        "Legal clear title with chain documents and no pending litigation",
+        "Location and marketability for recovery in default scenario"
+      ]},
+      { "type": "heading", "text": "Borrower-Related Factors" },
+      { "type": "list", "items": [
+        "Income — salaried or business — supporting EMI at FOIR of 50–65%",
+        "Age — tenure may not extend beyond retirement or age 70",
+        "CIBIL score and existing loan obligations",
+        "Business stability for self-employed — ITR consistency over 2–3 years",
+        "Co-applicant income clubbing to increase eligible amount"
+      ]},
+      { "type": "paragraph", "text": "Consultants pre-screen property documents and income files against lender-specific LTV grids — preventing valuation surprises that reduce expected loan amount after application fees are paid." }
+    ]
+  },
+  {
+    "title": "Foreclosure and Prepayment Rules for Mortgage Loans in India",
+    "date": "2026-05-08",
+    "excerpt": "Planning to prepay or foreclose your mortgage loan? Understand RBI guidelines, penalty rules, and how to calculate whether early closure saves money.",
+    "tags": ["mortgage loan", "foreclosure", "prepayment"],
+    "blocks": [
+      { "type": "paragraph", "text": "RBI guidelines prohibit prepayment penalties on floating rate home loans for individuals. Mortgage loans against property for business or personal use may still carry prepayment charges depending on lender policy and loan agreement date. Always verify your specific sanction letter before making lump-sum prepayments." },
+      { "type": "heading", "text": "Prepayment vs Foreclosure" },
+      { "type": "paragraph", "text": "Part prepayment reduces outstanding principal — choose EMI reduction or tenure reduction per lender options. Foreclosure closes the entire loan, releasing property mortgage. Both save future interest but may trigger charges on fixed-rate LAP or loans below certain age." },
+      { "type": "heading", "text": "Rules to Know" },
+      { "type": "list", "items": [
+        "Floating rate individual LAP: typically no prepayment penalty per RBI norms — confirm with lender",
+        "Fixed rate loans: penalties of 2–4% on prepaid amount may apply",
+        "Minimum lock-in period of 6–12 months before prepayment allowed at some NBFCs",
+        "Written request required; processing takes 7–15 days for NOC and charge release",
+        "Obtain NOC and update CERSAI records after closure — critical for future property transactions"
+      ]},
+      { "type": "heading", "text": "When Prepayment Makes Sense" },
+      { "type": "paragraph", "text": "Prepay when alternative investment returns are below loan interest rate after tax. Retain emergency liquidity — do not prepay entire surplus if business working capital suffers. Consultants calculate net benefit of prepayment vs investing surplus elsewhere based on your tax bracket and opportunity cost." }
+    ]
+  },
+  {
+    "title": "Why Property Valuation Matters for Your Mortgage Loan Amount",
+    "date": "2026-06-08",
+    "excerpt": "Bank property valuation directly determines your mortgage loan amount. Learn how valuers work, what affects valuation, and how to prepare for the process.",
+    "tags": ["property valuation", "mortgage loan", "LTV"],
+    "blocks": [
+      { "type": "paragraph", "text": "You may believe your property is worth ₹1 crore based on neighbour's sale or broker quote, but the bank's empanelled valuer determines the official figure used for LTV calculation. Gap between expectation and valuation is a leading cause of mortgage loan amount disappointment." },
+      { "type": "heading", "text": "How Valuation Works" },
+      { "type": "paragraph", "text": "Valuers assess location, built-up area, construction quality, age, legal status, and comparable recent transactions. They apply conservative methodology prioritising lender recovery risk over market optimism. Report validity is typically 6 months; re-valuation required if loan processing delays." },
+      { "type": "heading", "text": "Factors Affecting Valuation" },
+      { "type": "list", "items": [
+        "Approved building plan vs unauthorised construction — unapproved areas may be excluded",
+        "Property age and structural condition",
+        "Micro-location — floor, facing, road width, proximity to amenities",
+        "Litigation or encumbrance on title reduces value and may halt processing",
+        "Commercial use in residential zone — valuation and LTV both affected"
+      ]},
+      { "type": "heading", "text": "Preparation Tips" },
+      { "type": "paragraph", "text": "Ensure property is accessible, documents organised, and obvious defects addressed before valuation visit. Obtain informal broker estimates but budget conservatively based on 60–65% LTV of realistic market price. Consultants coordinate with valuers and challenge only through formal documented discrepancies — not emotional appeals." }
+    ]
+  },
+  {
+    "title": "How Loan Consultants Negotiate Better Mortgage Rates for You",
+    "date": "2026-07-18",
+    "excerpt": "Mortgage loan rates are negotiable — especially with consultant leverage. Discover how professionals secure better LAP terms for borrowers across India.",
+    "tags": ["loan consultant", "mortgage loan", "negotiation"],
+    "blocks": [
+      { "type": "paragraph", "text": "Published LAP rate cards show starting rates for ideal profiles. Most borrowers pay higher spreads unless they negotiate or bring competitive offers. Loan consultants maintain volume relationships with banks and NBFCs, creating leverage individual walk-in customers lack." },
+      { "type": "heading", "text": "Negotiation Levers" },
+      { "type": "list", "items": [
+        "Competitive offer from rival lender used as benchmark for rate matching",
+        "Salary account or existing banking relationship highlighted for relationship pricing",
+        "Loan amount and property quality — high-value clean deals get better spreads",
+        "Processing fee waiver or reduction as alternative to rate cut",
+        "Tenure and insurance bundling — declining unnecessary add-ons lowers effective cost",
+        "Co-applicant with strong income improving overall credit grade"
+      ]},
+      { "type": "heading", "text": "Beyond the Rate Quote" },
+      { "type": "paragraph", "text": "Consultants scrutinise spread reset frequency on floating LAP, MOD charges, legal fee caps, and part-prepayment terms. A nominally lower rate with heavy hidden charges costs more over tenure. Total cost modelling separates marketing from reality." },
+      { "type": "paragraph", "text": "Whether LAP is for business or personal need, consultant involvement typically pays for itself through rate and fee savings many times over — especially on loans above ₹25 lakh where small spread differences compound substantially." }
+    ]
+  }
+]

@@ -1,0 +1,288 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { COMPANY, TEAM, STATS } from '../data/company';
+import SERVICES from '../data/services';
+
+const QUICK_LINKS = [
+  { label: 'Home', to: '/' },
+  { label: 'About Us', to: '/about' },
+  { label: 'Blog', to: '/blog' },
+  { label: 'EMI Calculator', to: '/emi-calculator' },
+  { label: 'FAQ', to: '/faq' },
+  { label: 'Contact Us', to: '/contact' },
+  { label: 'Privacy Policy', to: '/privacy-policy' },
+  { label: 'Terms & Conditions', to: '/terms-and-conditions' },
+  { label: 'Admin Panel', to: '/admin/login' },
+];
+
+const TRUST_BADGES = [
+  { label: 'RBI Compliant', icon: '🏛️' },
+  { label: 'Data Secured', icon: '🔒' },
+  { label: 'ISO Certified', icon: '✅' },
+];
+
+const footerLinkClass =
+  'text-sm text-[#B8A98A] hover:text-[#F97316] transition-colors duration-300 hover:underline underline-offset-4 decoration-[#F97316]/50';
+
+export default function Footer() {
+  const [email, setEmail] = useState('');
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    setEmail('');
+  };
+
+  const yearsStat = STATS.find((s) => s.label === 'Years Experience')?.value ?? COMPANY.experience;
+  const clientsStat = STATS.find((s) => s.label === 'Happy Clients')?.value ?? COMPANY.clients;
+
+  return (
+    <footer className="bg-[#0a0906] relative">
+      <div className="h-[2px] bg-gradient-to-r from-[#F97316] via-[#FBBF24] to-[#22C55E]" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
+          {/* Column 1 — Brand */}
+          <div className="sm:col-span-2 lg:col-span-1 space-y-5">
+            <Link to="/" className="flex items-start gap-3 group">
+              <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center ring-2 ring-[rgba(249,115,22,0.25)] group-hover:ring-[#F97316]/40 transition-all duration-300 shrink-0">
+                <img
+                  src="/images/logo.png"
+                  alt={COMPANY.name}
+                  className="w-full h-full object-contain p-1"
+                />
+              </div>
+              <div>
+                <span
+                  className="text-base font-bold text-white leading-snug block"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  {COMPANY.name}
+                </span>
+                <span className="text-xs text-[#F97316] font-medium mt-1 block">
+                  {COMPANY.slogan}
+                </span>
+              </div>
+            </Link>
+
+            <div className="flex items-center gap-4">
+              <div className="text-center">
+                <p className="text-xl font-bold text-white stat-glow">{yearsStat}</p>
+                <p className="text-xs text-[#B8A98A]">Years Experience</p>
+              </div>
+              <div className="w-px h-8 bg-[rgba(255,200,100,0.08)]" />
+              <div className="text-center">
+                <p className="text-xl font-bold text-white stat-glow">{clientsStat}</p>
+                <p className="text-xs text-[#B8A98A]">Happy Clients</p>
+              </div>
+            </div>
+            <p className="text-sm text-[#B8A98A] leading-relaxed">
+              {COMPANY.description}
+            </p>
+
+            <div className="flex items-center gap-3">
+              {['facebook', 'instagram', 'linkedin', 'twitter'].map((social) => (
+                <span
+                  key={social}
+                  className="w-9 h-9 rounded-lg bg-[#1a1710] border border-[rgba(255,200,100,0.08)] flex items-center justify-center text-[#B8A98A] hover:text-[#F97316] hover:border-[rgba(249,115,22,0.3)] hover:bg-[rgba(249,115,22,0.06)] transition-all duration-300 cursor-pointer"
+                  aria-label={social}
+                >
+                  <SocialIcon name={social} />
+                </span>
+              ))}
+            </div>
+
+            <p className="text-xs text-[#7A6F5F] font-medium">
+              GSTIN: XXXXXXXX
+            </p>
+          </div>
+
+          {/* Column 2 — Quick Links */}
+          <div>
+            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">
+              Quick Links
+            </h3>
+            <ul className="space-y-2.5">
+              {QUICK_LINKS.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to} className={footerLinkClass}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3 — Our Services */}
+          <div>
+            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">
+              Our Services
+            </h3>
+            <ul className="space-y-2.5">
+              {SERVICES.map((service) => (
+                <li key={service.id}>
+                  <Link to={`/services/${service.id}`} className={footerLinkClass}>
+                    {service.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4 — Contact Info */}
+          <div>
+            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">
+              Contact Info
+            </h3>
+            <div className="space-y-4 text-sm text-[#B8A98A]">
+              {COMPANY.offices.map((office) => (
+                <div key={office.city} className="flex gap-3">
+                  <svg className="w-5 h-5 text-[#B8A98A] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <div>
+                    <p className="text-white font-medium text-xs mb-1">{office.label}</p>
+                    <p className="leading-relaxed">{office.address}</p>
+                  </div>
+                </div>
+              ))}
+
+              <div className="space-y-2.5 pt-1">
+                {TEAM.map((member) => (
+                  <a
+                    key={member.phone}
+                    href={`tel:${member.phone}`}
+                    className={`flex items-start gap-3 ${footerLinkClass}`}
+                  >
+                    <svg className="w-5 h-5 text-[#B8A98A] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    <span>
+                      {member.name} ({member.role}): {member.phoneDisplay}
+                    </span>
+                  </a>
+                ))}
+              </div>
+
+              <a
+                href={`mailto:${COMPANY.email}`}
+                className={`flex items-center gap-3 ${footerLinkClass}`}
+              >
+                <svg className="w-5 h-5 text-[#B8A98A] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                {COMPANY.email}
+              </a>
+
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-[#B8A98A] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p>Mon–Sat, 10:00 AM – 7:00 PM</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 5 — Newsletter */}
+          <div>
+            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">
+              Newsletter
+            </h3>
+
+            <p className="text-sm text-[#B8A98A] mb-4 leading-relaxed">
+              Subscribe to Our Newsletter for loan tips, rate updates, and financial insights.
+            </p>
+
+            <form onSubmit={handleNewsletterSubmit} className="space-y-3 mb-6">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email address"
+                required
+                className="form-input !text-sm !py-2.5"
+              />
+              <button type="submit" className="btn-orange w-full !py-2.5 !text-sm">
+                Subscribe
+              </button>
+            </form>
+
+            <div className="space-y-3">
+              <p className="text-white font-semibold text-sm">Trust & Credentials</p>
+              <div className="flex flex-wrap gap-2">
+                {TRUST_BADGES.map((badge) => (
+                  <span
+                    key={badge.label}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1a1710] border border-[rgba(255,200,100,0.08)] text-xs text-[#B8A98A]"
+                  >
+                    <span>{badge.icon}</span>
+                    {badge.label}
+                  </span>
+                ))}
+              </div>
+              <p className="text-xs text-[#B8A98A] leading-relaxed pt-1">
+                Associated with 15+ Banks &amp; NBFCs
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="section-divider my-10" />
+
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm text-[#B8A98A]">
+          <p>© 2026 Grow More Loan. All Rights Reserved.</p>
+          <p>
+            Designed &amp; Developed by{' '}
+            <a
+              href="https://piwebtechnology.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={footerLinkClass}
+            >
+              PI Web Technology (contact - 9351870445)
+            </a>
+          </p>
+        </div>
+
+        <p className="text-xs text-[#7A6F5F] mt-6 leading-relaxed max-w-4xl">
+          We are loan consultants and facilitate loan processing. Loan approval is subject to bank/NBFC
+          policies and applicant eligibility. We do not guarantee loan approval or specific interest
+          rates. Interest rates mentioned are indicative and may vary.
+        </p>
+
+        <p className="text-xs text-[#7A6F5F] mt-4">
+          <Link to="/admin/login" className="hover:text-[#F97316] transition-colors">
+            Admin Panel
+          </Link>
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+function SocialIcon({ name }) {
+  const icons = {
+    facebook: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+      </svg>
+    ),
+    instagram: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+      </svg>
+    ),
+    linkedin: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.063 2.063 0 01-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      </svg>
+    ),
+    twitter: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  };
+
+  return icons[name] || null;
+}
