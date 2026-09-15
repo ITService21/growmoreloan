@@ -230,9 +230,9 @@ try {
   console.log('Added sort_order to reviews table');
 }
 
-seedAdminUser();
-seedPartners();
-seedBlogs();
-seedReviews();
+// seedAdminUser();
+// seedPartners();
+// seedBlogs();
+// seedReviews();
 
 export default db;

@@ -1,6 +1,6 @@
 export const COMPANY = {
   name: 'Grow More Loan',
-  shortName: 'Grow More',
+  shortName: 'Grow More Loan',
   slogan: 'Grow With Trust',
   tagline: 'Empowering Your Financial Journey',
   description: 'Trusted loan consultancy with 7+ years of experience and 450+ happy clients across Rajkot & Ahmedabad, Gujarat. We connect individuals and businesses with the right banks for the best financial solutions.',
