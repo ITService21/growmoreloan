@@ -763,6 +763,7 @@ input[type="range"]::-moz-range-thumb {
   background: white;
 }
 .section-cream .form-input::placeholder { color: #9a8a6a; }
+.section-cream label { color: #1a1710; }
 
 /* ---------- Nav Hover Underline ---------- */
 .nav-link-hover {
@@ -991,13 +992,13 @@ input[type="number"].no-spinner {
 /* ---------- Partner Logo Scroll ---------- */
 @keyframes partnerScroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(-33.333%); }
 }
 .partner-scroll-track {
   display: flex;
-  gap: 32px;
+  gap: 24px;
   align-items: center;
-  animation: partnerScroll 30s linear infinite;
+  animation: partnerScroll 40s linear infinite;
   width: max-content;
 }
 .partner-scroll-track:hover {
@@ -1005,8 +1006,8 @@ input[type="number"].no-spinner {
 }
 .partner-logo-card {
   flex-shrink: 0;
-  width: 160px;
-  height: 80px;
+  width: 180px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;

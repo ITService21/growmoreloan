@@ -218,10 +218,10 @@ const seedBlogs = () => {
   }
 };
 
-createTables();
-seedAdminUser();
-seedPartners();
-seedBlogs();
-seedReviews();
+// createTables();
+// seedAdminUser();
+// seedPartners();
+// seedBlogs();
+// seedReviews();
 
 export default db;

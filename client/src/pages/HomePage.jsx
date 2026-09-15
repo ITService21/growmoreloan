@@ -763,7 +763,11 @@ export default function HomePage({ onApply }) {
             <button
               type="button"
               onClick={() => {
-                if (partnersScrollRef.current) partnersScrollRef.current.style.animationPlayState = 'paused';
+                const track = partnersScrollRef.current;
+                if (!track) return;
+                track.style.animationPlayState = 'paused';
+                track.style.transform = `translateX(${track.getBoundingClientRect().x - track.parentElement.getBoundingClientRect().x + 200}px)`;
+                setTimeout(() => { track.style.animationPlayState = 'running'; track.style.transform = ''; }, 100);
               }}
               className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll partners left"
@@ -772,9 +776,9 @@ export default function HomePage({ onApply }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <div className="overflow-hidden w-full py-4 px-14 sm:px-16">
+            <div className="overflow-hidden w-full py-4 px-10 sm:px-12">
               <div ref={partnersScrollRef} className="partner-scroll-track">
-                {[...partners, ...partners].map((partner, index) => {
+                {[...partners, ...partners, ...partners].map((partner, index) => {
                   const domain =
                     partner.domain ||
                     partner.logo?.replace(/^https?:\/\/logo\.clearbit\.com\//, '') ||
@@ -785,18 +789,24 @@ export default function HomePage({ onApply }) {
                   const name = partner.name || domain;
                   return (
                     <div key={`${name}-${index}`} className="partner-logo-card">
-                      <img
-                        src={logoUrl}
-                        alt={name}
-                        loading="lazy"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.parentElement.insertAdjacentHTML(
-                            'beforeend',
-                            `<span class="text-xs font-semibold text-[var(--text-secondary)] text-center px-2">${name}</span>`
-                          );
-                        }}
-                      />
+                      {logoUrl ? (
+                        <img
+                          src={logoUrl}
+                          alt={name}
+                          loading="lazy"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            if (!e.target.parentElement.querySelector('.fallback-name')) {
+                              e.target.parentElement.insertAdjacentHTML(
+                                'beforeend',
+                                `<span class="fallback-name text-xs font-semibold text-[var(--text-secondary)] text-center px-2 leading-tight">${name}</span>`
+                              );
+                            }
+                          }}
+                        />
+                      ) : (
+                        <span className="text-xs font-semibold text-[var(--text-secondary)] text-center px-2 leading-tight">{name}</span>
+                      )}
                     </div>
                   );
                 })}
@@ -805,7 +815,11 @@ export default function HomePage({ onApply }) {
             <button
               type="button"
               onClick={() => {
-                if (partnersScrollRef.current) partnersScrollRef.current.style.animationPlayState = 'running';
+                const track = partnersScrollRef.current;
+                if (!track) return;
+                track.style.animationPlayState = 'paused';
+                track.style.transform = `translateX(${track.getBoundingClientRect().x - track.parentElement.getBoundingClientRect().x - 200}px)`;
+                setTimeout(() => { track.style.animationPlayState = 'running'; track.style.transform = ''; }, 100);
               }}
               className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll partners right"
