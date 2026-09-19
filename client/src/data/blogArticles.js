@@ -5,6 +5,7 @@ const BLOG_ARTICLES = [
     title: 'How to Get a Personal Loan in Rajkot',
     category: 'personal-loan',
     categoryName: 'Personal Loan',
+    image: 'https://images.pexels.com/photos/4968391/pexels-photo-4968391.jpeg?auto=compress&w=800',
     excerpt: 'A step-by-step guide to applying for a personal loan in Rajkot. Learn about eligibility, documents, and how to compare offers from multiple lenders for the best deal.',
     date: '2026-08-05',
     readTime: '6 min read',
@@ -33,6 +34,7 @@ const BLOG_ARTICLES = [
     title: 'Personal Loan Eligibility Guide 2026',
     category: 'personal-loan',
     categoryName: 'Personal Loan',
+    image: 'https://images.pexels.com/photos/7821486/pexels-photo-7821486.jpeg?auto=compress&w=800',
     excerpt: 'Understand the key factors banks evaluate when approving personal loans in 2026 — income, credit score, employment type, and existing liabilities.',
     date: '2026-08-12',
     readTime: '5 min read',
@@ -60,6 +62,7 @@ const BLOG_ARTICLES = [
     title: 'Personal Loan vs Credit Card: Which Is Better?',
     category: 'personal-loan',
     categoryName: 'Personal Loan',
+    image: 'https://images.pexels.com/photos/4475523/pexels-photo-4475523.jpeg?auto=compress&w=800',
     excerpt: 'Compare personal loans and credit cards for large expenses. Understand interest rates, repayment flexibility, and when each option makes more financial sense.',
     date: '2026-08-20',
     readTime: '5 min read',
@@ -85,6 +88,7 @@ const BLOG_ARTICLES = [
   // ─── Business Loan (3) ───
   {
     id: 'business-loan-guide-rajkot-entrepreneurs',
+    image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&w=800',
     title: 'Business Loan Guide for Rajkot Entrepreneurs',
     category: 'business-loan',
     categoryName: 'Business Loan',
@@ -112,6 +116,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'improve-business-loan-eligibility',
+    image: 'https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&w=800',
     title: 'How to Improve Business Loan Eligibility',
     category: 'business-loan',
     categoryName: 'Business Loan',
@@ -139,6 +144,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'government-schemes-business-loans',
+    image: 'https://images.pexels.com/photos/6863332/pexels-photo-6863332.jpeg?auto=compress&w=800',
     title: 'Top Government Schemes for Business Loans',
     category: 'business-loan',
     categoryName: 'Business Loan',
@@ -167,6 +173,7 @@ const BLOG_ARTICLES = [
   // ─── Machinery Loan (3) ───
   {
     id: 'machinery-loan-guide-gujarat',
+    image: 'https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?auto=compress&w=800',
     title: 'Complete Guide to Machinery Loan in Gujarat',
     category: 'machinery-loan',
     categoryName: 'Machinery Loan',
@@ -195,6 +202,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'new-vs-used-machinery-loan',
+    image: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&w=800',
     title: 'New vs Used Machinery Loan: What to Choose',
     category: 'machinery-loan',
     categoryName: 'Machinery Loan',
@@ -222,6 +230,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'government-subsidies-machinery-purchase',
+    image: 'https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg?auto=compress&w=800',
     title: 'Government Subsidies for Machinery Purchase',
     category: 'machinery-loan',
     categoryName: 'Machinery Loan',
@@ -249,6 +258,7 @@ const BLOG_ARTICLES = [
   // ─── Cash Credit (2) ───
   {
     id: 'understanding-cash-credit-rajkot',
+    image: 'https://images.pexels.com/photos/4386367/pexels-photo-4386367.jpeg?auto=compress&w=800',
     title: 'Understanding Cash Credit for Rajkot Businesses',
     category: 'cash-credit',
     categoryName: 'Cash Credit (CC)',
@@ -276,6 +286,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'increase-cash-credit-limit',
+    image: 'https://images.pexels.com/photos/6863515/pexels-photo-6863515.jpeg?auto=compress&w=800',
     title: 'How to Increase Your Cash Credit Limit',
     category: 'cash-credit',
     categoryName: 'Cash Credit (CC)',
@@ -304,6 +315,7 @@ const BLOG_ARTICLES = [
   // ─── Overdraft (2) ───
   {
     id: 'overdraft-against-property-guide',
+    image: 'https://images.pexels.com/photos/4386374/pexels-photo-4386374.jpeg?auto=compress&w=800',
     title: 'Overdraft Against Property: Complete Guide',
     category: 'overdraft',
     categoryName: 'Overdraft (OD)',
@@ -332,6 +344,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'overdraft-vs-term-loan',
+    image: 'https://images.pexels.com/photos/4386370/pexels-photo-4386370.jpeg?auto=compress&w=800',
     title: 'OD vs Term Loan: Which Is Right for You?',
     category: 'overdraft',
     categoryName: 'Overdraft (OD)',
@@ -365,6 +378,7 @@ const BLOG_ARTICLES = [
   // ─── MSME Loan (3) ───
   {
     id: 'msme-loan-schemes-gujarat-2026',
+    image: 'https://images.pexels.com/photos/3182781/pexels-photo-3182781.jpeg?auto=compress&w=800',
     title: 'MSME Loan Schemes in Gujarat 2026',
     category: 'msme-loan',
     categoryName: 'MSME Loan',
@@ -391,6 +405,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'udyam-registration-guide',
+    image: 'https://images.pexels.com/photos/6476808/pexels-photo-6476808.jpeg?auto=compress&w=800',
     title: 'Udyam Registration Guide for MSMEs',
     category: 'msme-loan',
     categoryName: 'MSME Loan',
@@ -418,6 +433,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'cgtmse-scheme-explained',
+    image: 'https://images.pexels.com/photos/6476587/pexels-photo-6476587.jpeg?auto=compress&w=800',
     title: 'CGTMSE Scheme Explained for Small Businesses',
     category: 'msme-loan',
     categoryName: 'MSME Loan',
@@ -446,6 +462,7 @@ const BLOG_ARTICLES = [
   // ─── Home Loan (4) ───
   {
     id: 'home-loan-guide-first-time-buyers',
+    image: 'https://images.pexels.com/photos/7578915/pexels-photo-7578915.jpeg?auto=compress&w=800',
     title: 'Home Loan Guide for First-Time Buyers in Rajkot',
     category: 'home-loan',
     categoryName: 'Home Loan',
@@ -473,6 +490,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'home-loan-tax-benefits',
+    image: 'https://images.pexels.com/photos/7579042/pexels-photo-7579042.jpeg?auto=compress&w=800',
     title: 'Home Loan Tax Benefits Under Income Tax Act',
     category: 'home-loan',
     categoryName: 'Home Loan',
@@ -499,6 +517,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'fixed-vs-floating-home-loan-rate',
+    image: 'https://images.pexels.com/photos/5849577/pexels-photo-5849577.jpeg?auto=compress&w=800',
     title: 'Fixed vs Floating Interest Rate: Home Loan Guide',
     category: 'home-loan',
     categoryName: 'Home Loan',
@@ -526,6 +545,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'home-loan-balance-transfer-guide',
+    image: 'https://images.pexels.com/photos/8293778/pexels-photo-8293778.jpeg?auto=compress&w=800',
     title: 'Home Loan Balance Transfer Guide',
     category: 'home-loan',
     categoryName: 'Home Loan',
@@ -554,6 +574,7 @@ const BLOG_ARTICLES = [
   // ─── Mortgage Loan (3) ───
   {
     id: 'loan-against-property-rajkot',
+    image: 'https://images.pexels.com/photos/1546168/pexels-photo-1546168.jpeg?auto=compress&w=800',
     title: 'Loan Against Property Guide for Rajkot Homeowners',
     category: 'mortgage-loan',
     categoryName: 'Mortgage Loan',
@@ -581,6 +602,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'mortgage-loan-business-expansion',
+    image: 'https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&w=800',
     title: 'Using Mortgage Loan for Business Expansion',
     category: 'mortgage-loan',
     categoryName: 'Mortgage Loan',
@@ -607,6 +629,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'residential-vs-commercial-mortgage',
+    image: 'https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&w=800',
     title: 'Residential vs Commercial Mortgage Loan',
     category: 'mortgage-loan',
     categoryName: 'Mortgage Loan',
@@ -636,6 +659,7 @@ const BLOG_ARTICLES = [
   // ─── Car Loan (3) ───
   {
     id: 'best-car-loan-rajkot',
+    image: 'https://images.pexels.com/photos/1035108/pexels-photo-1035108.jpeg?auto=compress&w=800',
     title: 'How to Get the Best Car Loan in Rajkot',
     category: 'car-loan',
     categoryName: 'Car Loan',
@@ -663,6 +687,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'new-car-vs-used-car-loan',
+    image: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&w=800',
     title: 'New Car vs Used Car Loan Comparison',
     category: 'car-loan',
     categoryName: 'Car Loan',
@@ -690,6 +715,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'car-loan-prepayment-guide',
+    image: 'https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg?auto=compress&w=800',
     title: 'Car Loan Prepayment and Foreclosure Guide',
     category: 'car-loan',
     categoryName: 'Car Loan',
@@ -719,6 +745,7 @@ const BLOG_ARTICLES = [
   // ─── Insurance (2) ───
   {
     id: 'essential-insurance-policies-rajkot',
+    image: 'https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&w=800',
     title: 'Essential Insurance Policies Every Rajkot Family Needs',
     category: 'insurance',
     categoryName: 'Insurance',
@@ -745,6 +772,7 @@ const BLOG_ARTICLES = [
   },
   {
     id: 'health-insurance-vs-term-insurance',
+    image: 'https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&w=800',
     title: 'Health Insurance vs Term Insurance: What to Choose First',
     category: 'insurance',
     categoryName: 'Insurance',

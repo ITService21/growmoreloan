@@ -6,13 +6,13 @@ const VALID_CATEGORIES = ['bank', 'nbfc', 'hfc'];
 const validateCategory = (category) => VALID_CATEGORIES.includes(category);
 
 const resolveLogoUrl = (bodyLogoUrl, file) => {
-  if (bodyLogoUrl && typeof bodyLogoUrl === 'string' && bodyLogoUrl.trim()) {
-    return bodyLogoUrl.trim();
-  }
   if (file) {
     return `/uploads/${file.filename}`;
   }
-  return bodyLogoUrl || null;
+  if (bodyLogoUrl && typeof bodyLogoUrl === 'string' && bodyLogoUrl.trim()) {
+    return bodyLogoUrl.trim();
+  }
+  return null;
 };
 
 export const getAllPartners = (req, res) => {

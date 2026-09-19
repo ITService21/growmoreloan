@@ -7,32 +7,44 @@ const validateRating = (rating) => {
 };
 
 const resolveReviewerImage = (bodyImage, file) => {
-  if (bodyImage && typeof bodyImage === 'string' && bodyImage.trim()) {
-    return bodyImage.trim();
-  }
   if (file) {
     return `/uploads/${file.filename}`;
   }
-  return bodyImage || null;
+  if (bodyImage && typeof bodyImage === 'string' && bodyImage.trim()) {
+    return bodyImage.trim();
+  }
+  return null;
 };
 
 export const getAllReviews = (req, res) => {
   try {
-    const { page = 1, limit = 20 } = req.query;
-    const offset = (parseInt(page, 10) - 1) * parseInt(limit, 10);
-    const { total } = db.prepare('SELECT COUNT(*) as total FROM reviews').get();
-    const reviews = db
-      .prepare('SELECT * FROM reviews ORDER BY sort_order ASC, created_at DESC LIMIT ? OFFSET ?')
-      .all(parseInt(limit, 10), offset);
+    const { page = 1, limit = 20, category } = req.query;
+    const pageNum = parseInt(page, 10);
+    const limitNum = parseInt(limit, 10);
+    const offset = (pageNum - 1) * limitNum;
+
+    let countSql = 'SELECT COUNT(*) as total FROM reviews';
+    let dataSql = 'SELECT * FROM reviews';
+    const params = [];
+
+    if (category) {
+      countSql += ' WHERE category = ?';
+      dataSql += ' WHERE category = ?';
+      params.push(category);
+    }
+
+    const { total } = db.prepare(countSql).get(...params);
+    dataSql += ' ORDER BY sort_order ASC, created_at DESC LIMIT ? OFFSET ?';
+    const reviews = db.prepare(dataSql).all(...params, limitNum, offset);
 
     return res.status(200).json({
       success: true,
       data: reviews,
       pagination: {
-        page: parseInt(page, 10),
-        limit: parseInt(limit, 10),
+        page: pageNum,
+        limit: limitNum,
         total,
-        totalPages: Math.ceil(total / parseInt(limit, 10)),
+        totalPages: Math.ceil(total / limitNum),
       },
       message: 'Reviews retrieved successfully.',
     });
@@ -74,7 +86,7 @@ export const getReviewById = (req, res) => {
 
 export const createReview = (req, res) => {
   try {
-    const { reviewer_name, reviewer_image, rating, location, description } = req.body;
+    const { reviewer_name, reviewer_image, rating, location, description, category } = req.body;
 
     if (!reviewer_name || rating === undefined) {
       return res.status(400).json({
@@ -95,10 +107,11 @@ export const createReview = (req, res) => {
     const id = uuidv4();
     const now = new Date().toISOString();
     const finalReviewerImage = resolveReviewerImage(reviewer_image, req.file);
+    const finalCategory = category?.trim() || 'Other';
 
     db.prepare(`
-      INSERT INTO reviews (id, reviewer_name, reviewer_image, rating, location, description, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO reviews (id, reviewer_name, reviewer_image, rating, location, description, category, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
       id,
       reviewer_name.trim(),
@@ -106,6 +119,7 @@ export const createReview = (req, res) => {
       parseInt(rating, 10),
       location?.trim() || null,
       description?.trim() || null,
+      finalCategory,
       now,
       now
     );
@@ -180,6 +194,11 @@ export const updateReview = (req, res) => {
     if (description !== undefined) {
       updates.push('description = ?');
       values.push(description?.trim() || null);
+    }
+
+    if (req.body.category !== undefined) {
+      updates.push('category = ?');
+      values.push(req.body.category?.trim() || 'Other');
     }
 
     if (req.body.sort_order !== undefined) {

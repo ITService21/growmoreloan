@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import AnimatedBackground from '../components/AnimatedBackground';
 import { COMPANY } from '../data/company';
 import SERVICES from '../data/services';
-import { getWhatsAppLink } from '../utils/helpers';
+import { getWhatsAppLink, resolveUploadUrl } from '../utils/helpers';
 import { useScrollAnimationMulti } from '../utils/hooks';
 
 const ARTICLES_PER_PAGE = 6;
@@ -97,7 +97,7 @@ function BlogArticleModal({ article, onClose }) {
 
   if (!article) return null;
 
-  const imageUrl = BLOG_IMAGES[article.category] || BLOG_IMAGES['personal-loan'];
+  const imageUrl = (article.image_url ? resolveUploadUrl(article.image_url) : '') || article.image || BLOG_IMAGES[article.category] || BLOG_IMAGES['personal-loan'];
   const content = Array.isArray(article.content) ? article.content : [];
 
   return (
@@ -385,7 +385,7 @@ export default function BlogPage() {
                   >
                     <div className="relative h-40 -mx-6 -mt-6 sm:-mx-7 sm:-mt-7 mb-4 overflow-hidden rounded-t-xl">
                       <img
-                        src={BLOG_IMAGES[article.category] || BLOG_IMAGES['personal-loan']}
+                        src={(article.image_url ? resolveUploadUrl(article.image_url) : '') || article.image || BLOG_IMAGES[article.category] || BLOG_IMAGES['personal-loan']}
                         alt=""
                         className="w-full h-full object-cover"
                       />

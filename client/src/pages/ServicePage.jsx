@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import AnimatedBackground from '../components/AnimatedBackground';
 import SectionHeading from '../components/SectionHeading';
 import EMICalculator from '../components/common/EMICalculator';
+import GoogleReviews from '../components/GoogleReviews';
 import PhoneInput from '../components/common/PhoneInput';
 import SERVICES from '../data/services';
 import { COMPANY, PROCESS_STEPS } from '../data/company';
@@ -18,31 +19,18 @@ import {
 import { useScrollAnimationMulti, useFormState } from '../utils/hooks';
 
 const FEATURE_ICONS = ['✨', '⚡', '📋', '💰', '📊', '🎯'];
-const INSURANCE_TYPES = ['Life Insurance', 'Health Insurance', 'Vehicle Insurance', 'Business Insurance'];
-const FIRM_TYPES = ['New Firm', 'Old Firm'];
-
-const FIELD_LABELS = {
-  name: 'Full Name',
-  email: 'Email Address',
-  phone: 'Phone Number',
-  loanAmount: 'Loan Amount (₹)',
-  location: 'City / Location',
-  monthlySalary: 'Monthly Salary (₹)',
-  firmType: 'Firm Type',
-  insuranceType: 'Insurance Type',
-};
 
 const HERO_IMAGES = {
-  'personal-loan': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200',
-  'business-loan': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200',
-  'machinery-loan': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200',
-  'cash-credit': 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1200',
-  overdraft: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200',
-  'msme-loan': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200',
-  'home-loan': 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200',
-  'mortgage-loan': 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200',
-  'car-loan': 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1200',
-  insurance: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200',
+  'personal-loan': 'https://images.pexels.com/photos/5900227/pexels-photo-5900227.jpeg?auto=compress&w=1200',
+  'business-loan': 'https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&w=1200',
+  'machinery-loan': 'https://images.pexels.com/photos/2760243/pexels-photo-2760243.jpeg?auto=compress&w=1200',
+  'cash-credit': 'https://images.pexels.com/photos/4386476/pexels-photo-4386476.jpeg?auto=compress&w=1200',
+  overdraft: 'https://images.pexels.com/photos/7578901/pexels-photo-7578901.jpeg?auto=compress&w=1200',
+  'msme-loan': 'https://images.pexels.com/photos/5717546/pexels-photo-5717546.jpeg?auto=compress&w=1200',
+  'home-loan': 'https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&w=1200',
+  'mortgage-loan': 'https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?auto=compress&w=1200',
+  'car-loan': 'https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&w=1200',
+  insurance: 'https://images.pexels.com/photos/7821702/pexels-photo-7821702.jpeg?auto=compress&w=1200',
 };
 
 const HERO_HIGHLIGHTS = {
@@ -97,7 +85,14 @@ function SectionBgObjects({ variant }) {
 
 function parseAmount(str) {
   if (!str || str === 'Custom') return 500000;
-  return Number(str.replace(/[₹,\s]/g, '')) || 500000;
+  const cleaned = str.replace(/[₹,\s]/g, '');
+  const crMatch = cleaned.match(/([\d.]+)\s*Cr/i);
+  if (crMatch) return parseFloat(crMatch[1]) * 10000000;
+  const lMatch = cleaned.match(/([\d.]+)\s*L/i);
+  if (lMatch) return parseFloat(lMatch[1]) * 100000;
+  const kMatch = cleaned.match(/([\d.]+)\s*K/i);
+  if (kMatch) return parseFloat(kMatch[1]) * 1000;
+  return Number(cleaned) || 500000;
 }
 
 function parseRate(str) {
@@ -116,9 +111,12 @@ function parseTenureYears(str) {
 
 function buildInitialFormFields(formFields, serviceName) {
   const fields = { service: serviceName };
-  formFields.forEach((field) => {
-    if (field !== 'service') fields[field] = '';
-  });
+  if (Array.isArray(formFields)) {
+    formFields.forEach((field) => {
+      const name = typeof field === 'string' ? field : field.name;
+      if (name !== 'service') fields[name] = '';
+    });
+  }
   return fields;
 }
 
@@ -190,7 +188,7 @@ const EXPANDED_PROCESS = PROCESS_STEPS.map((step) => {
   return { ...step, description: expansions[step.step] };
 });
 
-export default function ServicePage({ onApply }) {
+export default function ServicePage() {
   const { serviceId } = useParams();
   const service = SERVICES.find((s) => s.id === serviceId);
 
@@ -251,7 +249,6 @@ export default function ServicePage({ onApply }) {
   };
 
   const handleApplyClick = () => {
-    if (onApply) onApply(service);
     scrollTo('apply');
     trackEvent('apply_click', 'engagement', service.id);
   };
@@ -269,11 +266,12 @@ export default function ServicePage({ onApply }) {
     e.preventDefault();
     setStatus(null);
 
-    if (!formData.name?.trim()) {
-      setStatus({ type: 'error', message: 'Please enter your full name.' });
+    if (!formData.name?.trim() && !formData.businessName?.trim()) {
+      setStatus({ type: 'error', message: 'Please enter your name.' });
       return;
     }
-    if (!validateEmail(formData.email)) {
+    const emailField = formData.email;
+    if (!validateEmail(emailField)) {
       setStatus({ type: 'error', message: 'Please enter a valid email address.' });
       return;
     }
@@ -301,15 +299,27 @@ export default function ServicePage({ onApply }) {
   };
 
   const renderFormField = (field) => {
-    const label = FIELD_LABELS[field] || field;
+    const config = typeof field === 'string'
+      ? { name: field, label: FIELD_LABELS[field] || field, type: 'text', placeholder: FIELD_LABELS[field] || field, required: true }
+      : field;
 
-    if (field === 'firmType') {
+    const { name, label, type, placeholder, options, required: isRequired } = config;
+
+    if (type === 'select' && options) {
       return (
-        <div key={field}>
-          <label className="block text-sm font-medium mb-1.5">{label}</label>
-          <select name="firmType" value={formData.firmType || ''} onChange={handleChange} className="form-input" required>
-            <option value="">Select firm type</option>
-            {FIRM_TYPES.map((opt) => (
+        <div key={name}>
+          <label className="block text-sm font-medium mb-1.5">
+            {label} {isRequired && <span className="text-red-500">*</span>}
+          </label>
+          <select
+            name={name}
+            value={formData[name] || ''}
+            onChange={handleChange}
+            className="form-input"
+            required={isRequired}
+          >
+            <option value="">{placeholder || `Select ${label}`}</option>
+            {options.map((opt) => (
               <option key={opt} value={opt}>{opt}</option>
             ))}
           </select>
@@ -317,66 +327,77 @@ export default function ServicePage({ onApply }) {
       );
     }
 
-    if (field === 'insuranceType') {
+    if (type === 'currency') {
       return (
-        <div key={field}>
-          <label className="block text-sm font-medium mb-1.5">{label}</label>
-          <select name="insuranceType" value={formData.insuranceType || ''} onChange={handleChange} className="form-input" required>
-            <option value="">Select insurance type</option>
-            {INSURANCE_TYPES.map((opt) => (
-              <option key={opt} value={opt}>{opt}</option>
-            ))}
-          </select>
-        </div>
-      );
-    }
-
-    if (field === 'loanAmount' || field === 'monthlySalary') {
-      return (
-        <div key={field}>
-          <label className="block text-sm font-medium mb-1.5">{label}</label>
+        <div key={name}>
+          <label className="block text-sm font-medium mb-1.5">
+            {label} {isRequired && <span className="text-red-500">*</span>}
+          </label>
           <input
             type="text"
             inputMode="numeric"
-            name={field}
-            value={formData[field] ? formatIndianNumber(formData[field]) : ''}
-            onChange={(e) => handleFormNumberChange(field, e.target.value)}
+            name={name}
+            value={formData[name] ? formatIndianNumber(formData[name]) : ''}
+            onChange={(e) => handleFormNumberChange(name, e.target.value)}
             className="form-input no-spinner"
-            placeholder={label}
-            required
+            placeholder={`₹ ${placeholder || label}`}
+            required={isRequired}
           />
         </div>
       );
     }
 
-    if (field === 'phone') {
+    if (type === 'phone') {
       return (
-        <div key={field}>
-          <label className="block text-sm font-medium mb-1.5">{label}</label>
+        <div key={name}>
+          <label className="block text-sm font-medium mb-1.5">
+            {label} {isRequired && <span className="text-red-500">*</span>}
+          </label>
           <PhoneInput
-            name="phone"
-            value={formData.phone || ''}
+            name={name}
+            value={formData[name] || ''}
             onChange={handleChange}
-            placeholder="Phone Number"
-            required
+            placeholder={placeholder || label}
+            required={isRequired}
           />
         </div>
       );
     }
 
-    const inputType = field === 'email' ? 'email' : 'text';
+    if (type === 'textarea') {
+      return (
+        <div key={name} className="md:col-span-2">
+          <label className="block text-sm font-medium mb-1.5">
+            {label} {isRequired && <span className="text-red-500">*</span>}
+          </label>
+          <textarea
+            name={name}
+            value={formData[name] || ''}
+            onChange={handleChange}
+            className="form-input min-h-[100px] resize-y"
+            placeholder={placeholder || label}
+            required={isRequired}
+            rows={3}
+          />
+        </div>
+      );
+    }
+
+    const inputType = type === 'email' ? 'email' : 'text';
 
     return (
-      <div key={field}>
-        <label className="block text-sm font-medium mb-1.5">{label}</label>
+      <div key={name}>
+        <label className="block text-sm font-medium mb-1.5">
+          {label} {isRequired && <span className="text-red-500">*</span>}
+        </label>
         <input
           type={inputType}
-          name={field}
-          value={formData[field] || ''}
+          name={name}
+          value={formData[name] || ''}
           onChange={handleChange}
           className="form-input"
-          placeholder={label}
-          required
+          placeholder={placeholder || label}
+          required={isRequired}
         />
       </div>
     );
@@ -386,20 +407,20 @@ export default function ServicePage({ onApply }) {
     <main className="bg-rich-dark">
       {/* Breadcrumb */}
       <nav
-        className="pt-24 pb-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto animate-on-scroll bg"
+        className="pt- 24 pb-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto animate-on-scroll"
         aria-label="Breadcrumb"
       >
-        <ol className="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
+        {/* <ol className="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
           <li><Link to="/" className="hover:text-[#F97316] transition-colors">Home</Link></li>
           <li>/</li>
           <li><Link to="/#services" className="hover:text-[#F97316] transition-colors">Services</Link></li>
           <li>/</li>
           <li className="text-[var(--text-primary)] font-medium">{service.name}</li>
-        </ol>
+        </ol> */}
       </nav>
 
       {/* Hero — dark */}
-      <section className="relative pb-20 sm:pb-24 overflow-hidden hero-parallax ">
+      <section className="relative pb-20 sm:pb-24 overflow-hidden hero-parallax mt-16">
         <div
           className="hero-parallax-img"
           style={{ backgroundImage: `url(${HERO_IMAGES[service.id] || HERO_IMAGES['personal-loan']})` }}
@@ -444,6 +465,9 @@ export default function ServicePage({ onApply }) {
         </div>
       </section>
 
+      {/* Hero Detail — "What is X?" section with quick stats + Perfect For (Cash Credit, etc.) */}
+ 
+
       <div className="section-divider max-w-7xl mx-auto" />
 
       {/* Overview — cream */}
@@ -452,38 +476,55 @@ export default function ServicePage({ onApply }) {
           <SectionHeading
             badge="Overview"
             title={`About ${service.name}`}
-            subtitle="Everything you need to know before you apply — rates, limits, and how we help you secure the best deal."
+            subtitle="Key details to know before you apply — rates, limits, and how we help you secure the best deal."
             light
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
             <div className="animate-on-scroll space-y-5">
-              {overviewParagraphs.map((para, i) => (
+              {/* {overviewParagraphs.map((para, i) => (
                 <p key={i} className="text-[#5a5040] leading-relaxed text-base">{para}</p>
-              ))}
+              ))} */}
+
+              <div className="space-y-4">
+                {[
+                  { label: 'Interest Rate', value: service.interestRate, icon: '📉', sub: 'Competitive rates negotiated across 15+ partner banks' },
+                  { label: 'Maximum Amount', value: service.maxAmount, icon: '💰', sub: 'Subject to eligibility, income, and lender policies' },
+                  { label: 'Repayment Tenure', value: service.tenure, icon: '📅', sub: 'Flexible options tailored to your monthly budget' },
+                ].map((card, index) => (
+                  <div
+                    key={card.label}
+                    className="animate-on-scroll glow-card p-5 flex items-start gap-4"
+                    style={{ transitionDelay: `${index * 100}ms` }}
+                  >
+                    <div className="icon-box flex-shrink-0">{card.icon}</div>
+                    <div>
+                      <p className="text-xs text-[#9a8a6a] uppercase tracking-wider mb-1">{card.label}</p>
+                      <p className="text-lg font-bold text-[#1a1710] mb-1" style={{ fontFamily: 'var(--font-display)' }}>
+                        {card.value}
+                      </p>
+                      <p className="text-sm text-[#5a5040] leading-relaxed">{card.sub}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="space-y-5">
-              {[
-                { label: 'Interest Rate', value: service.interestRate, icon: '📉', sub: 'Competitive rates negotiated across 15+ partner banks' },
-                { label: 'Maximum Amount', value: service.maxAmount, icon: '💰', sub: 'Subject to eligibility, income, and lender policies' },
-                { label: 'Repayment Tenure', value: service.tenure, icon: '📅', sub: 'Flexible options tailored to your monthly budget' },
-              ].map((card, index) => (
-                <div
-                  key={card.label}
-                  className="animate-on-scroll glow-card p-6 flex items-start gap-4"
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="icon-box flex-shrink-0">{card.icon}</div>
-                  <div>
-                    <p className="text-xs text-[#9a8a6a] uppercase tracking-wider mb-1">{card.label}</p>
-                    <p className="text-xl font-bold text-[#1a1710] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
-                      {card.value}
-                    </p>
-                    <p className="text-sm text-[#5a5040] leading-relaxed">{card.sub}</p>
+            {/* Service Image */}
+            <div className="animate-on-scroll" style={{ transitionDelay: '100ms' }}>
+              {service.overviewImage && (
+                <div className="relative rounded-2xl overflow-hidden shadow-xl border border-[rgba(0,0,0,0.06)]">
+                  <img
+                    src={service.overviewImage}
+                    alt={`${service.name} illustration`}
+                    className="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 shadow-md">
+                    <p className="text-xs text-[#9a8a6a] uppercase tracking-wider">{COMPANY.experience} Years</p>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
@@ -523,19 +564,84 @@ export default function ServicePage({ onApply }) {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="Eligibility"
-            title="Eligibility Criteria"
+            title={`${service.name} Eligibility Criteria`}
             subtitle={`Review the standard requirements for ${service.name.toLowerCase()} with our partner banks and NBFCs — we help you find lenders where your profile fits best.`}
             light
           />
 
-          <div className="animate-on-scroll grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {service.eligibility.map((item, index) => (
-              <div key={index} className="eligibility-card">
-                <div className="icon-box icon-box-green flex-shrink-0 w-10 h-10 text-sm">✓</div>
-                <p className="text-[#5a5040] text-sm leading-relaxed">{item}</p>
+          {/* Two-column eligibility grid */}
+          {(() => {
+            const items = service.eligibility;
+            const isStructured = items.length > 0 && typeof items[0] === 'object';
+            if (!isStructured) {
+              return (
+                <div className="animate-on-scroll grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {items.map((item, index) => (
+                    <div key={index} className="eligibility-card">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#22C55E] to-[#16A34A] flex items-center justify-center shadow-md">
+                        <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <p className="text-[#5a5040] text-sm leading-relaxed font-medium">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              );
+            }
+
+            const half = Math.ceil(items.length / 2);
+            const leftCol = items.slice(0, half);
+            const rightCol = items.slice(half);
+
+            const ELIG_ICONS = [
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>,
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>,
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>,
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>,
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>,
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>,
+            ];
+
+            const renderEligCard = (item, idx) => (
+              <div
+                key={idx}
+                className="animate-on-scroll eligibility-card"
+                style={{ transitionDelay: `${idx * 60}ms` }}
+              >
+                <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-[#F97316] to-[#EA580C] flex items-center justify-center shadow-md text-white">
+                  {ELIG_ICONS[idx % ELIG_ICONS.length]}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[#1a1710] text-sm font-bold leading-tight">{item.title}</p>
+                  <p className="text-[#5a5040] text-xs leading-relaxed mt-0.5">{item.desc}</p>
+                </div>
               </div>
-            ))}
-          </div>
+            );
+
+            return (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-0">
+                <div>
+                  <h3 className="text-lg font-bold text-[#1a1710] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+                    Basic Eligibility
+                  </h3>
+                  <div className="space-y-3">
+                    {leftCol.map((item, idx) => renderEligCard(item, idx))}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-[#1a1710] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+                    Financial Requirements
+                  </h3>
+                  <div className="space-y-3">
+                    {rightCol.map((item, idx) => renderEligCard(item, idx + half))}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
@@ -664,7 +770,7 @@ export default function ServicePage({ onApply }) {
 
       {/* Application Form — cream */}
       <section id="apply" className="section-cream relative py-20 sm:py-24 scroll-mt-24 overflow-hidden">
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-6xl mx-auto px-2 ">
           <SectionHeading
             badge="Apply Now"
             title={`Apply for ${service.name}`}
@@ -691,8 +797,8 @@ export default function ServicePage({ onApply }) {
                     <li key={item.title} className="flex items-start gap-3">
                       <span className="text-xl flex-shrink-0">{item.icon}</span>
                       <div>
-                        <p className="font-semibold text-[#1a1710] text-sm mb-1">{item.title}</p>
-                        <p className="text-[#5a5040] text-xs leading-relaxed">{item.desc}</p>
+                        <p className="font-semibold text-[#1a1710] text-[16px] mb-1">{item.title}</p>
+                        <p className="text-[#5a5040] text-[13px] leading-relaxed">{item.desc}</p>
                       </div>
                     </li>
                   ))}
@@ -778,6 +884,9 @@ export default function ServicePage({ onApply }) {
         </div>
       </section>
 
+      {/* Google Reviews for this service */}
+      <GoogleReviews category={service.name} />
+
       {/* Why Choose Us — cream */}
       <section className="section-cream relative py-20 sm:py-24 overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -835,6 +944,12 @@ export default function ServicePage({ onApply }) {
                 <span className="text-[#F97316] font-semibold text-sm">Learn More →</span>
               </Link>
             ))}
+          </div>
+
+          <div className="animate-on-scroll text-center mt-10">
+            <Link to="/blog" className="btn-outline">
+              Read More Articles
+            </Link>
           </div>
         </div>
       </section>

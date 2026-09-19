@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { apiRequest, apiUpload } from '../../utils/adminApi';
+import { resolveUploadUrl } from '../../utils/helpers';
 
 const EMPTY_FORM = {
   reviewer_name: '',
@@ -8,7 +9,22 @@ const EMPTY_FORM = {
   rating: 5,
   location: '',
   description: '',
+  category: 'Other',
 };
+
+const REVIEW_CATEGORIES = [
+  'Personal Loan',
+  'Business Loan',
+  'Machinery Loan',
+  'Cash Credit Loan (CC)',
+  'Overdraft (OD)',
+  'MSME Loan',
+  'Home Loan',
+  'Mortgage Loan',
+  'Car Loan',
+  'Insurance',
+  'Other',
+];
 
 function StarDisplay({ rating }) {
   return (
@@ -86,6 +102,7 @@ export default function ReviewsPage() {
       rating: review.rating || 5,
       location: review.location || '',
       description: review.description || '',
+      category: review.category || 'Other',
     });
     setModalOpen(true);
   };
@@ -107,10 +124,11 @@ export default function ReviewsPage() {
       if (hasFile) {
         const formData = new FormData();
         formData.append('reviewer_name', form.reviewer_name);
-        formData.append('reviewer_image', form.reviewer_image || '');
+        formData.append('reviewer_image', '');
         formData.append('rating', String(form.rating));
         formData.append('location', form.location || '');
         formData.append('description', form.description || '');
+        formData.append('category', form.category || 'Other');
         formData.append('reviewer_image_file', form.reviewer_image_file);
 
         if (editingId) {
@@ -125,6 +143,7 @@ export default function ReviewsPage() {
           rating: form.rating,
           location: form.location,
           description: form.description,
+          category: form.category || 'Other',
         };
 
         if (editingId) {
@@ -243,7 +262,7 @@ export default function ReviewsPage() {
                   </svg>
                   {review.reviewer_image ? (
                     <img
-                      src={review.reviewer_image}
+                      src={resolveUploadUrl(review.reviewer_image)}
                       alt={review.reviewer_name}
                       className="w-12 h-12 rounded-full object-cover border border-[rgba(255,200,100,0.1)]"
                       onError={(e) => { e.target.style.display = 'none'; }}
@@ -279,6 +298,11 @@ export default function ReviewsPage() {
                   )}
                   {review.description && (
                     <p className="text-sm text-[#B8A98A] mt-2 line-clamp-3">{review.description}</p>
+                  )}
+                  {review.category && review.category !== 'Other' && (
+                    <span className="inline-block mt-2 px-2 py-0.5 rounded-full bg-[#F97316]/10 text-[#F97316] text-xs font-medium">
+                      {review.category}
+                    </span>
                   )}
                 </div>
               </div>
@@ -322,10 +346,10 @@ export default function ReviewsPage() {
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => setForm({ ...form, reviewer_image_file: e.target.files[0] })}
+                  onChange={(e) => setForm({ ...form, reviewer_image_file: e.target.files[0], reviewer_image: '' })}
                   className="form-input file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#F97316]/10 file:text-[#F97316] file:text-sm file:font-medium hover:file:bg-[#F97316]/20 file:cursor-pointer"
                 />
-                <p className="text-xs text-[#7A6F5F] mt-1">JPG, PNG, WebP up to 5MB. URL takes priority if both provided.</p>
+                <p className="text-xs text-[#7A6F5F] mt-1">JPG, PNG, WebP up to 5MB. Uploaded file takes priority over URL.</p>
               </div>
               <div>
                 <label className="block text-sm text-[#B8A98A] mb-2">Rating *</label>
@@ -352,6 +376,19 @@ export default function ReviewsPage() {
                   rows={4}
                   className="form-input resize-none"
                 />
+              </div>
+              <div>
+                <label className="block text-sm text-[#B8A98A] mb-2">Service Category *</label>
+                <select
+                  value={form.category}
+                  onChange={(e) => setForm({ ...form, category: e.target.value })}
+                  className="form-input"
+                  required
+                >
+                  {REVIEW_CATEGORIES.map((cat) => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
               </div>
               <div className="flex gap-3 pt-2">
                 <button type="submit" disabled={saving} className={`btn-orange flex-1 ${saving ? 'btn-loading' : ''}`}>

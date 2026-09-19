@@ -38,6 +38,7 @@ export function validateEmail(email) {
 }
 
 export function formatCurrency(amount) {
+  if (!isFinite(amount)) return '₹0';
   return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
 }
 
@@ -54,21 +55,26 @@ export function parseIndianNumber(str) {
 }
 
 export function calculateEMI(principal, ratePercent, tenureMonths) {
+  if (!principal || principal <= 0 || !tenureMonths || tenureMonths <= 0) return 0;
   const r = ratePercent / 12 / 100;
-  if (r === 0) return principal / tenureMonths;
+  if (r === 0) return Math.round(principal / tenureMonths);
   const emi = principal * r * Math.pow(1 + r, tenureMonths) / (Math.pow(1 + r, tenureMonths) - 1);
-  return Math.round(emi);
+  return isFinite(emi) ? Math.round(emi) : 0;
 }
 
 export function slugify(text) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
-export function getPartnerLogoUrl(url) {
+export function resolveUploadUrl(url) {
   if (!url) return '';
   if (url.startsWith('/uploads/')) {
     const apiUrl = import.meta.env.VITE_API_URL || '';
     return `${apiUrl.replace('/api', '')}${url}`;
   }
   return url;
+}
+
+export function getPartnerLogoUrl(url) {
+  return resolveUploadUrl(url);
 }

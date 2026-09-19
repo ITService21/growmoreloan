@@ -3,6 +3,7 @@ import { useFormState } from '../utils/hooks';
 import { submitForm, validatePhone, validateEmail, trackEvent, formatIndianNumber, parseIndianNumber } from '../utils/helpers';
 import PhoneInput from './common/PhoneInput';
 import SERVICES from '../data/services';
+import { APPLY_PHONE } from '../data/company';
 
 const DEFAULT_FIELDS = ['name', 'email', 'phone', 'loanAmount', 'service'];
 
@@ -223,7 +224,7 @@ export default function FormModal({ isOpen, onClose, service = null, title = 'Ap
       onClick={handleClose}
     >
       <div
-        className="glass-card w-full max-w-lg p-6 sm:p-8 relative"
+        className="glass-card w-full max-w-lg max-h-[90vh] overflow-y-auto modal-scroll p-6 sm:p-8 relative"
         onClick={(e) => e.stopPropagation()}
         style={{ animation: 'modalIn 0.3s ease-out' }}
       >
@@ -238,13 +239,20 @@ export default function FormModal({ isOpen, onClose, service = null, title = 'Ap
           </svg>
         </button>
 
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">{title}</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-1" style={{ fontFamily: 'var(--font-display)' }}>{title}</h2>
         {service && (
-          <p className="text-sm text-[#B8A98A] mb-6">
+          <p className="text-sm text-[#B8A98A] mb-4">
             Apply for {service.name}
           </p>
         )}
-        {!service && <div className="mb-6" />}
+        {!service && <div className="mb-4" />}
+
+        <div className="flex gap-3 mb-6">
+          <a href={`tel:${APPLY_PHONE}`} className="flex-1 btn-orange text-center text-sm !py-2.5">📞 Call Now</a>
+          <a href={`https://wa.me/91${APPLY_PHONE}?text=${encodeURIComponent(`Hi, I'm interested in ${service?.name || 'your loan services'}. Please share details.`)}`} target="_blank" rel="noopener noreferrer" className="flex-1 btn-outline text-center text-sm !py-2.5">💬 WhatsApp</a>
+        </div>
+
+        <div className="border-t border-[rgba(255,200,100,0.06)] pt-5">
 
         {status?.type === 'success' ? (
           <div className="text-center py-8">
@@ -282,6 +290,7 @@ export default function FormModal({ isOpen, onClose, service = null, title = 'Ap
             </button>
           </form>
         )}
+        </div>
       </div>
 
       <style>{`

@@ -263,7 +263,7 @@ export default function AboutPage() {
             light
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16  justify-center">
             <div className="animate-on-scroll">
               <p className="text-[#5a5040] leading-relaxed mb-5">
                 {COMPANY.name} was founded with a clear vision — to simplify the
@@ -292,21 +292,144 @@ export default function AboutPage() {
                 to everyone across our two office locations in Rajkot and
                 Ahmedabad.
               </p>
-              <ul className="space-y-3">
-                {ABOUT_FEATURES.map((feature) => (
-                  <li
-                    key={feature}
-                    className="flex items-center gap-3 text-[#1a1710]"
-                  >
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--green)]/15 flex items-center justify-center text-[var(--green)] text-sm">
-                      ✓
-                    </span>
-                    <span className="font-medium text-sm sm:text-base">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-8">
+  {ABOUT_FEATURES.map((feature, index) => (
+    <div
+      key={feature}
+      className="
+        group relative overflow-hidden
+        rounded-[24px]
+        p-[1px]
+
+        bg-gradient-to-br
+        from-[#ff6b00]
+        via-[#ff8a2a]
+        to-[#ffd0a3]
+
+        shadow-[0_10px_30px_rgba(255,107,0,0.12)]
+
+        transition-all duration-500 ease-out
+        hover:-translate-y-2
+        hover:scale-[1.025]
+        hover:shadow-[0_22px_45px_rgba(255,107,0,0.25)]
+      "
+    >
+      {/* Inner card */}
+      <div
+        className="
+          relative h-full overflow-hidden
+          rounded-[23px]
+          bg-gradient-to-br
+          from-[#fffaf5]
+          via-[#fff7ef]
+          to-[#fff0df]
+          px-5 py-5
+        "
+      >
+        {/* Large orange glow */}
+        <div
+          className="
+            pointer-events-none
+            absolute -right-10 -top-10
+            h-32 w-32
+            rounded-full
+            bg-[#ff7518]/15
+            blur-3xl
+
+            transition-all duration-700
+            group-hover:scale-[1.8]
+            group-hover:bg-[#ff7518]/25
+          "
+        />
+
+        {/* Secondary glow */}
+        <div
+          className="
+            pointer-events-none
+            absolute -bottom-12 -left-12
+            h-28 w-28
+            rounded-full
+            bg-[#ffb067]/10
+            blur-2xl
+
+            transition-transform duration-700
+            group-hover:scale-[1.6]
+          "
+        />
+
+ 
+
+        <div className="relative flex items-center gap-4">
+
+          {/* Icon */}
+          <div
+            className="
+              flex h-12 w-12 shrink-0
+              items-center justify-center
+              rounded-2xl
+
+              bg-gradient-to-br
+              from-[#ff6b00]
+              to-[#ff9b4a]
+
+              shadow-[0_8px_18px_rgba(255,107,0,0.25)]
+
+              transition-all duration-500
+              group-hover:scale-110
+              group-hover:rotate-6
+              group-hover:shadow-[0_12px_25px_rgba(255,107,0,0.35)]
+            "
+          >
+            <span
+              className="
+                text-lg font-bold text-white
+                transition-transform duration-500
+                group-hover:scale-125
+              "
+            >
+              ✓
+            </span>
+          </div>
+
+          {/* Text */}
+          <span
+            className="
+              pr-8
+              text-sm sm:text-base
+              font-semibold
+              leading-6
+              text-[#51483d]
+
+              transition-colors duration-300
+              group-hover:text-[#d95d00]
+            "
+          >
+            {feature}
+          </span>
+        </div>
+
+        {/* Animated orange bottom line */}
+        <div
+          className="
+            absolute bottom-0 left-5 right-5
+            h-[3px]
+            origin-left
+            scale-x-0
+            rounded-full
+
+            bg-gradient-to-r
+            from-[#ff6b00]
+            via-[#ff9a45]
+            to-transparent
+
+            transition-transform duration-500
+            group-hover:scale-x-100
+          "
+        />
+      </div>
+    </div>
+  ))}
+</div>
             </div>
 
             <div
@@ -357,15 +480,19 @@ export default function AboutPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-4 mt-6">
-                <div className="glass-card p-5 aspect-square flex flex-col items-center justify-center text-center">
-                  <span className="text-3xl mb-2">🏆</span>
-                  <p className="text-sm font-semibold text-[#1a1710]">
+                <div className="glass-card p-6 aspect-square flex flex-col items-center justify-center text-center hover:shadow-[0_8px_40px_rgba(249,115,22,0.15)] transition-shadow duration-300 border-[rgba(249,115,22,0.12)]">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#F97316]/20 to-[#FBBF24]/10 flex items-center justify-center mb-3">
+                    <span className="text-2xl">🏆</span>
+                  </div>
+                  <p className="text-sm font-bold text-[#1a1710]" style={{ fontFamily: 'var(--font-display)' }}>
                     Trusted Consultancy
                   </p>
                 </div>
-                <div className="glass-card p-5 aspect-square flex flex-col items-center justify-center text-center">
-                  <span className="text-3xl mb-2">🤝</span>
-                  <p className="text-sm font-semibold text-[#1a1710]">
+                <div className="glass-card p-6 aspect-square flex flex-col items-center justify-center text-center hover:shadow-[0_8px_40px_rgba(34,197,94,0.15)] transition-shadow duration-300 border-[rgba(34,197,94,0.12)]">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#22C55E]/20 to-[#16A34A]/10 flex items-center justify-center mb-3">
+                    <span className="text-2xl">🤝</span>
+                  </div>
+                  <p className="text-sm font-bold text-[#1a1710]" style={{ fontFamily: 'var(--font-display)' }}>
                     {COMPANY.clients} Happy Clients
                   </p>
                 </div>
@@ -710,7 +837,7 @@ export default function AboutPage() {
                           src={logoUrl}
                           alt={name}
                           loading="lazy"
-                          className="max-h-10 max-w-full object-contain"
+                          className="max-h-10 max-w-full object-contain rounded-[10px] h-6 md:h-8"
                           onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       ) : null}

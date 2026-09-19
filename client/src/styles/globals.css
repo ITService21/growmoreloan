@@ -28,7 +28,7 @@
 
 /* ---------- Global ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+html { -webkit-tap-highlight-color: transparent; }
 
 body {
   font-family: var(--font-body);
@@ -245,7 +245,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; letter-spac
 .geo-shape {
   position: absolute;
   pointer-events: none;
-  will-change: transform;
   opacity: 0.5;
 }
 
@@ -293,7 +292,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; letter-spac
   border-radius: 50%;
   filter: blur(80px);
   pointer-events: none;
-  will-change: transform;
 }
 .blob-orange {
   background: radial-gradient(circle, rgba(249, 115, 22, 0.12) 0%, rgba(249, 115, 22, 0.04) 40%, transparent 70%);
@@ -326,8 +324,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; letter-spac
 /* ---------- Scroll Animation ---------- */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .animate-on-scroll.visible {
   opacity: 1;
@@ -442,6 +440,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; letter-spac
   background: rgba(17, 15, 10, 0.95);
 }
 .form-input::placeholder { color: var(--text-muted); }
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F97316' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E") center/contain no-repeat;
+  cursor: pointer;
+}
 
 select.form-input {
   appearance: none;
@@ -834,7 +840,6 @@ input[type="number"].no-spinner {
   height: 250px;
   border-radius: 50%;
   pointer-events: none;
-  will-change: transform;
   filter: blur(40px);
   opacity: 0.4;
 }
@@ -920,7 +925,7 @@ input[type="number"].no-spinner {
   inset: 0;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll;
   opacity: 0.08;
   z-index: 0;
 }
@@ -969,25 +974,28 @@ input[type="number"].no-spinner {
 /* ---------- Eligibility Card ---------- */
 .eligibility-card {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 20px;
-  border-radius: 14px;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+  border-radius: 16px;
   border: 1px solid var(--border-subtle);
   background: linear-gradient(135deg, var(--bg-card), var(--bg-surface));
   transition: all 0.4s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
 }
 .eligibility-card:hover {
-  border-color: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.25);
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 35px rgba(34,197,94,0.12);
 }
 .section-cream .eligibility-card {
-  background: rgba(255,255,255,0.85);
+  background: white;
   border-color: rgba(0,0,0,0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 .section-cream .eligibility-card:hover {
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 35px rgba(34,197,94,0.1);
+  border-color: rgba(34,197,94,0.2);
 }
 
 /* ---------- Partner Logo Scroll ---------- */
@@ -1027,11 +1035,10 @@ input[type="number"].no-spinner {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: brightness(0) invert(0.8);
   transition: filter 0.3s ease;
 }
 .partner-logo-card:hover img {
-  filter: brightness(0) invert(1);
+  filter: brightness(1.05);
 }
 .section-cream .partner-logo-card {
   background: rgba(0,0,0,0.02);

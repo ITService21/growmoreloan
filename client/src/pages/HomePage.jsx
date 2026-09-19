@@ -1,19 +1,26 @@
-import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import AnimatedBackground from '../components/AnimatedBackground';
-import SectionHeading from '../components/SectionHeading';
-import { COMPANY, STATS, WHY_US, PROCESS_STEPS, TEAM, APPLY_PHONE } from '../data/company';
-import SERVICES from '../data/services';
-import EMICalculator from '../components/common/EMICalculator';
-import GoogleReviews from '../components/GoogleReviews';
-import { trackEvent, getPartnerLogoUrl } from '../utils/helpers';
-import { useScrollAnimationMulti, useCountUp } from '../utils/hooks';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
+import AnimatedBackground from "../components/AnimatedBackground";
+import SectionHeading from "../components/SectionHeading";
+import {
+  COMPANY,
+  STATS,
+  WHY_US,
+  PROCESS_STEPS,
+  TEAM,
+  APPLY_PHONE,
+} from "../data/company";
+import SERVICES from "../data/services";
+import EMICalculator from "../components/common/EMICalculator";
+import GoogleReviews from "../components/GoogleReviews";
+import { trackEvent, getPartnerLogoUrl } from "../utils/helpers";
+import { useScrollAnimationMulti, useCountUp } from "../utils/hooks";
 
 const HERO_HEADLINES = [
   {
     text: (
       <>
-        Grow Your Business with{' '}
+        Grow Your Business with{" "}
         <span className="text-gradient-orange">Proven Financial Expertise</span>
       </>
     ),
@@ -21,97 +28,98 @@ const HERO_HEADLINES = [
   {
     text: (
       <>
-        Get <span className="text-gradient-orange">Instant Personal Loan</span> at Best Interest
-        Rates
+        Get <span className="text-gradient-orange">Instant Personal Loan</span>{" "}
+        at Best Interest Rates
       </>
     ),
   },
   {
     text: (
       <>
-        <span className="text-gradient-orange">Home Loan</span> Starting from Just{' '}
-        <span className="text-gradient-orange">7.15% Interest</span>
+        <span className="text-gradient-orange">Home Loan</span> Starting from
+        Just <span className="text-gradient-orange">7.15% Interest</span>
       </>
     ),
   },
   {
     text: (
       <>
-        <span className="text-gradient-orange">MSME & Business Loans</span> with Government
-        Schemes
+        <span className="text-gradient-orange">MSME & Business Loans</span> with
+        Government Schemes
       </>
     ),
   },
   {
     text: (
       <>
-        Drive Your <span className="text-gradient-orange">Dream Car</span> with Easy Car Loans
+        Drive Your <span className="text-gradient-orange">Dream Car</span> with
+        Easy Car Loans
       </>
     ),
   },
 ];
 
 const TRUST_BADGES = [
-  { label: '7+ Years Experience', icon: '📅' },
-  { label: '450+ Happy Clients', icon: '😊' },
-  { label: '10+ Services', icon: '📋' },
-  { label: 'Best Interest Rates', icon: '💰' },
+  { label: "7+ Years Experience", icon: "📅" },
+  { label: "450+ Happy Clients", icon: "😊" },
+  { label: "10+ Services", icon: "📋" },
+  { label: "Best Interest Rates", icon: "💰" },
 ];
 
 const ABOUT_FEATURES = [
-  'Expert Financial Advisors',
-  'Customized Financial Solutions',
-  'Transparent & Competitive Rates',
-  'Wide Network of Bank Partners',
+  "Expert Financial Advisors",
+  "Customized Financial Solutions",
+  "Transparent & Competitive Rates",
+  "Wide Network of Bank Partners",
 ];
 
 const ABOUT_HIGHLIGHTS = [
-  { label: '7+ Years Experience', icon: '📅' },
-  { label: '450+ Happy Clients', icon: '😊' },
-  { label: '15+ Bank Partners', icon: '🏦' },
-  { label: '2 Office Locations', icon: '📍' },
+  { label: "7+ Years Experience", icon: "📅" },
+  { label: "450+ Happy Clients", icon: "😊" },
+  { label: "15+ Bank Partners", icon: "🏦" },
+  { label: "2 Office Locations", icon: "📍" },
 ];
 
 const EXPANDED_WHY_US = [
   {
     ...WHY_US[0],
     description:
-      'Our seasoned financial advisors bring over seven years of hands-on experience in the Rajkot, Ahmedabad, and Gujarat loan market. We take time to understand your unique financial situation, income profile, and long-term goals before recommending the perfect loan product. Whether you are a salaried professional, business owner, or MSME entrepreneur, our personalized approach ensures you receive guidance that truly fits your needs — not a one-size-fits-all solution.',
+      "Our seasoned financial advisors bring over seven years of hands-on experience in the Rajkot, Ahmedabad, and Gujarat loan market. We take time to understand your unique financial situation, income profile, and long-term goals before recommending the perfect loan product. Whether you are a salaried professional, business owner, or MSME entrepreneur, our personalized approach ensures you receive guidance that truly fits your needs — not a one-size-fits-all solution.",
   },
   {
     ...WHY_US[1],
     description:
-      'Time is money, especially when you need funds urgently for business expansion, medical emergencies, or property purchase. Our streamlined documentation process and established relationships with banks mean faster approvals and quicker disbursements. We proactively follow up with lenders, resolve queries on your behalf, and keep the entire process moving smoothly so you can focus on what matters most.',
+      "Time is money, especially when you need funds urgently for business expansion, medical emergencies, or property purchase. Our streamlined documentation process and established relationships with banks mean faster approvals and quicker disbursements. We proactively follow up with lenders, resolve queries on your behalf, and keep the entire process moving smoothly so you can focus on what matters most.",
   },
   {
     ...WHY_US[2],
     description:
-      'We maintain partnerships with 15+ leading banks and NBFCs across India, giving us the leverage to negotiate the most competitive interest rates on your behalf. Our team constantly monitors market trends and rate changes to ensure you always get the best deal available. From home loans starting at 7.15% to business loans with government subsidies, we fight for every basis point to save you money.',
+      "We maintain partnerships with 15+ leading banks and NBFCs across India, giving us the leverage to negotiate the most competitive interest rates on your behalf. Our team constantly monitors market trends and rate changes to ensure you always get the best deal available. From home loans starting at 7.15% to business loans with government subsidies, we fight for every basis point to save you money.",
   },
   {
     ...WHY_US[3],
     description:
-      'Trust is the foundation of every financial relationship, and we never take it lightly. From the very first consultation, we provide a clear breakdown of all charges, processing fees, and terms — with absolutely no hidden costs or surprise deductions. You will always know exactly what you are signing up for, and our team is available to explain every clause in plain language before you commit.',
+      "Trust is the foundation of every financial relationship, and we never take it lightly. From the very first consultation, we provide a clear breakdown of all charges, processing fees, and terms — with absolutely no hidden costs or surprise deductions. You will always know exactly what you are signing up for, and our team is available to explain every clause in plain language before you commit.",
   },
   {
     ...WHY_US[4],
     description:
-      'Every client at Grow More is assigned a dedicated relationship manager who serves as your single point of contact throughout the loan journey. From document collection to final disbursement, your manager handles coordination, provides status updates, and resolves any issues that arise. This personal touch ensures seamless communication and gives you peace of mind knowing someone is always looking out for your interests.',
+      "Every client at Grow More is assigned a dedicated relationship manager who serves as your single point of contact throughout the loan journey. From document collection to final disbursement, your manager handles coordination, provides status updates, and resolves any issues that arise. This personal touch ensures seamless communication and gives you peace of mind knowing someone is always looking out for your interests.",
   },
   {
     ...WHY_US[5],
     description:
-      'Our growing family of 450+ satisfied clients across Rajkot and Ahmedabad is a testament to our unwavering commitment to service excellence. Many of our clients return for additional loans and refer their friends, family, and business associates to us. We measure our success not by the number of loans processed, but by the lasting relationships we build and the financial goals we help our clients achieve.',
+      "Our growing family of 450+ satisfied clients across Rajkot and Ahmedabad is a testament to our unwavering commitment to service excellence. Many of our clients return for additional loans and refer their friends, family, and business associates to us. We measure our success not by the number of loans processed, but by the lasting relationships we build and the financial goals we help our clients achieve.",
   },
 ];
 
 const EXPANDED_PROCESS = PROCESS_STEPS.map((step) => {
   const expansions = {
-    1: 'During your free consultation, our expert advisors sit down with you to understand your financial requirements, income sources, existing liabilities, and future goals. We assess your eligibility across multiple loan products and provide honest recommendations on the best options available. There is absolutely no obligation — our goal is to educate and empower you to make informed financial decisions.',
-    2: 'Once you decide to proceed, our team provides a comprehensive checklist of required documents tailored to your loan type and employment profile. We review your paperwork for completeness and accuracy before submission, helping you avoid common mistakes that cause delays. For business loans and MSME schemes, we also assist with project reports and financial statements preparation.',
-    3: 'Leveraging our extensive network of banking partners, we simultaneously compare offers from multiple lenders to identify the best interest rates, tenure options, and terms for your profile. We present you with a clear comparison of 2-3 top options, explaining the pros and cons of each. Once you choose, we initiate the formal application and liaise directly with the bank on your behalf.',
-    4: 'Our team manages the entire application lifecycle — from submission and verification to credit appraisal and sanction. We maintain regular follow-ups with bank officials, address any queries or additional document requests promptly, and keep you updated at every milestone. Our proactive approach significantly reduces processing time compared to applying directly.',
-    5: 'Upon loan approval, we coordinate the disbursement process to ensure funds reach your account as quickly as possible. We verify the sanction letter, EMI schedule, and all terms match what was agreed upon. Even after disbursement, we remain available for any queries regarding repayments, prepayment options, top-up loans, or balance transfers in the future.',
+    1: "During your free consultation, our expert advisors sit down with you to understand your financial requirements, income sources, existing liabilities, and future goals. We assess your eligibility across multiple loan products and provide honest recommendations on the best options available. There is absolutely no obligation — our goal is to educate and empower you to make informed financial decisions.",
+    2: "Once you decide to proceed, our team provides a comprehensive checklist of required documents tailored to your loan type and employment profile. We review your paperwork for completeness and accuracy before submission, helping you avoid common mistakes that cause delays. For business loans and MSME schemes, we also assist with project reports and financial statements preparation.",
+    3: "Leveraging our extensive network of banking partners, we simultaneously compare offers from multiple lenders to identify the best interest rates, tenure options, and terms for your profile. We present you with a clear comparison of 2-3 top options, explaining the pros and cons of each. Once you choose, we initiate the formal application and liaise directly with the bank on your behalf.",
+    4: "Our team manages the entire application lifecycle — from submission and verification to credit appraisal and sanction. We maintain regular follow-ups with bank officials, address any queries or additional document requests promptly, and keep you updated at every milestone. Our proactive approach significantly reduces processing time compared to applying directly.",
+    5: "Upon loan approval, we coordinate the disbursement process to ensure funds reach your account as quickly as possible. We verify the sanction letter, EMI schedule, and all terms match what was agreed upon. Even after disbursement, we remain available for any queries regarding repayments, prepayment options, top-up loans, or balance transfers in the future.",
   };
   return { ...step, description: expansions[step.step] };
 });
@@ -119,120 +127,174 @@ const EXPANDED_PROCESS = PROCESS_STEPS.map((step) => {
 const LOAN_JOURNEY = [
   {
     step: 1,
-    title: 'Free Consultation',
+    title: "Free Consultation",
     description:
-      'We begin with a complimentary one-on-one session where we listen carefully to your financial needs, assess your eligibility, and outline the best loan options available for your unique situation. No pressure, no obligation — just expert guidance.',
+      "We begin with a complimentary one-on-one session where we listen carefully to your financial needs, assess your eligibility, and outline the best loan options available for your unique situation. No pressure, no obligation — just expert guidance.",
   },
   {
     step: 2,
-    title: 'Document Preparation',
+    title: "Document Preparation",
     description:
-      'Our dedicated team helps you gather, organize, and verify all required documents — from identity proofs and income statements to property papers and business registrations. We ensure everything is complete and accurate before submission.',
+      "Our dedicated team helps you gather, organize, and verify all required documents — from identity proofs and income statements to property papers and business registrations. We ensure everything is complete and accurate before submission.",
   },
   {
     step: 3,
-    title: 'Bank Processing',
+    title: "Bank Processing",
     description:
-      'We submit your application to multiple banks simultaneously and negotiate on your behalf for the best interest rates and terms. Our established relationships with lenders ensure faster processing and higher approval chances.',
+      "We submit your application to multiple banks simultaneously and negotiate on your behalf for the best interest rates and terms. Our established relationships with lenders ensure faster processing and higher approval chances.",
   },
   {
     step: 4,
-    title: 'Loan Disbursement',
+    title: "Loan Disbursement",
     description:
-      'Once approved, we coordinate the final disbursement to ensure funds reach your account quickly and without complications. We verify all terms, provide your EMI schedule, and remain available for any post-disbursement support.',
+      "Once approved, we coordinate the final disbursement to ensure funds reach your account quickly and without complications. We verify all terms, provide your EMI schedule, and remain available for any post-disbursement support.",
   },
 ];
 
 const HOME_FAQS = [
   {
-    q: 'What is the minimum credit score required for a personal loan?',
-    a: 'Most lenders require a minimum credit score of 650. However, we work with multiple banks and NBFCs, so even with a lower score, we may find suitable options for you. Our team evaluates your complete financial profile — not just your credit score — to identify lenders who may approve your application.',
+    q: "What is the minimum credit score required for a personal loan?",
+    a: "Most lenders require a minimum credit score of 650. However, we work with multiple banks and NBFCs, so even with a lower score, we may find suitable options for you. Our team evaluates your complete financial profile — not just your credit score — to identify lenders who may approve your application.",
   },
   {
-    q: 'How quickly can I get a personal loan?',
-    a: 'With complete documentation, personal loans can be approved within 24–48 hours and disbursed within 2–3 working days. Our streamlined process and bank partnerships help expedite approvals significantly compared to applying directly. For urgent requirements, we prioritize your application and maintain daily follow-ups with the lender.',
+    q: "How quickly can I get a personal loan?",
+    a: "With complete documentation, personal loans can be approved within 24–48 hours and disbursed within 2–3 working days. Our streamlined process and bank partnerships help expedite approvals significantly compared to applying directly. For urgent requirements, we prioritize your application and maintain daily follow-ups with the lender.",
   },
   {
-    q: 'What is the maximum home loan I can get?',
-    a: 'The maximum loan amount depends on your income, age, existing liabilities, and the property value. Generally, banks offer 75–90% of the property value. We help you maximize your eligibility by optimizing your application profile and selecting the right co-applicants and lender combinations.',
+    q: "What is the maximum home loan I can get?",
+    a: "The maximum loan amount depends on your income, age, existing liabilities, and the property value. Generally, banks offer 75–90% of the property value. We help you maximize your eligibility by optimizing your application profile and selecting the right co-applicants and lender combinations.",
   },
   {
-    q: 'Can a new business get a loan?',
-    a: 'Most lenders require at least 2 years of business vintage. However, we have options for businesses with 1+ year of operations under specific schemes like Mudra, PMEGP, and Stand-Up India. Our MSME specialists guide you through government-backed programs designed specifically for new and growing businesses.',
+    q: "Can a new business get a loan?",
+    a: "Most lenders require at least 2 years of business vintage. However, we have options for businesses with 1+ year of operations under specific schemes like Mudra, PMEGP, and Stand-Up India. Our MSME specialists guide you through government-backed programs designed specifically for new and growing businesses.",
   },
   {
-    q: 'Is collateral required for a business loan?',
-    a: 'For loans up to ₹25 lakh, collateral-free options are available under the CGTMSE scheme. For higher amounts, collateral may be required depending on the lender and your business profile. We explore all available options — including government guarantee schemes — to minimize or eliminate collateral requirements wherever possible.',
+    q: "Is collateral required for a business loan?",
+    a: "For loans up to ₹25 lakh, collateral-free options are available under the CGTMSE scheme. For higher amounts, collateral may be required depending on the lender and your business profile. We explore all available options — including government guarantee schemes — to minimize or eliminate collateral requirements wherever possible.",
   },
   {
-    q: 'What are the tax benefits on a home loan?',
-    a: 'You can claim up to ₹1.5 lakh deduction on principal repayment under Section 80C and up to ₹2 lakh on interest under Section 24(b) for self-occupied property. We help you understand these benefits while structuring your home loan for maximum savings.',
+    q: "What are the tax benefits on a home loan?",
+    a: "You can claim up to ₹1.5 lakh deduction on principal repayment under Section 80C and up to ₹2 lakh on interest under Section 24(b) for self-occupied property. We help you understand these benefits while structuring your home loan for maximum savings.",
   },
   {
-    q: 'What is Udyam Registration and do I need it?',
-    a: 'Udyam Registration is the government\'s free online registration for MSMEs. It is required to avail MSME loan benefits, subsidies, and priority lending schemes. If you don\'t have it yet, our team can guide you through the registration process.',
+    q: "What is Udyam Registration and do I need it?",
+    a: "Udyam Registration is the government's free online registration for MSMEs. It is required to avail MSME loan benefits, subsidies, and priority lending schemes. If you don't have it yet, our team can guide you through the registration process.",
   },
   {
-    q: 'What is the difference between Cash Credit and a Term Loan?',
-    a: 'Cash Credit is a revolving facility where you withdraw and repay repeatedly, paying interest only on the utilized amount. A term loan is a lump sum with fixed EMIs. We help you choose the right product based on your business cash flow and funding needs.',
+    q: "What is the difference between Cash Credit and a Term Loan?",
+    a: "Cash Credit is a revolving facility where you withdraw and repay repeatedly, paying interest only on the utilized amount. A term loan is a lump sum with fixed EMIs. We help you choose the right product based on your business cash flow and funding needs.",
   },
   {
-    q: 'Can I get 100% financing for a new car?',
-    a: 'Yes, for salaried professionals with a good credit score and select car models, 100% on-road financing is available from some lenders. We compare offers across banks to find the best car loan deal for your profile.',
+    q: "Can I get 100% financing for a new car?",
+    a: "Yes, for salaried professionals with a good credit score and select car models, 100% on-road financing is available from some lenders. We compare offers across banks to find the best car loan deal for your profile.",
   },
   {
-    q: 'Should I opt for fixed or floating interest rate?',
-    a: 'Floating rates are generally lower and adjust with market conditions. Fixed rates provide certainty but are usually 1–2% higher. We analyze your loan type, tenure, and market outlook to recommend the option that saves you the most over time.',
+    q: "Should I opt for fixed or floating interest rate?",
+    a: "Floating rates are generally lower and adjust with market conditions. Fixed rates provide certainty but are usually 1–2% higher. We analyze your loan type, tenure, and market outlook to recommend the option that saves you the most over time.",
   },
   {
-    q: 'How does Grow More help compared to applying directly to a bank?',
-    a: 'We compare offers from 15+ banks, negotiate better rates, handle documentation, follow up with lenders, and provide end-to-end support — all at no extra cost to you. Our 7+ years of experience and 450+ satisfied clients reflect the value we deliver beyond what a single bank can offer.',
+    q: "How does Grow More help compared to applying directly to a bank?",
+    a: "We compare offers from 15+ banks, negotiate better rates, handle documentation, follow up with lenders, and provide end-to-end support — all at no extra cost to you. Our 7+ years of experience and 450+ satisfied clients reflect the value we deliver beyond what a single bank can offer.",
   },
   {
-    q: 'Do you charge any consultancy fees?',
-    a: 'Our initial consultation is completely free. We earn through bank commissions, so our services come at no direct cost to you. We maintain full transparency about all processing fees and charges before you proceed with any loan application.',
+    q: "Do you charge any consultancy fees?",
+    a: "Our initial consultation is completely free. We earn through bank commissions, so our services come at no direct cost to you. We maintain full transparency about all processing fees and charges before you proceed with any loan application.",
   },
 ];
 
-const APPLY_PHONE_DISPLAY = TEAM.find((m) => m.phone === APPLY_PHONE)?.phoneDisplay || '90819 41882';
+const APPLY_PHONE_DISPLAY =
+  TEAM.find((m) => m.phone === APPLY_PHONE)?.phoneDisplay || "90819 41882";
 
 const FALLBACK_PARTNERS = [
-  { name: 'State Bank of India', domain: 'sbi.co.in' },
-  { name: 'HDFC Bank', domain: 'hdfcbank.com' },
-  { name: 'ICICI Bank', domain: 'icicibank.com' },
-  { name: 'Axis Bank', domain: 'axisbank.com' },
-  { name: 'Bank of Baroda', domain: 'bankofbaroda.co.in' },
-  { name: 'Punjab National Bank', domain: 'pnb.co.in' },
-  { name: 'Kotak Mahindra Bank', domain: 'kotak.com' },
-  { name: 'IndusInd Bank', domain: 'indusind.com' },
-  { name: 'Yes Bank', domain: 'yesbank.in' },
-  { name: 'IDFC First Bank', domain: 'idfcfirstbank.com' },
-  { name: 'Bajaj Finserv', domain: 'bajajfinserv.in' },
-  { name: 'Tata Capital', domain: 'tatacapital.com' },
-  { name: 'Mahindra Finance', domain: 'mahindrafinance.com' },
-  { name: 'LIC Housing Finance', domain: 'lichousing.com' },
-  { name: 'Aditya Birla Capital', domain: 'adityabirlacapital.com' },
+  { name: "State Bank of India", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/SBI-logo.svg/200px-SBI-logo.svg.png" },
+  { name: "HDFC Bank", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/200px-HDFC_Bank_Logo.svg.png" },
+  { name: "ICICI Bank", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/200px-ICICI_Bank_Logo.svg.png" },
+  { name: "Axis Bank", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Axis_Bank_logo.svg/200px-Axis_Bank_logo.svg.png" },
+  { name: "Bank of Baroda", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Bank_of_Baroda_logo.svg/200px-Bank_of_Baroda_logo.svg.png" },
+  { name: "Punjab National Bank", logo_url: "https://upload.wikimedia.org/wikipedia/en/thumb/5/58/Punjab_National_Bank_logo.svg/200px-Punjab_National_Bank_logo.svg.png" },
+  { name: "Kotak Mahindra Bank", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Kotak_Mahindra_Bank_logo.svg/200px-Kotak_Mahindra_Bank_logo.svg.png" },
+  { name: "IndusInd Bank", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/IndusInd_Bank_logo.svg/200px-IndusInd_Bank_logo.svg.png" },
+  { name: "Yes Bank", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Yes_Bank_logo.svg/200px-Yes_Bank_logo.svg.png" },
+  { name: "IDFC First Bank", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/IDFC_First_Bank_logo.svg/200px-IDFC_First_Bank_logo.svg.png" },
+  { name: "Bajaj Finserv", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Bajaj_Finserv_Logo.svg/200px-Bajaj_Finserv_Logo.svg.png" },
+  { name: "Tata Capital", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tata_logo.svg/200px-Tata_logo.svg.png" },
+  { name: "Mahindra Finance", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Mahindra_and_Mahindra_Logo.svg/200px-Mahindra_and_Mahindra_Logo.svg.png" },
+  { name: "LIC Housing Finance", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/LIC_India_logo.svg/200px-LIC_India_logo.svg.png" },
+  { name: "Aditya Birla Capital", logo_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Aditya_Birla_Group_Logo.svg/200px-Aditya_Birla_Group_Logo.svg.png" },
 ];
 
-const EMI_BG_IMAGE = 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200';
+const EMI_BG_IMAGE =
+  "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200";
 
 function WhyUsFloatingShapes() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      <svg className="geo-float-1 absolute top-[10%] left-[5%] w-16 h-16 opacity-[0.05]" viewBox="0 0 60 60">
-        <polygon points="30,5 55,50 5,50" fill="none" stroke="#F97316" strokeWidth="2" />
+    <div
+      className="absolute inset-0 overflow-hidden pointer-events-none"
+      aria-hidden="true"
+    >
+      <svg
+        className="geo-float-1 absolute top-[10%] left-[5%] w-16 h-16 opacity-[0.05]"
+        viewBox="0 0 60 60"
+      >
+        <polygon
+          points="30,5 55,50 5,50"
+          fill="none"
+          stroke="#F97316"
+          strokeWidth="2"
+        />
       </svg>
-      <svg className="geo-float-2 absolute top-[30%] right-[8%] w-20 h-20 opacity-[0.05]" viewBox="0 0 60 60">
-        <circle cx="30" cy="30" r="26" fill="none" stroke="#22C55E" strokeWidth="2" />
+      <svg
+        className="geo-float-2 absolute top-[30%] right-[8%] w-20 h-20 opacity-[0.05]"
+        viewBox="0 0 60 60"
+      >
+        <circle
+          cx="30"
+          cy="30"
+          r="26"
+          fill="none"
+          stroke="#22C55E"
+          strokeWidth="2"
+        />
       </svg>
-      <svg className="geo-float-3 absolute bottom-[20%] left-[12%] w-14 h-14 opacity-[0.05]" viewBox="0 0 50 50">
-        <rect x="8" y="8" width="34" height="34" rx="4" fill="none" stroke="#F97316" strokeWidth="2" transform="rotate(20 25 25)" />
+      <svg
+        className="geo-float-3 absolute bottom-[20%] left-[12%] w-14 h-14 opacity-[0.05]"
+        viewBox="0 0 50 50"
+      >
+        <rect
+          x="8"
+          y="8"
+          width="34"
+          height="34"
+          rx="4"
+          fill="none"
+          stroke="#F97316"
+          strokeWidth="2"
+          transform="rotate(20 25 25)"
+        />
       </svg>
-      <svg className="geo-float-4 absolute top-[55%] right-[15%] w-12 h-12 opacity-[0.05]" viewBox="0 0 50 50">
-        <polygon points="25,3 45,15 45,35 25,47 5,35 5,15" fill="none" stroke="#22C55E" strokeWidth="2" />
+      <svg
+        className="geo-float-4 absolute top-[55%] right-[15%] w-12 h-12 opacity-[0.05]"
+        viewBox="0 0 50 50"
+      >
+        <polygon
+          points="25,3 45,15 45,35 25,47 5,35 5,15"
+          fill="none"
+          stroke="#22C55E"
+          strokeWidth="2"
+        />
       </svg>
-      <svg className="geo-float-5 absolute bottom-[10%] right-[25%] w-10 h-10 opacity-[0.05]" viewBox="0 0 40 40">
-        <circle cx="20" cy="20" r="16" fill="none" stroke="#F97316" strokeWidth="2" />
+      <svg
+        className="geo-float-5 absolute bottom-[10%] right-[25%] w-10 h-10 opacity-[0.05]"
+        viewBox="0 0 40 40"
+      >
+        <circle
+          cx="20"
+          cy="20"
+          r="16"
+          fill="none"
+          stroke="#F97316"
+          strokeWidth="2"
+        />
       </svg>
     </div>
   );
@@ -244,7 +306,7 @@ function ServiceCard({ service }) {
       <div className="icon-box mb-5">{service.icon}</div>
       <h3
         className="text-xl font-bold text-[var(--text-primary)] mb-3"
-        style={{ fontFamily: 'var(--font-display)' }}
+        style={{ fontFamily: "var(--font-display)" }}
       >
         {service.name}
       </h3>
@@ -282,15 +344,15 @@ function BackgroundObjects() {
     <>
       <div
         className="bg-object-large obj-orange geo-float-2"
-        style={{ top: '8%', right: '3%', width: '280px', height: '280px' }}
+        style={{ top: "8%", right: "3%", width: "280px", height: "280px" }}
       />
       <div
         className="bg-object-large obj-green geo-float-4"
-        style={{ bottom: '12%', left: '2%', width: '250px', height: '250px' }}
+        style={{ bottom: "12%", left: "2%", width: "250px", height: "250px" }}
       />
       <div
         className="bg-object-large obj-gold geo-float-3"
-        style={{ top: '45%', left: '40%', width: '220px', height: '220px' }}
+        style={{ top: "45%", left: "40%", width: "220px", height: "220px" }}
       />
     </>
   );
@@ -310,7 +372,55 @@ export default function HomePage({ onApply }) {
   const [activeOffice, setActiveOffice] = useState(0);
   const [partners, setPartners] = useState(FALLBACK_PARTNERS);
   const servicesScrollRef = useRef(null);
+  const servicesAutoRef = useRef(null);
+
+  const startServicesAutoScroll = useCallback(() => {
+    if (servicesAutoRef.current) clearInterval(servicesAutoRef.current);
+    servicesAutoRef.current = setInterval(() => {
+      const container = servicesScrollRef.current;
+      if (!container) return;
+      if (
+        container.scrollLeft + container.clientWidth >=
+        container.scrollWidth - 10
+      ) {
+        container.scrollLeft = 0;
+      } else {
+        container.scrollBy({ left: 2, behavior: "auto" });
+      }
+    }, 30);
+  }, []);
+
+  useEffect(() => {
+    startServicesAutoScroll();
+    return () => {
+      if (servicesAutoRef.current) clearInterval(servicesAutoRef.current);
+    };
+  }, [startServicesAutoScroll]);
   const partnersScrollRef = useRef(null);
+  const partnerAutoRef = useRef(null);
+
+  const startPartnerAutoScroll = useCallback(() => {
+    if (partnerAutoRef.current) clearInterval(partnerAutoRef.current);
+    partnerAutoRef.current = setInterval(() => {
+      const container = partnersScrollRef.current;
+      if (!container) return;
+      if (
+        container.scrollLeft + container.clientWidth >=
+        container.scrollWidth - 10
+      ) {
+        container.scrollLeft = 0;
+      } else {
+        container.scrollBy({ left: 2, behavior: "auto" });
+      }
+    }, 30);
+  }, []);
+
+  useEffect(() => {
+    startPartnerAutoScroll();
+    return () => {
+      if (partnerAutoRef.current) clearInterval(partnerAutoRef.current);
+    };
+  }, [startPartnerAutoScroll]);
 
   useEffect(() => {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -337,7 +447,7 @@ export default function HomePage({ onApply }) {
 
   const handleApply = () => {
     if (onApply) onApply();
-    else trackEvent('apply_click', 'engagement', 'home_hero');
+    else trackEvent("apply_click", "engagement", "home_hero");
   };
 
   const leftFaqs = HOME_FAQS.slice(0, 6);
@@ -365,11 +475,11 @@ export default function HomePage({ onApply }) {
                 return (
                   <div
                     key={index}
-                    className={`hero-slide ${isActive ? 'active' : ''} ${isExit ? 'exit' : ''}`}
+                    className={`hero-slide ${isActive ? "active" : ""} ${isExit ? "exit" : ""}`}
                   >
                     <h1
                       className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight px-4"
-                      style={{ fontFamily: 'var(--font-display)' }}
+                      style={{ fontFamily: "var(--font-display)" }}
                     >
                       {headline.text}
                     </h1>
@@ -379,11 +489,13 @@ export default function HomePage({ onApply }) {
             </div>
 
             <p className="text-base sm:text-lg lg:text-xl text-[var(--text-secondary)] leading-relaxed mb-10 max-w-3xl mx-auto">
-              {COMPANY.name} is Gujarat&apos;s premier loan consultancy, empowering individuals and
-              businesses across Rajkot &amp; Ahmedabad with personalized financial solutions. With{' '}
-              {COMPANY.experience} years of expertise and partnerships with 15+ leading banks, we
-              deliver the best interest rates, fastest approvals, and unwavering support — from your
-              first consultation to final disbursement.
+              {COMPANY.name} is Gujarat&apos;s premier loan consultancy,
+              empowering individuals and businesses across Rajkot &amp;
+              Ahmedabad with personalized financial solutions. With{" "}
+              {COMPANY.experience} years of expertise and partnerships with 15+
+              leading banks, we deliver the best interest rates, fastest
+              approvals, and unwavering support — from your first consultation
+              to final disbursement.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
@@ -400,7 +512,9 @@ export default function HomePage({ onApply }) {
               <a
                 href={`tel:+91${APPLY_PHONE}`}
                 className="btn-dark w-full sm:w-auto"
-                onClick={() => trackEvent('call_click', 'engagement', 'home_hero')}
+                onClick={() =>
+                  trackEvent("call_click", "engagement", "home_hero")
+                }
               >
                 📞 +91 {APPLY_PHONE_DISPLAY}
               </a>
@@ -427,14 +541,21 @@ export default function HomePage({ onApply }) {
           href="#about-preview"
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[var(--text-muted)] hover:text-[var(--orange)] transition-colors"
         >
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase">Scroll Down</span>
+          <span className="text-xs font-semibold tracking-[0.2em] uppercase">
+            Scroll Down
+          </span>
           <svg
             className="w-5 h-5 animate-bounce"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </a>
       </section>
@@ -442,7 +563,10 @@ export default function HomePage({ onApply }) {
       <div className="section-divider max-w-7xl mx-auto" />
 
       {/* ─── 2. ABOUT PREVIEW ─── */}
-      <section id="about-preview" className="relative py-20 sm:py-24 overflow-hidden">
+      <section
+        id="about-preview"
+        className="relative py-20 sm:py-24 overflow-hidden"
+      >
         <AnimatedBackground />
         <BackgroundObjects />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -451,28 +575,33 @@ export default function HomePage({ onApply }) {
               <span className="section-badge mb-6">✦ About Us</span>
               <h2
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight"
-                style={{ fontFamily: 'var(--font-display)' }}
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 Your Trusted Partner for All Financial Needs
               </h2>
               <div className="h-1 w-24 rounded-full bg-gradient-to-r from-[#F97316] via-[#FBBF24] to-[#22C55E] mb-6" />
               <p className="text-[var(--text-secondary)] leading-relaxed mb-5">
-                Founded in 2019 in the heart of Rajkot, {COMPANY.shortName} has rapidly established
-                itself as one of Gujarat&apos;s most trusted loan consultancy firms. We specialize
-                in connecting individuals, entrepreneurs, and MSMEs with the right financial products
-                from India&apos;s leading banks and NBFCs — ensuring every client receives tailored
-                solutions at the most competitive rates.
+                Founded in 2019 in the heart of Rajkot, {COMPANY.shortName} has
+                rapidly established itself as one of Gujarat&apos;s most trusted
+                loan consultancy firms. We specialize in connecting individuals,
+                entrepreneurs, and MSMEs with the right financial products from
+                India&apos;s leading banks and NBFCs — ensuring every client
+                receives tailored solutions at the most competitive rates.
               </p>
               <p className="text-[var(--text-secondary)] leading-relaxed mb-8">
-                With offices in Rajkot and Ahmedabad, our team of experienced financial advisors
-                understands the local market dynamics across Gujarat. From personal loans and home
-                financing starting at 7.15% to business funding and government-backed MSME schemes,
-                we guide you through every step with transparency, integrity, and a genuine
-                commitment to your financial success.
+                With offices in Rajkot and Ahmedabad, our team of experienced
+                financial advisors understands the local market dynamics across
+                Gujarat. From personal loans and home financing starting at
+                7.15% to business funding and government-backed MSME schemes, we
+                guide you through every step with transparency, integrity, and a
+                genuine commitment to your financial success.
               </p>
               <ul className="space-y-3 mb-8">
                 {ABOUT_FEATURES.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3 text-[var(--text-primary)]">
+                  <li
+                    key={feature}
+                    className="flex items-center gap-3 text-[var(--text-primary)]"
+                  >
                     <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--green)]/15 flex items-center justify-center text-[var(--green)] text-sm">
                       ✓
                     </span>
@@ -488,23 +617,30 @@ export default function HomePage({ onApply }) {
               </Link>
             </div>
 
-            <div className="animate-on-scroll" style={{ transitionDelay: '150ms' }}>
+            <div
+              className="animate-on-scroll"
+              style={{ transitionDelay: "150ms" }}
+            >
               <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#2a1f12] via-[#1a1710] to-[#0f1a12] border border-[var(--border-subtle)] p-8 sm:p-10">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--orange)]/10 rounded-full blur-3xl pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-[var(--green)]/10 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="relative flex flex-wrap items-start justify-between gap-4 mb-8">
                   <div className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[var(--orange)]/20 to-[var(--orange)]/10 border border-[var(--orange)]/30">
-                    <span className="text-sm font-bold text-[var(--orange)]">Est. 2019</span>
+                    <span className="text-sm font-bold text-[var(--orange)]">
+                      Est. 2019
+                    </span>
                   </div>
                   <div className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[var(--green)]/20 to-[var(--green)]/10 border border-[var(--green)]/30">
-                    <span className="text-sm font-bold text-[var(--green)]">450+ Clients Served</span>
+                    <span className="text-sm font-bold text-[var(--green)]">
+                      450+ Clients Served
+                    </span>
                   </div>
                 </div>
 
                 <h3
                   className="text-3xl sm:text-4xl font-bold text-white mb-2"
-                  style={{ fontFamily: 'var(--font-display)' }}
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   7+ Years of Excellence
                 </h3>
@@ -528,12 +664,15 @@ export default function HomePage({ onApply }) {
 
                 <ul className="space-y-3">
                   {[
-                    'Home loans from 7.15% interest rate',
-                    '15+ partner banks & NBFCs',
-                    'Free consultation & document support',
-                    'Dedicated relationship manager',
+                    "Home loans from 7.15% interest rate",
+                    "15+ partner banks & NBFCs",
+                    "Free consultation & document support",
+                    "Dedicated relationship manager",
                   ].map((point) => (
-                    <li key={point} className="flex items-center gap-3 text-[var(--text-secondary)]">
+                    <li
+                      key={point}
+                      className="flex items-center gap-3 text-[var(--text-secondary)]"
+                    >
                       <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[var(--green)]/15 flex items-center justify-center text-[var(--green)] text-xs">
                         ✓
                       </span>
@@ -549,7 +688,9 @@ export default function HomePage({ onApply }) {
                 </div>
                 <div className="flex-grow">
                   <p className="font-bold text-white">{TEAM[0].name}</p>
-                  <p className="text-sm text-[var(--text-secondary)]">{TEAM[0].role}</p>
+                  <p className="text-sm text-[var(--text-secondary)]">
+                    {TEAM[0].role}
+                  </p>
                 </div>
                 <a
                   href={`tel:+91${APPLY_PHONE}`}
@@ -566,7 +707,10 @@ export default function HomePage({ onApply }) {
       <div className="section-divider max-w-7xl mx-auto" />
 
       {/* ─── 3. SERVICES AUTO-SCROLL CAROUSEL ─── */}
-      <section id="services" className="relative py-20 sm:py-24 overflow-hidden">
+      <section
+        id="services"
+        className="relative py-20 sm:py-24 overflow-hidden"
+      >
         <AnimatedBackground />
         <BackgroundObjects />
         <div className="relative z-10 max-w-none px-0">
@@ -578,21 +722,45 @@ export default function HomePage({ onApply }) {
             />
           </div>
 
-          <div className="relative animate-on-scroll">
+          <div
+            className="relative animate-on-scroll"
+            onMouseEnter={() => {
+              if (servicesAutoRef.current)
+                clearInterval(servicesAutoRef.current);
+            }}
+            onMouseLeave={() => {
+              startServicesAutoScroll();
+            }}
+          >
             <button
               type="button"
-              onClick={() => servicesScrollRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
+              onClick={() =>
+                servicesScrollRef.current?.scrollBy({
+                  left: -300,
+                  behavior: "smooth",
+                })
+              }
               className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll services left"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
             </button>
             <div
               ref={servicesScrollRef}
               className="overflow-x-auto flex gap-6 py-4 px-14 sm:px-16 scrollbar-hide"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {[...SERVICES, ...SERVICES].map((service, index) => (
                 <ServiceCard key={`${service.id}-${index}`} service={service} />
@@ -600,12 +768,27 @@ export default function HomePage({ onApply }) {
             </div>
             <button
               type="button"
-              onClick={() => servicesScrollRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
+              onClick={() =>
+                servicesScrollRef.current?.scrollBy({
+                  left: 300,
+                  behavior: "smooth",
+                })
+              }
               className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll services right"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </div>
@@ -639,11 +822,13 @@ export default function HomePage({ onApply }) {
                 <div className="icon-box icon-box-green mb-5">{item.icon}</div>
                 <h3
                   className="text-xl font-bold text-[#1a1710] mb-3"
-                  style={{ fontFamily: 'var(--font-display)' }}
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   {item.title}
                 </h3>
-                <p className="text-[#5a5040] text-sm leading-relaxed">{item.description}</p>
+                <p className="text-[#5a5040] text-sm leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
@@ -658,10 +843,10 @@ export default function HomePage({ onApply }) {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
-              { ref: ref1, count: count1, suffix: '+', label: STATS[0].label },
-              { ref: ref2, count: count2, suffix: '+', label: STATS[1].label },
-              { ref: ref3, count: count3, suffix: '+', label: STATS[2].label },
-              { ref: ref4, count: count4, suffix: '%', label: STATS[3].label },
+              { ref: ref1, count: count1, suffix: "+", label: STATS[0].label },
+              { ref: ref2, count: count2, suffix: "+", label: STATS[1].label },
+              { ref: ref3, count: count3, suffix: "+", label: STATS[2].label },
+              { ref: ref4, count: count4, suffix: "%", label: STATS[3].label },
             ].map((stat, index) => (
               <div
                 key={stat.label}
@@ -671,9 +856,10 @@ export default function HomePage({ onApply }) {
               >
                 <p
                   className="text-5xl md:text-6xl font-bold text-gradient-orange stat-glow mb-3 leading-none counter-animate"
-                  style={{ fontFamily: 'var(--font-display)' }}
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
-                  {stat.count}{stat.suffix}
+                  {stat.count}
+                  {stat.suffix}
                 </p>
                 <p className="text-[var(--text-secondary)] font-semibold text-sm sm:text-base">
                   {stat.label}
@@ -703,7 +889,10 @@ export default function HomePage({ onApply }) {
             </div>
             <div className="flex justify-between mt-3">
               {EXPANDED_PROCESS.map((step) => (
-                <span key={step.step} className="text-xs text-[var(--text-muted)] font-medium">
+                <span
+                  key={step.step}
+                  className="text-xs text-[var(--text-muted)] font-medium"
+                >
                   Step {step.step}
                 </span>
               ))}
@@ -723,8 +912,8 @@ export default function HomePage({ onApply }) {
                   <div
                     className={`flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg z-10 relative ${
                       index % 2 === 0
-                        ? 'bg-gradient-to-br from-[var(--green)] to-[#16A34A]'
-                        : 'bg-gradient-to-br from-[var(--orange)] to-[#EA580C]'
+                        ? "bg-gradient-to-br from-[var(--green)] to-[#16A34A]"
+                        : "bg-gradient-to-br from-[var(--orange)] to-[#EA580C]"
                     }`}
                   >
                     {step.step}
@@ -732,7 +921,7 @@ export default function HomePage({ onApply }) {
                   <div className="glass-card p-6 flex-grow">
                     <h3
                       className="text-xl font-bold text-white mb-3"
-                      style={{ fontFamily: 'var(--font-display)' }}
+                      style={{ fontFamily: "var(--font-display)" }}
                     >
                       {step.title}
                     </h3>
@@ -759,39 +948,85 @@ export default function HomePage({ onApply }) {
             />
           </div>
 
-          <div className="relative animate-on-scroll">
+          <div
+            className="relative animate-on-scroll"
+            onMouseEnter={() => {
+              if (partnerAutoRef.current) clearInterval(partnerAutoRef.current);
+            }}
+            onMouseLeave={() => {
+              startPartnerAutoScroll();
+            }}
+          >
             <button
               type="button"
               onClick={() => {
                 const container = partnersScrollRef.current;
                 if (!container) return;
-                container.scrollBy({ left: -300, behavior: 'smooth' });
+                container.scrollBy({ left: -300, behavior: "smooth" });
               }}
               className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll partners left"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
             </button>
-            <div ref={partnersScrollRef} className="overflow-x-auto flex gap-5 py-4 px-12 sm:px-14 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              {[...partners, ...partners].map((partner, index) => {
+            <div
+              ref={partnersScrollRef}
+              className="overflow-x-auto flex gap-5 py-4 px-12 sm:px-14 scrollbar-hide"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {[...partners, ...partners, ...partners].map((partner, index) => {
                 const logoUrl = partner.logo_url
                   ? getPartnerLogoUrl(partner.logo_url)
-                  : '';
-                const name = partner.name || 'Partner';
+                  : "";
+                const name = partner.name || "Partner";
+                const hasRealLogo =
+                  logoUrl &&
+                  !logoUrl.includes("logo.clearbit.com") &&
+                  !logoUrl.includes("s2/favicons");
                 return (
-                  <div key={`${name}-${index}`} className="partner-logo-card flex-col gap-2">
-                    {logoUrl && !logoUrl.includes('logo.clearbit.com') && !logoUrl.includes('s2/favicons') ? (
-                      <img
-                        src={logoUrl}
-                        alt={name}
-                        loading="lazy"
-                        className="max-h-10 max-w-full object-contain"
-                        onError={(e) => { e.target.style.display = 'none'; }}
-                      />
-                    ) : null}
-                    <span className="text-xs font-bold text-[var(--text-primary)] text-center px-2 leading-tight">{name}</span>
+                  <div
+                    key={`${name}-${index}`}
+                    className="partner-logo-card flex flex-col items-center gap-2"
+                  >
+                    {hasRealLogo ? (
+                      <div className="flex items-center justify-center w-[72px] h-[48px] overflow-hidden">
+                        <img
+                          src={logoUrl}
+                          alt={name}
+                          loading="lazy"
+                          className="max-h-[48px] max-w-[68px] object-contain"
+                          onLoad={(e) => {
+                            if (e.target.naturalWidth <= 2 || e.target.naturalHeight <= 2) {
+                              e.target.parentNode.innerHTML = `<span class="text-lg font-bold text-[#F97316]">${name[0]}</span>`;
+                            }
+                          }}
+                          onError={(e) => {
+                            e.target.parentNode.innerHTML = `<span class="text-lg font-bold text-[#F97316]">${name[0]}</span>`;
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#F97316]/20 to-[#FBBF24]/10 border border-[#F97316]/20 flex items-center justify-center">
+                        <span className="text-lg font-bold text-[#F97316]">
+                          {name[0]}
+                        </span>
+                      </div>
+                    )}
+                    <span className="text-xs font-bold text-[var(--text-primary)] text-center px-2 leading-tight">
+                      {name}
+                    </span>
                   </div>
                 );
               })}
@@ -801,13 +1036,23 @@ export default function HomePage({ onApply }) {
               onClick={() => {
                 const container = partnersScrollRef.current;
                 if (!container) return;
-                container.scrollBy({ left: 300, behavior: 'smooth' });
+                container.scrollBy({ left: 300, behavior: "smooth" });
               }}
               className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0c0c0c]/90 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center hover:bg-[#F97316]/10 transition-all"
               aria-label="Scroll partners right"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </div>
@@ -893,67 +1138,71 @@ export default function HomePage({ onApply }) {
             ))}
           </div> */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-  {LOAN_JOURNEY.map((item, index) => (
-    <div
-      key={item.step}
-      className="relative pt-4"
-    >
-      {/* Step Number */}
-      <div className="absolute top-0 left-0 w-10 h-10 rounded-full bg-gradient-to-br from-[var(--orange)] to-[#EA580C] flex items-center justify-center text-white font-bold text-sm shadow-lg z-20">
-        {item.step}
-      </div>
+            {LOAN_JOURNEY.map((item, index) => (
+              <div key={item.step} className="relative pt-4">
+                {/* Step Number */}
+                <div className="absolute top-0 left-0 w-10 h-10 rounded-full bg-gradient-to-br from-[var(--orange)] to-[#EA580C] flex items-center justify-center text-white font-bold text-sm shadow-lg z-20">
+                  {item.step}
+                </div>
 
-      {/* Card */}
-      <div
-        className="premium-card p-7 animate-on-scroll relative"
-        style={{ transitionDelay: `${index * 100}ms` }}
-      >
-        <h3
-          className="text-xl font-bold text-[var(--text-primary)] mb-3 mt-2"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          {item.title}
-        </h3>
+                {/* Card */}
+                <div
+                  className="premium-card p-7 animate-on-scroll relative"
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <h3
+                    className="text-xl font-bold text-[var(--text-primary)] mb-3 mt-2"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {item.title}
+                  </h3>
 
-        <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
-          {item.description}
-        </p>
-      </div>
-    </div>
-  ))}
-</div>
+                  <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ─── 9. CTA SECTION ─── */}
       <section className="section-cream wave-divider-top relative py-20 sm:py-24 overflow-hidden">
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-on-scroll">
-          <span className="section-badge mb-6 inline-flex">✦ Expert Financial Guidance</span>
+          <span className="section-badge mb-6 inline-flex">
+            ✦ Expert Financial Guidance
+          </span>
           <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1a1710] mb-6 leading-tight"
-            style={{ fontFamily: 'var(--font-display)' }}
+            style={{ fontFamily: "var(--font-display)" }}
           >
-            Ready to Achieve Your{' '}
+            Ready to Achieve Your{" "}
             <span className="text-gradient-orange">Financial Goals</span>?
           </h2>
           <p className="text-[#5a5040] text-base sm:text-lg leading-relaxed mb-4 max-w-2xl mx-auto">
-            Take the first step toward financial freedom with personalized loan solutions crafted
-            exclusively for your needs. Our expert advisors provide free consultations, fast
-            approvals, and competitive rates from India&apos;s top banks.
+            Take the first step toward financial freedom with personalized loan
+            solutions crafted exclusively for your needs. Our expert advisors
+            provide free consultations, fast approvals, and competitive rates
+            from India&apos;s top banks.
           </p>
           <p className="text-[#9a8a6a] text-sm sm:text-base leading-relaxed mb-10 max-w-xl mx-auto">
-            Join 450+ satisfied clients across Rajkot and Ahmedabad who trust Grow More for
-            transparent, reliable, and results-driven financial consultancy. Your success is our
-            mission.
+            Join 450+ satisfied clients across Rajkot and Ahmedabad who trust
+            Grow More for transparent, reliable, and results-driven financial
+            consultancy. Your success is our mission.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/contact" className="btn-orange w-full sm:w-auto" onClick={handleApply}>
+            <Link
+              to="/contact"
+              className="btn-orange w-full sm:w-auto"
+              onClick={handleApply}
+            >
               Get Free Consultation →
             </Link>
             <a
               href={`tel:+91${APPLY_PHONE}`}
               className="btn-outline w-full sm:w-auto"
-              onClick={() => trackEvent('call_click', 'engagement', 'home_cta')}
+              onClick={() => trackEvent("call_click", "engagement", "home_cta")}
             >
               Call: {APPLY_PHONE_DISPLAY}
             </a>
@@ -980,8 +1229,8 @@ export default function HomePage({ onApply }) {
                 onClick={() => setActiveOffice(index)}
                 className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
                   activeOffice === index
-                    ? 'bg-gradient-to-r from-[var(--orange)] to-[#EA580C] text-white shadow-lg shadow-[var(--orange)]/20'
-                    : 'glass-card text-[var(--text-primary)] hover:border-[var(--orange)]/30'
+                    ? "bg-gradient-to-r from-[var(--orange)] to-[#EA580C] text-white shadow-lg shadow-[var(--orange)]/20"
+                    : "glass-card text-[var(--text-primary)] hover:border-[var(--orange)]/30"
                 }`}
               >
                 {office.label}
@@ -995,9 +1244,10 @@ export default function HomePage({ onApply }) {
                 <div className="mb-8">
                   <h3
                     className="text-lg font-bold text-white mb-3 flex items-center gap-2"
-                    style={{ fontFamily: 'var(--font-display)' }}
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
-                    <span className="text-[var(--orange)]">📍</span> {currentOffice.label}
+                    <span className="text-[var(--orange)]">📍</span>{" "}
+                    {currentOffice.label}
                   </h3>
                   <p className="text-[var(--text-secondary)] leading-relaxed">
                     {currentOffice.address}
@@ -1007,7 +1257,7 @@ export default function HomePage({ onApply }) {
                 <div className="mb-8">
                   <h3
                     className="text-lg font-bold text-white mb-4"
-                    style={{ fontFamily: 'var(--font-display)' }}
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     Contact Our Team
                   </h3>
@@ -1018,8 +1268,12 @@ export default function HomePage({ onApply }) {
                         className="flex items-center justify-between gap-4 p-4 rounded-xl bg-[var(--bg-primary)]/40 border border-[var(--border-subtle)]"
                       >
                         <div>
-                          <p className="font-semibold text-[var(--text-primary)]">{member.name}</p>
-                          <p className="text-sm text-[var(--text-muted)]">{member.role}</p>
+                          <p className="font-semibold text-[var(--text-primary)]">
+                            {member.name}
+                          </p>
+                          <p className="text-sm text-[var(--text-muted)]">
+                            {member.role}
+                          </p>
                         </div>
                         <a
                           href={`tel:+91${member.phone}`}
@@ -1035,15 +1289,19 @@ export default function HomePage({ onApply }) {
                 <div>
                   <h3
                     className="text-lg font-bold text-white mb-2"
-                    style={{ fontFamily: 'var(--font-display)' }}
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     Working Hours
                   </h3>
                   <p className="text-[var(--text-secondary)]">
-                    Monday – Saturday:{' '}
-                    <span className="text-[var(--text-primary)] font-medium">10:00 AM – 7:00 PM</span>
+                    Monday – Saturday:{" "}
+                    <span className="text-[var(--text-primary)] font-medium">
+                      10:00 AM – 7:00 PM
+                    </span>
                   </p>
-                  <p className="text-[var(--text-muted)] text-sm mt-1">Sunday: Closed</p>
+                  <p className="text-[var(--text-muted)] text-sm mt-1">
+                    Sunday: Closed
+                  </p>
                 </div>
               </div>
 
@@ -1053,7 +1311,7 @@ export default function HomePage({ onApply }) {
                   src={currentOffice.mapEmbed}
                   width="100%"
                   height="100%"
-                  style={{ border: 0, minHeight: '100%' }}
+                  style={{ border: 0, minHeight: "100%" }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -1079,7 +1337,10 @@ export default function HomePage({ onApply }) {
           <div className="animate-on-scroll grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-3 items-start">
             <div className="space-y-3">
               {leftFaqs.map((faq, index) => (
-                <div key={index} className={`faq-item ${openFaq === index ? 'active' : ''}`}>
+                <div
+                  key={index}
+                  className={`faq-item ${openFaq === index ? "active" : ""}`}
+                >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(openFaq === index ? null : index)}
@@ -1090,7 +1351,7 @@ export default function HomePage({ onApply }) {
                     </span>
                     <span
                       className={`text-[var(--orange)] text-xl flex-shrink-0 transition-transform duration-300 ${
-                        openFaq === index ? 'rotate-45' : ''
+                        openFaq === index ? "rotate-45" : ""
                       }`}
                     >
                       +
@@ -1111,11 +1372,13 @@ export default function HomePage({ onApply }) {
                 return (
                   <div
                     key={faqIndex}
-                    className={`faq-item ${openFaq === faqIndex ? 'active' : ''}`}
+                    className={`faq-item ${openFaq === faqIndex ? "active" : ""}`}
                   >
                     <button
                       type="button"
-                      onClick={() => setOpenFaq(openFaq === faqIndex ? null : faqIndex)}
+                      onClick={() =>
+                        setOpenFaq(openFaq === faqIndex ? null : faqIndex)
+                      }
                       className="w-full flex items-center justify-between p-5 sm:p-6 text-left"
                     >
                       <span className="text-sm sm:text-base font-semibold text-[#1a1710] pr-4">
@@ -1123,7 +1386,7 @@ export default function HomePage({ onApply }) {
                       </span>
                       <span
                         className={`text-[var(--orange)] text-xl flex-shrink-0 transition-transform duration-300 ${
-                          openFaq === faqIndex ? 'rotate-45' : ''
+                          openFaq === faqIndex ? "rotate-45" : ""
                         }`}
                       >
                         +

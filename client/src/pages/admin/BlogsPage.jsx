@@ -147,7 +147,7 @@ export default function BlogsPage() {
         formData.append('category', form.category);
         formData.append('category_name', form.category_name);
         formData.append('excerpt', form.excerpt || '');
-        formData.append('image_url', form.image_url || '');
+        formData.append('image_url', '');
         formData.append('date', form.date);
         formData.append('read_time', form.read_time || '5 min read');
         formData.append('content', JSON.stringify(content));
@@ -375,10 +375,10 @@ export default function BlogsPage() {
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => setForm({ ...form, image_file: e.target.files[0] })}
+                  onChange={(e) => setForm({ ...form, image_file: e.target.files[0], image_url: '' })}
                   className="form-input file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#F97316]/10 file:text-[#F97316] file:text-sm file:font-medium hover:file:bg-[#F97316]/20 file:cursor-pointer"
                 />
-                <p className="text-xs text-[#7A6F5F] mt-1">JPG, PNG, WebP up to 5MB. URL takes priority if both provided.</p>
+                <p className="text-xs text-[#7A6F5F] mt-1">JPG, PNG, WebP up to 5MB. Uploaded file takes priority over URL.</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>

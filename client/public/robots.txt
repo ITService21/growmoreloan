@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://growmoreloan.in/sitemap.xml

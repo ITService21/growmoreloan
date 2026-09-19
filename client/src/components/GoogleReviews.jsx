@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import SectionHeading from './SectionHeading';
+import { resolveUploadUrl } from '../utils/helpers';
 
 const REVIEWS_PER_PAGE = 20;
 
-export default function GoogleReviews({ light = false, className = '' }) {
+export default function GoogleReviews({ light = false, className = '', category = '' }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -11,9 +12,11 @@ export default function GoogleReviews({ light = false, className = '' }) {
 
   const fetchReviews = useCallback(async (pageNum) => {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/reviews?page=${pageNum}&limit=${REVIEWS_PER_PAGE}`
-      );
+      let url = `${import.meta.env.VITE_API_URL}/reviews?page=${pageNum}&limit=${REVIEWS_PER_PAGE}`;
+      if (category) {
+        url += `&category=${encodeURIComponent(category)}`;
+      }
+      const res = await fetch(url);
       const json = await res.json();
       if (json.success && json.data) {
         if (pageNum === 1) {
@@ -28,9 +31,11 @@ export default function GoogleReviews({ light = false, className = '' }) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [category]);
 
   useEffect(() => {
+    setPage(1);
+    setLoading(true);
     fetchReviews(1);
   }, [fetchReviews]);
 
@@ -47,8 +52,8 @@ export default function GoogleReviews({ light = false, className = '' }) {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Testimonials"
-          title="What Our Clients Say"
-          subtitle="Real reviews from clients who trusted us with their financial goals."
+          title="What Our Customers Say"
+          subtitle={category ? `Real reviews from clients who used our ${category} services.` : 'Real reviews from clients who trusted us with their financial goals.'}
           light={light}
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -57,7 +62,7 @@ export default function GoogleReviews({ light = false, className = '' }) {
               <div className="flex items-center gap-3 mb-4">
                 {review.reviewer_image ? (
                   <img
-                    src={review.reviewer_image}
+                    src={resolveUploadUrl(review.reviewer_image)}
                     alt={review.reviewer_name}
                     className="w-12 h-12 rounded-full object-cover"
                     onError={(e) => {
@@ -93,6 +98,11 @@ export default function GoogleReviews({ light = false, className = '' }) {
                   </svg>
                 ))}
               </div>
+              {review.category && (
+                <span className="inline-block px-2 py-0.5 rounded-full bg-[#F97316]/10 text-[#F97316] text-xs font-medium mb-2">
+                  {review.category}
+                </span>
+              )}
               {review.description && (
                 <p className="text-sm text-[var(--text-secondary)] leading-relaxed line-clamp-4">
                   {review.description}

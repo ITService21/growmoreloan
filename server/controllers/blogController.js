@@ -17,13 +17,13 @@ const stringifyField = (value, fallback = '[]') => {
 };
 
 const resolveImageUrl = (bodyImageUrl, file) => {
-  if (bodyImageUrl && typeof bodyImageUrl === 'string' && bodyImageUrl.trim()) {
-    return bodyImageUrl.trim();
-  }
   if (file) {
     return `/uploads/${file.filename}`;
   }
-  return bodyImageUrl || null;
+  if (bodyImageUrl && typeof bodyImageUrl === 'string' && bodyImageUrl.trim()) {
+    return bodyImageUrl.trim();
+  }
+  return null;
 };
 
 export const getAllBlogs = (req, res) => {

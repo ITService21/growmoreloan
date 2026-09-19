@@ -54,7 +54,7 @@ function App() {
             <Route path="blogs" element={<BlogsPage />} />
           </Route>
           <Route path="/" element={<HomePage onApply={openModal} />} />
-          <Route path="/services/:serviceId" element={<ServicePage onApply={openModal} />} />
+          <Route path="/services/:serviceId" element={<ServicePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/blog" element={<BlogPage />} />

@@ -20,16 +20,17 @@ export function useScrollAnimation(threshold = 0.15) {
 }
 
 export function useScrollAnimationMulti() {
+  const { pathname } = useLocation();
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }),
-      { threshold: 0.12 }
+      { threshold: 0.08 }
     );
     const timeout = setTimeout(() => {
       document.querySelectorAll('.animate-on-scroll:not(.visible)').forEach(el => observer.observe(el));
     }, 100);
     return () => { clearTimeout(timeout); observer.disconnect(); };
-  }, []);
+  }, [pathname]);
 }
 
 export function useHeaderScroll() {

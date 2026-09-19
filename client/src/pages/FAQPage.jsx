@@ -7,6 +7,13 @@ import { COMPANY } from '../data/company';
 import { getWhatsAppLink } from '../utils/helpers';
 import { useScrollAnimationMulti } from '../utils/hooks';
 
+const BLOG_IMAGES = {
+  'personal-loan': 'https://images.pexels.com/photos/4386431/pexels-photo-4386431.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'business-loan': 'https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'home-loan': 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'msme-loan': 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800',
+};
+
 const CATEGORIES = [
   'All',
   'General',
@@ -193,6 +200,7 @@ export default function FAQPage() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [openIndex, setOpenIndex] = useState(null);
+  const [selectedArticle, setSelectedArticle] = useState(null);
 
   useEffect(() => {
     document.title = `FAQs | ${COMPANY.name}`;
@@ -297,7 +305,7 @@ export default function FAQPage() {
         <SectionBgObjects variant="faq" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredFaqs.length === 0 ? (
-            <div className="animate-on-scroll text-center py-12">
+            <div className="opacity-0 animate-fadeIn text-center py-12">
               <p className="text-[var(--text-secondary)] text-lg">No FAQs found matching your search.</p>
               <button
                 type="button"
@@ -311,11 +319,12 @@ export default function FAQPage() {
               </button>
             </div>
           ) : (
-            <div className="animate-on-scroll grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start" key={`${activeCategory}-${searchQuery}`}>
               {filteredFaqs.map((faq, index) => (
                 <div
                   key={`${faq.category}-${faq.q}`}
-                  className={`faq-item ${openIndex === index ? 'active' : ''}`}
+                  className={`faq-item opacity-0 animate-fadeIn ${openIndex === index ? 'active' : ''}`}
+                  style={{ animationDelay: `${index * 40}ms` }}
                 >
                   <button
                     type="button"
@@ -415,12 +424,13 @@ export default function FAQPage() {
                 <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
                   {article.excerpt}
                 </p>
-                <Link
-                  to={`/blog/${article.id}`}
-                  className="text-sm font-semibold text-[#F97316] hover:text-[#FBBF24] transition-colors mt-auto"
+                <button
+                  type="button"
+                  onClick={() => setSelectedArticle(article)}
+                  className="text-sm font-semibold text-[#F97316] hover:text-[#FBBF24] transition-colors mt-auto text-left"
                 >
                   Read More →
-                </Link>
+                </button>
               </article>
             ))}
           </div>
@@ -432,6 +442,51 @@ export default function FAQPage() {
           </div>
         </div>
       </section>
+
+      {selectedArticle && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+          style={{ background: 'rgba(10,9,6,0.88)', backdropFilter: 'blur(8px)' }}
+          onClick={() => setSelectedArticle(null)}
+        >
+          <div
+            className="bg-white w-full max-w-3xl max-h-[90vh] rounded-2xl overflow-hidden flex flex-col relative shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+            style={{ animation: 'modalIn 0.3s ease-out' }}
+          >
+            <button
+              type="button"
+              onClick={() => setSelectedArticle(null)}
+              className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <div className="relative h-48 sm:h-56 bg-gradient-to-r from-[#F97316]/20 to-[#FBBF24]/10">
+              <img src={BLOG_IMAGES[selectedArticle.category] || BLOG_IMAGES['personal-loan']} alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-4 left-6 right-6">
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#F97316] text-white mb-2">{selectedArticle.categoryName}</span>
+                <h2 className="text-xl sm:text-2xl font-bold text-white leading-snug" style={{ fontFamily: 'var(--font-display)' }}>{selectedArticle.title}</h2>
+              </div>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6 sm:p-8">
+              <p className="text-[#5a5040] leading-relaxed mb-4">{selectedArticle.excerpt}</p>
+              {Array.isArray(selectedArticle.content) && selectedArticle.content.map((section, i) => (
+                <div key={i} className="mb-4">
+                  {section.heading && <h3 className="text-lg font-bold text-[#1a1710] mb-2" style={{ fontFamily: 'var(--font-display)' }}>{section.heading}</h3>}
+                  {section.text && <p className="text-[#5a5040] text-sm leading-relaxed">{section.text}</p>}
+                  {section.list && (
+                    <ul className="list-disc pl-5 space-y-1 text-[#5a5040] text-sm">
+                      {section.list.map((item, j) => <li key={j}>{item}</li>)}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+          <style>{`@keyframes modalIn { from { opacity:0; transform:scale(0.95) translateY(10px); } to { opacity:1; transform:scale(1) translateY(0); } }`}</style>
+        </div>
+      )}
     </main>
   );
 }

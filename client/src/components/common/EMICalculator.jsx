@@ -76,13 +76,19 @@ export default function EMICalculator({
 
   const handleRateInput = (value) => {
     setRateInput(value);
+    if (value === '' || value === '.') {
+      setInterestRate(0);
+      return;
+    }
     const val = parseFloat(value);
-    if (!isNaN(val) && val >= 0 && val <= 30) setInterestRate(val);
+    if (!isNaN(val) && val >= 0 && val <= 30) {
+      setInterestRate(val);
+    }
   };
 
   const handleRateBlur = () => {
     const val = parseFloat(rateInput);
-    if (isNaN(val) || val < 0) {
+    if (isNaN(val) || val < 1) {
       setInterestRate(1);
       setRateInput('1');
     } else if (val > 30) {
@@ -102,6 +108,10 @@ export default function EMICalculator({
 
   const handleTenureInput = (value) => {
     setTenureInput(value);
+    if (value === '' || value === '.') {
+      setTenureYears(0);
+      return;
+    }
     const val = parseFloat(value);
     if (!isNaN(val) && val >= 0 && val <= tenureMaxYears) {
       setTenureYears(val);
@@ -239,6 +249,16 @@ export default function EMICalculator({
         ))}
       </div>
 
+      {/* Amortization Schedule */}
+      {showAmortization && (
+        <div className="mt-10 mb-4 text-center">
+          <span className="section-badge mb-2 inline-flex">📊 Schedule</span>
+          <h3 className="text-2xl sm:text-3xl font-bold text-[#F97316]" style={{ fontFamily: 'var(--font-display)' }}>
+            Amortization Schedule
+          </h3>
+          <div className="mx-auto mt-2 w-16 h-1 rounded-full bg-gradient-to-r from-[#F97316] via-[#22C55E] to-[#FBBF24]" />
+        </div>
+      )}
       {showAmortization && schedule.length > 0 && (
         <div className="mt-10 rounded-2xl overflow-hidden border border-[var(--border-subtle)]">
           <div className="max-h-[500px] overflow-y-auto overflow-x-auto">
@@ -256,7 +276,7 @@ export default function EMICalculator({
                 {schedule.map((row, index) => (
                   <tr
                     key={row.month}
-                    className={`border-b border-[rgba(255,200,100,0.06)] transition-colors hover:bg-[rgba(249,115,22,0.08)] ${
+                    className={`border-b border-[rgba(255,200,100,0.06)] transition-colors hover:bg-gray -800 ${
                       index % 2 === 0 ? 'bg-[#0c0c0c]' : 'bg-[#110f0a]'
                     }`}
                   >
