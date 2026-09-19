@@ -82,9 +82,9 @@ export default function Header({ onApply }) {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo + Brand */}
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group min-w-0" onClick={closeMobile}>
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center ring-2 ring-[rgba(249,115,22,0.25)] group-hover:ring-[#F97316]/50 transition-all duration-300 shrink-0">
+            <div className="md:w-[61px] md:h-[61px] w-[54px] h-[54px]   rounded-full bg-white flex items-center justify-center ring-2 ring-[rgba(249,115,22,0.25)] group-hover:ring-[#F97316]/50 transition-all duration-300 shrink-0">
               <img
-                src="/images/logo.png"
+                src="/images/logo.jpeg"
                 alt={COMPANY.name}
                 className="w-full h-full object-contain p-1"
               />

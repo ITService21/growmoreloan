@@ -53,7 +53,7 @@ export default function LoginPage() {
       <div className="glass-card w-full max-w-md p-8 sm:p-10 relative z-10 !transform-none hover:!transform-none">
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-full bg-white mx-auto mb-4 flex items-center justify-center ring-2 ring-[rgba(249,115,22,0.25)]">
-            <img src="/images/logo.png" alt={COMPANY.shortName} className="w-full h-full object-contain p-1.5" />
+            <img src="/images/logo.jpeg" alt={COMPANY.shortName} className="w-full h-full object-contain p-1.5" />
           </div>
           <h1 className="text-2xl font-bold text-white mb-1" style={{ fontFamily: 'var(--font-display)' }}>
             Admin Panel

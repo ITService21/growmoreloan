@@ -210,7 +210,7 @@ export default function BlogArticlePage() {
           <div className="animate-on-scroll glass-card p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
             <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0 p-2 border border-[var(--border-subtle)]">
               <img
-                src="/images/logo.png"
+                src="/images/logo.jpeg"
                 alt={COMPANY.shortName}
                 className="w-full h-full object-contain"
               />

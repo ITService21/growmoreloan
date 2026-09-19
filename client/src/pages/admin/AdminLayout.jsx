@@ -48,7 +48,7 @@ export default function AdminLayout() {
         <div className="p-6 border-b border-[rgba(255,200,100,0.06)]">
           <a href="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shrink-0">
-              <img src="/images/logo.png" alt="Grow More" className="w-full h-full object-contain p-1" />
+              <img src="/images/logo.jpeg" alt="Grow More" className="w-full h-full object-contain p-1" />
             </div>
             <div>
               <p className="text-white font-semibold text-sm" style={{ fontFamily: 'var(--font-display)' }}>

@@ -46,7 +46,7 @@ export default function Footer() {
             <Link to="/" className="flex items-start gap-3 group">
               <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center ring-2 ring-[rgba(249,115,22,0.25)] group-hover:ring-[#F97316]/40 transition-all duration-300 shrink-0">
                 <img
-                  src="/images/logo.png"
+                  src="/images/logo.jpeg"
                   alt={COMPANY.name}
                   className="w-full h-full object-contain p-1"
                 />
