@@ -33,7 +33,7 @@ export const TEAM = [
 
 export const APPLY_PHONE = '9081941882';
 
-export const WHATSAPP_NUMBER = '919574413218';
+export const WHATSAPP_NUMBER = '919081941882';
 
 export const STATS = [
   { value: '7+', label: 'Years Experience', icon: '📅' },
