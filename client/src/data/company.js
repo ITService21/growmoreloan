@@ -20,7 +20,7 @@ export const COMPANY = {
       mapEmbed: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3672.715446465457!2d72.66252497531309!3d22.99748897919129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjLCsDU5JzUxLjAiTiA3MsKwMzknNTQuNCJF!5e0!3m2!1sen!2sin!4v1789151182634!5m2!1sen!2sin',
     },
   ],
-  email: 'info@growmoreloan.com',
+  email: 'Info.growmoregroup@gmail.com',
   website: 'https://growmoreloan.com',
   formApi: 'https://piwebtechnology.com/send-form-mail?company=growmoreloan',
 };

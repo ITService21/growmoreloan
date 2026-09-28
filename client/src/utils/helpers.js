@@ -18,10 +18,39 @@ export function trackEvent(action, category = 'engagement', label = '', value = 
   if (window.dataLayer) window.dataLayer.push({ event: action, category, label, value });
 }
 
+const FIELD_LABELS = {
+  name: 'Name',
+  email: 'Email',
+  phone: 'Phone',
+  service: 'Service',
+  loanAmount: 'Loan Amount',
+  message: 'Message',
+  formType: 'Form Type',
+  source: 'Source',
+  page: 'Page',
+};
+
+function toLabel(key) {
+  return FIELD_LABELS[key] || key.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, c => c.toUpperCase());
+}
+
 export function submitForm(formData) {
   const utm = getStoredUTM();
-  const data = new URLSearchParams({ ...formData, ...utm, source: 'website', page: window.location.pathname });
-  return fetch(COMPANY.formApi, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data.toString() });
+  const allData = { ...formData, ...utm, source: 'website', page: window.location.pathname };
+  const fields = {};
+  Object.entries(allData).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') fields[toLabel(key)] = value;
+  });
+  return fetch(COMPANY.formApi, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      // to: COMPANY.email,
+      to: "Info.growmoregroup1@gmail.com",
+      subject: `New ${formData.formType ? toLabel(formData.formType) + ' ' : ''}Enquiry - ${COMPANY.name}`,
+      fields,
+    }),
+  });
 }
 
 export function getWhatsAppLink(message = '') {

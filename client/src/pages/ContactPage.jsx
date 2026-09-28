@@ -88,7 +88,7 @@ export default function ContactPage() {
   const [activeOffice, setActiveOffice] = useState(0);
   const [openFaq, setOpenFaq] = useState(null);
 
-  const { formData, loading, setLoading, status, setStatus, handleChange, reset, setFormData } = useFormState({
+  const { formData, loading, setLoading, status, setStatus, handleChange, resetFields, setFormData } = useFormState({
     name: '',
     email: '',
     phone: '',
@@ -146,7 +146,7 @@ export default function ContactPage() {
       if (res.ok) {
         setStatus({ type: 'success', message: 'Thank you! Our team will contact you within 24 hours.' });
         trackEvent('form_submit', 'lead', 'contact_page');
-        reset();
+        resetFields();
       } else {
         setStatus({ type: 'error', message: 'Something went wrong. Please try again or call us directly.' });
       }

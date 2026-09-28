@@ -61,7 +61,9 @@ export default function BookConsultant() {
             </div>
 
             <div className="border-t border-[rgba(255,200,100,0.06)] pt-5">
-              <p className="text-sm text-[#B8A98A] font-medium mb-4">Or fill the enquiry form below:</p>
+              {status?.type !== 'success' && (
+                <p className="text-sm text-[#B8A98A] font-medium mb-4">Or fill the enquiry form below:</p>
+              )}
 
               {status?.type === 'success' ? (
                 <div className="text-center py-6">

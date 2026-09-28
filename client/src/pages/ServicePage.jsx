@@ -195,7 +195,7 @@ export default function ServicePage() {
   const [docTab, setDocTab] = useState('salaried');
   const [openFaq, setOpenFaq] = useState(null);
 
-  const { formData, loading, setLoading, status, setStatus, handleChange, reset, setFormData } =
+  const { formData, loading, setLoading, status, setStatus, handleChange, resetFields, setFormData } =
     useFormState(service ? buildInitialFormFields(service.formFields, service.name) : {});
 
   useScrollAnimationMulti();
@@ -287,7 +287,7 @@ export default function ServicePage() {
       if (res.ok) {
         setStatus({ type: 'success', message: 'Thank you! Our team will contact you within 24 hours.' });
         trackEvent('form_submit', 'conversion', service.id);
-        reset();
+        resetFields();
       } else {
         setStatus({ type: 'error', message: 'Something went wrong. Please try again or call us directly.' });
       }

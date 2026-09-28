@@ -59,13 +59,17 @@ export function useFormState(initialFields = {}) {
     setFormData(prev => ({ ...prev, [name]: value }));
   }, []);
 
-  const reset = useCallback(() => {
+  const resetFields = useCallback(() => {
     setFormData(initialFields);
     setLoading(false);
-    setStatus(null);
   }, []);
 
-  return { formData, setFormData, loading, setLoading, status, setStatus, handleChange, reset };
+  const reset = useCallback(() => {
+    resetFields();
+    setStatus(null);
+  }, [resetFields]);
+
+  return { formData, setFormData, loading, setLoading, status, setStatus, handleChange, reset, resetFields };
 }
 
 export function useCountUp(end, duration = 2000) {
