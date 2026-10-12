@@ -419,7 +419,7 @@ export default function BlogsPage() {
                   type="text"
                   value={form.tags}
                   onChange={(e) => setForm({ ...form, tags: e.target.value })}
-                  placeholder="personal loan, rajkot, tips"
+                  placeholder="personal loan, rajkot, ahmedabad, tips"
                   className="form-input"
                 />
               </div>

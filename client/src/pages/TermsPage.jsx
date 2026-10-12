@@ -198,9 +198,7 @@ const SECTIONS = [
     content: (
       <>
         <p>
-          These Terms and Conditions shall be governed by and construed in accordance with the laws of India.
-          Any disputes arising from these terms or our services shall be subject to the exclusive jurisdiction
-          of the courts in Rajkot, Gujarat.
+        These Terms and Conditions shall be governed by and construed in accordance with the laws of India. Any disputes arising out of or in connection with these Terms and Conditions or our services shall be subject to the exclusive jurisdiction of the courts in Gujarat, India.
         </p>
       </>
     ),
